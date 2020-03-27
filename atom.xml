@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-    <id>https://https://github.com/AlbertLiDesign</id>
+    <id>https://albertlidesign.github.io</id>
     <title>AlbertLiDesign</title>
-    <updated>2020-03-27T08:13:39.499Z</updated>
+    <updated>2020-03-27T08:15:36.105Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
-    <link rel="alternate" href="https://https://github.com/AlbertLiDesign"/>
-    <link rel="self" href="https://https://github.com/AlbertLiDesign/atom.xml"/>
+    <link rel="alternate" href="https://albertlidesign.github.io"/>
+    <link rel="self" href="https://albertlidesign.github.io/atom.xml"/>
     <subtitle>Welcome to Albert Li Design. This is a blog for random braindumps on my programming adventures, graphics and design research, some of my more serious writings and other interesting things.</subtitle>
-    <logo>https://https://github.com/AlbertLiDesign/images/avatar.png</logo>
-    <icon>https://https://github.com/AlbertLiDesign/favicon.ico</icon>
+    <logo>https://albertlidesign.github.io/images/avatar.png</logo>
+    <icon>https://albertlidesign.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, AlbertLiDesign</rights>
     <entry>
         <title type="html"><![CDATA[线性代数(2)：列空间与零空间]]></title>
-        <id>https://https://github.com/AlbertLiDesign/post/linearalgebra(2)/</id>
-        <link href="https://https://github.com/AlbertLiDesign/post/linearalgebra(2)/">
+        <id>https://albertlidesign.github.io/post/linearalgebra(2)/</id>
+        <link href="https://albertlidesign.github.io/post/linearalgebra(2)/">
         </link>
         <updated>2020-03-27T07:45:07.000Z</updated>
         <content type="html"><![CDATA[<h2 id="向量空间">向量空间</h2>
@@ -74,8 +74,8 @@
     </entry>
     <entry>
         <title type="html"><![CDATA[线性代数(1)：LU分解]]></title>
-        <id>https://https://github.com/AlbertLiDesign/post/LinearAlgebra(1)/</id>
-        <link href="https://https://github.com/AlbertLiDesign/post/LinearAlgebra(1)/">
+        <id>https://albertlidesign.github.io/post/LinearAlgebra(1)/</id>
+        <link href="https://albertlidesign.github.io/post/LinearAlgebra(1)/">
         </link>
         <updated>2020-03-25T04:41:55.000Z</updated>
         <content type="html"><![CDATA[<h2 id="矩阵分解">矩阵分解</h2>
