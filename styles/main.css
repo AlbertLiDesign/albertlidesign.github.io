@@ -2444,7 +2444,7 @@ a {
 /* 头部 */
 .header {
   padding: 70px 0px 70px 0px;
-  background-color: #63cdb5;
+  background-color: #70bd7a;
 }
 .container {
   max-width: 820px;
@@ -2462,7 +2462,7 @@ a {
   transition: all 0.5s;
 }
 .index-title a:hover {
-  color: #fe6061;
+  color: #305e3f;
 }
 /* 导航 */
 #nav {
@@ -2608,7 +2608,7 @@ a {
 }
 .index-guo a:hover {
   transition: all 0.4s ease-out;
-  color: #fe6061;
+  color: #305e3f;
 }
 .index-list:hover {
   transform: scale(1.03, 1.03);
@@ -2627,7 +2627,7 @@ a {
   color: #ffffff;
 }
 .index-yema :hover {
-  background-color: #fe6061;
+  background-color: #305e3f;
 }
 /* 页脚 */
 .footer {
@@ -2643,7 +2643,7 @@ a {
   transition: all 0.5s;
 }
 .copyright a:hover {
-  color: #fe6061;
+  color: #305e3f;
 }
 .copyright p {
   font-size: 13px;
@@ -2668,7 +2668,7 @@ a {
   transition: all 0.5s;
 }
 .social-link a:hover {
-  color: #fe6061;
+  color: #305e3f;
 }
 /* 归档 */
 .archives {
@@ -2679,12 +2679,12 @@ a {
   transition: all 0.5s;
 }
 .archives:hover {
-  background-color: #fe6061;
+  background-color: #305e3f;
   color: #FFF;
 }
 .archives-title a {
   font-size: 20px;
-  color: #fe6061;
+  color: #305e3f;
   font-weight: 600;
   transition: all 0.5s;
 }
@@ -2712,7 +2712,7 @@ a {
   transition: all 0.5s;
 }
 .post-fenye a:hover {
-  color: #fe6061;
+  color: #305e3f;
 }
 /* 友情链接 */
 .cheng img {
