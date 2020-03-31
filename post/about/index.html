@@ -1,98 +1,64 @@
-
 <!DOCTYPE html>
 <html>
-  <head>
-    
-<meta charset="utf-8" >
+        <head>
+        <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1,initial-scale=1,user-scalable=no" />
+        <meta charset="utf-8">
+        <title>About | AlbertLiDesign</title>
+        <link rel="stylesheet" href="https://albertlidesign.github.io/styles/main.css">
+        <link rel="stylesheet" href="https://at.alicdn.com/t/font_1306644_jwtuc2zzbrd.css">
+        <link href="https://cdn.bootcss.com/animate.css/3.7.2/animate.min.css" rel="stylesheet">
+         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+        <script src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js"></script>
+         <script src="https://cdn.bootcss.com/highlight.js/9.15.10/highlight.min.js"></script>
+         <script >hljs.initHighlightingOnLoad();</script>
 
-<title>About | AlbertLiDesign</title>
-<meta name="description" content="Welcome to Albert Li Design. This is a blog for random braindumps on my programming adventures, graphics and design research, some of my more serious writings and other interesting things.">
-
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
-
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="https://albertlidesign.github.io/favicon.ico?v=1585553404688">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
-<link rel="stylesheet" href="https://albertlidesign.github.io/styles/main.css">
-
-
-  
-    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css" />
-  
-
-  
-
-
-<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
-
-
-
-  </head>
-  <body>
-    <div id="app" class="main">
-      <div class="site-header-container">
-  <div class="site-header">
-    <div class="left">
-      <a href="https://albertlidesign.github.io">
-        <img class="avatar" src="https://albertlidesign.github.io/images/avatar.png?v=1585553404688" alt="" width="32px" height="32px">
-      </a>
-      <a href="https://albertlidesign.github.io">
-        <h1 class="site-title">AlbertLiDesign</h1>
-      </a>
-    </div>
-    <div class="right">
-      <transition name="fade">
-        <i class="icon" :class="{ 'icon-close-outline': menuVisible, 'icon-menu-outline': !menuVisible }" @click="menuVisible = !menuVisible"></i>
-      </transition>
-    </div>
-  </div>
-</div>
-
-<transition name="fade">
-  <div class="menu-container" style="display: none;" v-show="menuVisible">
-    <div class="menu-list">
-      
-        
-          <a href="/" class="menu purple-link">
-            Home
-          </a>
-        
-      
-        
-          <a href="/archives" class="menu purple-link">
-            Archives
-          </a>
-        
-      
-        
-          <a href="/tags" class="menu purple-link">
-            Tags
-          </a>
-        
-      
-        
-          <a href="/post/about" class="menu purple-link">
-            About
-          </a>
-        
-      
-    </div>
-  </div>
-</transition>
-
-
-      <div class="content-container">
-        <div class="post-detail">
-          
-          <h2 class="post-title">About</h2>
-          <div class="post-info post-detail-info">
-            <span><i class="icon-calendar-outline"></i> 2019-01-25</span>
-            
-          </div>
-          <div class="post-content">
-            <h1 id="about-me">About me</h1>
+    </head>
+    <body>
+              <header class="header mdui-m-b-5">      
+            <div class="container  ">
+                <div class="index-title animated fadeInDown mdui-text-center mdui-text-color-white mdui-m-b-2" style="animation-delay: 0.2s"><a href="https://albertlidesign.github.io">AlbertLiDesign</a></div>
+                <div class="mdui-text-color-white animated fadeInDown mdui-text-center  mdui-m-b-3" style="animation-delay: 0.4s">Welcome to Albert Li Design. This is a blog for random braindumps on my programming adventures, graphics and design research, some of my more serious writings and other interesting things.</div>
+           
+            <nav id="nav" class="mdui-text-center animated fadeInDown" style="animation-delay: 0.6s">
+                   
+                            <li><a href="/">Home</a>
+                                <span class="nav-style top"></span>
+                                <span class="nav-style bottom"></span>
+                                <span class="nav-style left"></span>
+                                <span class="nav-style right"></span>
+                                </li>
+                    
+                            <li><a href="/archives">Archives</a>
+                                <span class="nav-style top"></span>
+                                <span class="nav-style bottom"></span>
+                                <span class="nav-style left"></span>
+                                <span class="nav-style right"></span>
+                                </li>
+                    
+                            <li><a href="/tags">Tags</a>
+                                <span class="nav-style top"></span>
+                                <span class="nav-style bottom"></span>
+                                <span class="nav-style left"></span>
+                                <span class="nav-style right"></span>
+                                </li>
+                    
+                            <li><a href="/post/about">About</a>
+                                <span class="nav-style top"></span>
+                                <span class="nav-style bottom"></span>
+                                <span class="nav-style left"></span>
+                                <span class="nav-style right"></span>
+                                </li>
+                    
+                  </nav>
+                </div>
+        </header>
+        <div class="mdui-container ">
+                <div class="mdui-row">
+                        <div class="mdui-col-md-8 mdui-col-offset-md-2 ">
+                                <article class="mdui-p-a-2 post animated fadeIn" style="animation-delay: 0.8s;animation-duration: 2s">
+                                    <div class="post-title  mdui-m-b-1">About</div>
+                                    <div class="mdui-typo-body-2 mdui-m-b-2" datetime="2019-01-25 19:09:48">2019-01-25 / 2 min read</div>
+                                    <div class="mdui-m-b-2 mdui-typo post-neirong"><h1 id="about-me">About me</h1>
 <p>I'm a student, designer and engineer specializing in the intersection of architectural design and computer graphics.</p>
 <p>Welcome to AlbertLiDesign. This is a blog for random braindumps on my programming adventures, graphics and design research, some of my more serious writings and other interesting things.</p>
 <h1 id="experiences">Experiences</h1>
@@ -107,79 +73,114 @@ Participated in Ameba development project. Ameba is a software based on the Bi-d
 <p><em>PhD candidates, Civil Engineering, School of Engineering(2020 – )</em><br>
 <em>Senior Supervisor Yimin Xie, Associate Supervisor Roland Snooks.</em></p>
 <p>The bad thing is that I have been waiting for my PhD visa for more than 7 months, and there is no result and response from Australian government.</p>
-
-          </div>
-        </div>
-
-        
-      </div>
-
-      
-        
-          <div id="gitalk-container"></div>
-        
-
-        
-      
-
-      <div class="site-footer">
-  <div class="slogan">Welcome to Albert Li Design. This is a blog for random braindumps on my programming adventures, graphics and design research, some of my more serious writings and other interesting things.</div>
-  <div class="social-container">
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-  </div>
-  Powered by <a href="https://github.com/AlbertLiDesign" target="_blank">AlbertLiDesign</a> | <a class="rss" href="https://albertlidesign.github.io/atom.xml" target="_blank">RSS</a>
 </div>
+                                    <div class="mdui-divider mdui-m-b-2"></div>
+                                    <div class="mdui-row-xs-2 post-fenye">
+                                       
+                                        <div class="mdui-col"> </div>
+                                        
 
+                                        
+                                        <div class="mdui-col"></div>
+                                       
+                                      </div>
+                                   
+                                    <div class="mdui-divider mdui-m-t-2 mdui-m-b-2"></div>
+                                    
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
 
-    </div>
-    <script type="application/javascript">
+<div id="gitalk-container"></div>
 
-hljs.initHighlightingOnLoad()
+<script>
 
-var app = new Vue({
-  el: '#app',
-  data: {
-    menuVisible: false,
-  },
-})
+  var gitalk = new Gitalk({
+    clientID: '',
+    clientSecret: '',
+    repo: '',
+    owner: '',
+    admin: [''],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
 
 </script>
 
+          
+          
+        
+                                     <script src="https://albertlidesign.github.io/media/scripts/Valine.min.js"></script>
+ <div class="comment"></div>
 
-
-  
-    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
-    <script>
-
-      var gitalk = new Gitalk({
-        clientID: '',
-        clientSecret: '',
-        repo: '',
-        owner: '',
-        admin: [''],
-        id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
-        distractionFreeMode: false  // Facebook-like distraction free mode
-      })
-
-      gitalk.render('gitalk-container')
-
-    </script>
-  
-
-  
+<script>
+      new Valine({
+            el: '.comment',
 
 
 
+            path: window.location.pathname,
+            pageSize: 30,
+            avatar:'mm', 
+       })
+    </script> 
+<script>
+    if(window.location.hash){
+        var checkExist = setInterval(function() {
+           if ($(window.location.hash).length) {
+              $('html, body').animate({scrollTop: $(window.location.hash).offset().top-90}, 1000);
+              clearInterval(checkExist);
+           }
+        }, 100);
+    }
+</script>
+                                </article>
 
-  </body>
+                                    
+                        </div>
+                      </div>
+    
+                
+
+              </div>
+                    <footer class="footer mdui-m-t-5 mdui-text-center">
+               <nav class="social-links">
+                      <ul>
+                      
+                      
+                           
+                      
+                           
+                      	
+                        <li class="social-link"><a href="https://github.com/AlbertLiDesign" target="_blank"><i class="iconfont icon-github"></i></a></li>
+                          
+                           
+                      
+                           
+                      
+                           
+                      
+                           
+                      
+                           
+                      
+                           
+                      
+                           
+                      
+                           
+                      
+                           
+                      
+                           
+                      </ul>
+                    </nav>
+                    <div class="copyright">
+                      <p>Powered by <a href="https://github.com/AlbertLiDesign" target="_blank">AlbertLiDesign</a> <br/> Theme <a href="https://github.com/alterfang/gridea-theme-song/" target="_blank"  title="宋"  >Song</a> by <a href="https://shanbu.fun/" target="_blank"  title="山卜方" >shanbufun</a> </p>
+                  </div>
+                  
+              </footer>
+    </body>
 </html>

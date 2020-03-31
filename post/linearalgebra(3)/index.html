@@ -1,115 +1,64 @@
-
 <!DOCTYPE html>
 <html>
-  <head>
-    
-<meta charset="utf-8" >
+        <head>
+        <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1,initial-scale=1,user-scalable=no" />
+        <meta charset="utf-8">
+        <title>线性代数(3)：Ax=0和Ax=b | AlbertLiDesign</title>
+        <link rel="stylesheet" href="https://albertlidesign.github.io/styles/main.css">
+        <link rel="stylesheet" href="https://at.alicdn.com/t/font_1306644_jwtuc2zzbrd.css">
+        <link href="https://cdn.bootcss.com/animate.css/3.7.2/animate.min.css" rel="stylesheet">
+         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+        <script src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js"></script>
+         <script src="https://cdn.bootcss.com/highlight.js/9.15.10/highlight.min.js"></script>
+         <script >hljs.initHighlightingOnLoad();</script>
 
-<title>线性代数(3)：Ax=0和Ax=b | AlbertLiDesign</title>
-<meta name="description" content="Welcome to Albert Li Design. This is a blog for random braindumps on my programming adventures, graphics and design research, some of my more serious writings and other interesting things.">
-
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
-
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="https://albertlidesign.github.io/favicon.ico?v=1585553404688">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
-<link rel="stylesheet" href="https://albertlidesign.github.io/styles/main.css">
-
-
-  
-    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css" />
-  
-
-  
-
-
-<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
-
-
-
-  </head>
-  <body>
-    <div id="app" class="main">
-      <div class="site-header-container">
-  <div class="site-header">
-    <div class="left">
-      <a href="https://albertlidesign.github.io">
-        <img class="avatar" src="https://albertlidesign.github.io/images/avatar.png?v=1585553404688" alt="" width="32px" height="32px">
-      </a>
-      <a href="https://albertlidesign.github.io">
-        <h1 class="site-title">AlbertLiDesign</h1>
-      </a>
-    </div>
-    <div class="right">
-      <transition name="fade">
-        <i class="icon" :class="{ 'icon-close-outline': menuVisible, 'icon-menu-outline': !menuVisible }" @click="menuVisible = !menuVisible"></i>
-      </transition>
-    </div>
-  </div>
-</div>
-
-<transition name="fade">
-  <div class="menu-container" style="display: none;" v-show="menuVisible">
-    <div class="menu-list">
-      
-        
-          <a href="/" class="menu purple-link">
-            Home
-          </a>
-        
-      
-        
-          <a href="/archives" class="menu purple-link">
-            Archives
-          </a>
-        
-      
-        
-          <a href="/tags" class="menu purple-link">
-            Tags
-          </a>
-        
-      
-        
-          <a href="/post/about" class="menu purple-link">
-            About
-          </a>
-        
-      
-    </div>
-  </div>
-</transition>
-
-
-      <div class="content-container">
-        <div class="post-detail">
-          
-          <h2 class="post-title">线性代数(3)：Ax=0和Ax=b</h2>
-          <div class="post-info post-detail-info">
-            <span><i class="icon-calendar-outline"></i> 2020-03-28</span>
-            
-              <span>
-                <i class="icon-pricetags-outline"></i>
-                
-                  <a href="https://albertlidesign.github.io/tag/jdA83oNH9/">
-                    Linear Algebra
+    </head>
+    <body>
+              <header class="header mdui-m-b-5">      
+            <div class="container  ">
+                <div class="index-title animated fadeInDown mdui-text-center mdui-text-color-white mdui-m-b-2" style="animation-delay: 0.2s"><a href="https://albertlidesign.github.io">AlbertLiDesign</a></div>
+                <div class="mdui-text-color-white animated fadeInDown mdui-text-center  mdui-m-b-3" style="animation-delay: 0.4s">Welcome to Albert Li Design. This is a blog for random braindumps on my programming adventures, graphics and design research, some of my more serious writings and other interesting things.</div>
+           
+            <nav id="nav" class="mdui-text-center animated fadeInDown" style="animation-delay: 0.6s">
+                   
+                            <li><a href="/">Home</a>
+                                <span class="nav-style top"></span>
+                                <span class="nav-style bottom"></span>
+                                <span class="nav-style left"></span>
+                                <span class="nav-style right"></span>
+                                </li>
                     
-                      ，
+                            <li><a href="/archives">Archives</a>
+                                <span class="nav-style top"></span>
+                                <span class="nav-style bottom"></span>
+                                <span class="nav-style left"></span>
+                                <span class="nav-style right"></span>
+                                </li>
                     
-                  </a>
-                
-                  <a href="https://albertlidesign.github.io/tag/-h6D9szuLk/">
-                    Mathematics
+                            <li><a href="/tags">Tags</a>
+                                <span class="nav-style top"></span>
+                                <span class="nav-style bottom"></span>
+                                <span class="nav-style left"></span>
+                                <span class="nav-style right"></span>
+                                </li>
                     
-                  </a>
-                
-              </span>
-            
-          </div>
-          <div class="post-content">
-            <h2 id="求解ax0">求解Ax=0</h2>
+                            <li><a href="/post/about">About</a>
+                                <span class="nav-style top"></span>
+                                <span class="nav-style bottom"></span>
+                                <span class="nav-style left"></span>
+                                <span class="nav-style right"></span>
+                                </li>
+                    
+                  </nav>
+                </div>
+        </header>
+        <div class="mdui-container ">
+                <div class="mdui-row">
+                        <div class="mdui-col-md-8 mdui-col-offset-md-2 ">
+                                <article class="mdui-p-a-2 post animated fadeIn" style="animation-delay: 0.8s;animation-duration: 2s">
+                                    <div class="post-title  mdui-m-b-1">线性代数(3)：Ax=0和Ax=b</div>
+                                    <div class="mdui-typo-body-2 mdui-m-b-2" datetime="2020-03-28 15:11:46">2020-03-28 / 24 min read</div>
+                                    <div class="mdui-m-b-2 mdui-typo post-neirong"><h2 id="求解ax0">求解Ax=0</h2>
 <h3 id="消元法求解零空间">消元法求解零空间</h3>
 <p>那么我们如何求解<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>A</mi><mi>x</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">Ax=0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault">A</span><span class="mord mathdefault">x</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span>呢？还是使用消元法，之前我们说使用消元法求解方程<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>A</mi><mi>x</mi><mo>=</mo><mi>b</mi></mrow><annotation encoding="application/x-tex">Ax=b</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault">A</span><span class="mord mathdefault">x</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault">b</span></span></span></span>时，我们对一种情况是无法处理的，那就是矩阵<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>A</mi></mrow><annotation encoding="application/x-tex">A</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault">A</span></span></span></span>不可逆的情况，之前对这种情况的解释是<strong>求出的解不唯一</strong>，这其实正好对应了现在我们所认识到的“空间”的概念。我们从最简单的零空间（<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>b</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">b=0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault">b</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span>）的计算谈起。</p>
 <p>例1：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>A</mi><mi>x</mi><mo>=</mo><mrow><mo fence="true">[</mo><mtable><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>1</mn></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>2</mn></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>2</mn></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>2</mn></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>2</mn></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>4</mn></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>6</mn></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>8</mn></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>3</mn></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>6</mn></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>8</mn></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>10</mn></mstyle></mtd></mtr></mtable><mo fence="true">]</mo></mrow></mrow><annotation encoding="application/x-tex">Ax = \left[\begin{matrix} 1 &amp; 2 &amp; 2 &amp; 2 \\ 2 &amp; 4&amp; 6 &amp; 8 \\ 3 &amp; 6 &amp; 8 &amp; 10 \end{matrix}\right]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault">A</span><span class="mord mathdefault">x</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:3.60004em;vertical-align:-1.55002em;"></span><span class="minner"><span class="mopen"><span class="delimsizing mult"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.05002em;"><span style="top:-2.2500000000000004em;"><span class="pstrut" style="height:3.1550000000000002em;"></span><span class="delimsizinginner delim-size4"><span>⎣</span></span></span><span style="top:-4.05002em;"><span class="pstrut" style="height:3.1550000000000002em;"></span><span class="delimsizinginner delim-size4"><span>⎡</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.55002em;"><span></span></span></span></span></span></span><span class="mord"><span class="mtable"><span class="col-align-c"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.05em;"><span style="top:-4.21em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">1</span></span></span><span style="top:-3.0099999999999993em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">2</span></span></span><span style="top:-1.8099999999999994em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">3</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.5500000000000007em;"><span></span></span></span></span></span><span class="arraycolsep" style="width:0.5em;"></span><span class="arraycolsep" style="width:0.5em;"></span><span class="col-align-c"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.05em;"><span style="top:-4.21em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">2</span></span></span><span style="top:-3.0099999999999993em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">4</span></span></span><span style="top:-1.8099999999999994em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">6</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.5500000000000007em;"><span></span></span></span></span></span><span class="arraycolsep" style="width:0.5em;"></span><span class="arraycolsep" style="width:0.5em;"></span><span class="col-align-c"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.05em;"><span style="top:-4.21em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">2</span></span></span><span style="top:-3.0099999999999993em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">6</span></span></span><span style="top:-1.8099999999999994em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">8</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.5500000000000007em;"><span></span></span></span></span></span><span class="arraycolsep" style="width:0.5em;"></span><span class="arraycolsep" style="width:0.5em;"></span><span class="col-align-c"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.05em;"><span style="top:-4.21em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">2</span></span></span><span style="top:-3.0099999999999993em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">8</span></span></span><span style="top:-1.8099999999999994em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">1</span><span class="mord">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.5500000000000007em;"><span></span></span></span></span></span></span></span><span class="mclose"><span class="delimsizing mult"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.05002em;"><span style="top:-2.2500000000000004em;"><span class="pstrut" style="height:3.1550000000000002em;"></span><span class="delimsizinginner delim-size4"><span>⎦</span></span></span><span style="top:-4.05002em;"><span class="pstrut" style="height:3.1550000000000002em;"></span><span class="delimsizinginner delim-size4"><span>⎤</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.55002em;"><span></span></span></span></span></span></span></span></span></span></span>，求<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>A</mi><mi>x</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">Ax=0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault">A</span><span class="mord mathdefault">x</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span>中的<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">x</span></span></span></span>构成的零空间</p>
@@ -224,87 +173,114 @@
 <p>除了使用消元法或判断矩阵是否满秩以外，我们还可以从列空间的角度来看这个方程，改写一些这个矩阵表达如下</p>
 <p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi><mrow><mo fence="true">[</mo><mtable><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>2</mn></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mo>−</mo><mn>1</mn></mrow></mstyle></mtd></mtr></mtable><mo fence="true">]</mo></mrow><mo>+</mo><mi>y</mi><mrow><mo fence="true">[</mo><mtable><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mo>−</mo><mn>1</mn></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>2</mn></mstyle></mtd></mtr></mtable><mo fence="true">]</mo></mrow><mo>=</mo><mrow><mo fence="true">[</mo><mtable><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>0</mn></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>3</mn></mstyle></mtd></mtr></mtable><mo fence="true">]</mo></mrow></mrow><annotation encoding="application/x-tex">x\left[\begin{matrix} 2 \\ -1 \end{matrix}\right] + y \left[\begin{matrix} -1 \\ 2 \end{matrix}\right] = \left[\begin{matrix} 0 \\ 3 \end{matrix}\right]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:2.40003em;vertical-align:-0.95003em;"></span><span class="mord mathdefault">x</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size3">[</span></span><span class="mord"><span class="mtable"><span class="col-align-c"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.45em;"><span style="top:-3.61em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">2</span></span></span><span style="top:-2.4099999999999997em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">−</span><span class="mord">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.9500000000000004em;"><span></span></span></span></span></span></span></span><span class="mclose delimcenter" style="top:0em;"><span class="delimsizing size3">]</span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:2.40003em;vertical-align:-0.95003em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size3">[</span></span><span class="mord"><span class="mtable"><span class="col-align-c"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.45em;"><span style="top:-3.61em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">−</span><span class="mord">1</span></span></span><span style="top:-2.4099999999999997em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.9500000000000004em;"><span></span></span></span></span></span></span></span><span class="mclose delimcenter" style="top:0em;"><span class="delimsizing size3">]</span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.40003em;vertical-align:-0.95003em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size3">[</span></span><span class="mord"><span class="mtable"><span class="col-align-c"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.45em;"><span style="top:-3.61em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">0</span></span></span><span style="top:-2.4099999999999997em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">3</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.9500000000000004em;"><span></span></span></span></span></span></span></span><span class="mclose delimcenter" style="top:0em;"><span class="delimsizing size3">]</span></span></span></span></span></span></p>
 <p>那么我们判断这个方程是否有解的条件实际上就是判断向量<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo fence="true">[</mo><mtable><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>0</mn></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>3</mn></mstyle></mtd></mtr></mtable><mo fence="true">]</mo></mrow><annotation encoding="application/x-tex">\left[\begin{matrix} 0 \\ 3 \end{matrix}\right]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:2.40003em;vertical-align:-0.95003em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size3">[</span></span><span class="mord"><span class="mtable"><span class="col-align-c"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.45em;"><span style="top:-3.61em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">0</span></span></span><span style="top:-2.4099999999999997em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">3</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.9500000000000004em;"><span></span></span></span></span></span></span></span><span class="mclose delimcenter" style="top:0em;"><span class="delimsizing size3">]</span></span></span></span></span></span>是否在以向量<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo fence="true">[</mo><mtable><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>2</mn></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mo>−</mo><mn>1</mn></mrow></mstyle></mtd></mtr></mtable><mo fence="true">]</mo></mrow><annotation encoding="application/x-tex">\left[\begin{matrix} 2 \\ -1 \end{matrix}\right]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:2.40003em;vertical-align:-0.95003em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size3">[</span></span><span class="mord"><span class="mtable"><span class="col-align-c"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.45em;"><span style="top:-3.61em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">2</span></span></span><span style="top:-2.4099999999999997em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">−</span><span class="mord">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.9500000000000004em;"><span></span></span></span></span></span></span></span><span class="mclose delimcenter" style="top:0em;"><span class="delimsizing size3">]</span></span></span></span></span></span>和向量<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo fence="true">[</mo><mtable><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mo>−</mo><mn>1</mn></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>2</mn></mstyle></mtd></mtr></mtable><mo fence="true">]</mo></mrow><annotation encoding="application/x-tex">\left[\begin{matrix} -1 \\ 2 \end{matrix}\right]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:2.40003em;vertical-align:-0.95003em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size3">[</span></span><span class="mord"><span class="mtable"><span class="col-align-c"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.45em;"><span style="top:-3.61em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">−</span><span class="mord">1</span></span></span><span style="top:-2.4099999999999997em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.9500000000000004em;"><span></span></span></span></span></span></span></span><span class="mclose delimcenter" style="top:0em;"><span class="delimsizing size3">]</span></span></span></span></span></span>构成的列空间中，换句话说，向量<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo fence="true">[</mo><mtable><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>0</mn></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>3</mn></mstyle></mtd></mtr></mtable><mo fence="true">]</mo></mrow><annotation encoding="application/x-tex">\left[\begin{matrix} 0 \\ 3 \end{matrix}\right]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:2.40003em;vertical-align:-0.95003em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size3">[</span></span><span class="mord"><span class="mtable"><span class="col-align-c"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.45em;"><span style="top:-3.61em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">0</span></span></span><span style="top:-2.4099999999999997em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">3</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.9500000000000004em;"><span></span></span></span></span></span></span></span><span class="mclose delimcenter" style="top:0em;"><span class="delimsizing size3">]</span></span></span></span></span></span>是否可以表达成向量<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo fence="true">[</mo><mtable><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>2</mn></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mo>−</mo><mn>1</mn></mrow></mstyle></mtd></mtr></mtable><mo fence="true">]</mo></mrow><annotation encoding="application/x-tex">\left[\begin{matrix} 2 \\ -1 \end{matrix}\right]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:2.40003em;vertical-align:-0.95003em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size3">[</span></span><span class="mord"><span class="mtable"><span class="col-align-c"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.45em;"><span style="top:-3.61em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">2</span></span></span><span style="top:-2.4099999999999997em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">−</span><span class="mord">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.9500000000000004em;"><span></span></span></span></span></span></span></span><span class="mclose delimcenter" style="top:0em;"><span class="delimsizing size3">]</span></span></span></span></span></span>和向量<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo fence="true">[</mo><mtable><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mo>−</mo><mn>1</mn></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>2</mn></mstyle></mtd></mtr></mtable><mo fence="true">]</mo></mrow><annotation encoding="application/x-tex">\left[\begin{matrix} -1 \\ 2 \end{matrix}\right]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:2.40003em;vertical-align:-0.95003em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size3">[</span></span><span class="mord"><span class="mtable"><span class="col-align-c"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.45em;"><span style="top:-3.61em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">−</span><span class="mord">1</span></span></span><span style="top:-2.4099999999999997em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.9500000000000004em;"><span></span></span></span></span></span></span></span><span class="mclose delimcenter" style="top:0em;"><span class="delimsizing size3">]</span></span></span></span></span></span>的线性组合。由于向量<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo fence="true">[</mo><mtable><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>2</mn></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mo>−</mo><mn>1</mn></mrow></mstyle></mtd></mtr></mtable><mo fence="true">]</mo></mrow><annotation encoding="application/x-tex">\left[\begin{matrix} 2 \\ -1 \end{matrix}\right]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:2.40003em;vertical-align:-0.95003em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size3">[</span></span><span class="mord"><span class="mtable"><span class="col-align-c"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.45em;"><span style="top:-3.61em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">2</span></span></span><span style="top:-2.4099999999999997em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">−</span><span class="mord">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.9500000000000004em;"><span></span></span></span></span></span></span></span><span class="mclose delimcenter" style="top:0em;"><span class="delimsizing size3">]</span></span></span></span></span></span>和向量<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo fence="true">[</mo><mtable><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mo>−</mo><mn>1</mn></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>2</mn></mstyle></mtd></mtr></mtable><mo fence="true">]</mo></mrow><annotation encoding="application/x-tex">\left[\begin{matrix} -1 \\ 2 \end{matrix}\right]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:2.40003em;vertical-align:-0.95003em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size3">[</span></span><span class="mord"><span class="mtable"><span class="col-align-c"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.45em;"><span style="top:-3.61em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">−</span><span class="mord">1</span></span></span><span style="top:-2.4099999999999997em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.9500000000000004em;"><span></span></span></span></span></span></span></span><span class="mclose delimcenter" style="top:0em;"><span class="delimsizing size3">]</span></span></span></span></span></span>是线性相关的，因此可以张成一个二维平面，而向量<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo fence="true">[</mo><mtable><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>0</mn></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>3</mn></mstyle></mtd></mtr></mtable><mo fence="true">]</mo></mrow><annotation encoding="application/x-tex">\left[\begin{matrix} 0 \\ 3 \end{matrix}\right]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:2.40003em;vertical-align:-0.95003em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size3">[</span></span><span class="mord"><span class="mtable"><span class="col-align-c"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.45em;"><span style="top:-3.61em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">0</span></span></span><span style="top:-2.4099999999999997em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">3</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.9500000000000004em;"><span></span></span></span></span></span></span></span><span class="mclose delimcenter" style="top:0em;"><span class="delimsizing size3">]</span></span></span></span></span></span>只是其中的一个二维向量，因此可以推断出方程一定有解。</p>
-
-          </div>
-        </div>
-
-        
-          <div class="next-post">
-            <a class="purple-link" href="https://albertlidesign.github.io/post/linearalgebra(2)/">
-              <h3 class="post-title">
-                下一篇：线性代数(2)：列空间与零空间
-              </h3>
-            </a>
-          </div>
-          
-      </div>
-
-      
-        
-          <div id="gitalk-container"></div>
-        
-
-        
-      
-
-      <div class="site-footer">
-  <div class="slogan">Welcome to Albert Li Design. This is a blog for random braindumps on my programming adventures, graphics and design research, some of my more serious writings and other interesting things.</div>
-  <div class="social-container">
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-  </div>
-  Powered by <a href="https://github.com/AlbertLiDesign" target="_blank">AlbertLiDesign</a> | <a class="rss" href="https://albertlidesign.github.io/atom.xml" target="_blank">RSS</a>
 </div>
+                                    <div class="mdui-divider mdui-m-b-2"></div>
+                                    <div class="mdui-row-xs-2 post-fenye">
+                                       
+                                        <div class="mdui-col"> <div class="mdui-text-left"><a href="https://albertlidesign.github.io/post/linearalgebra(4)/">线性代数(4)：最小二乘法</a></div></div>
+                                        
 
+                                        
+                                        <div class="mdui-col"><div class="mdui-text-right "><a href="https://albertlidesign.github.io/post/linearalgebra(2)/">线性代数(2)：列空间与零空间</a></div> </div>
+                                       
+                                      </div>
+                                   
+                                    <div class="mdui-divider mdui-m-t-2 mdui-m-b-2"></div>
+                                    
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
 
-    </div>
-    <script type="application/javascript">
+<div id="gitalk-container"></div>
 
-hljs.initHighlightingOnLoad()
+<script>
 
-var app = new Vue({
-  el: '#app',
-  data: {
-    menuVisible: false,
-  },
-})
+  var gitalk = new Gitalk({
+    clientID: '',
+    clientSecret: '',
+    repo: '',
+    owner: '',
+    admin: [''],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
 
 </script>
 
+          
+          
+        
+                                     <script src="https://albertlidesign.github.io/media/scripts/Valine.min.js"></script>
+ <div class="comment"></div>
 
-
-  
-    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
-    <script>
-
-      var gitalk = new Gitalk({
-        clientID: '',
-        clientSecret: '',
-        repo: '',
-        owner: '',
-        admin: [''],
-        id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
-        distractionFreeMode: false  // Facebook-like distraction free mode
-      })
-
-      gitalk.render('gitalk-container')
-
-    </script>
-  
-
-  
+<script>
+      new Valine({
+            el: '.comment',
 
 
 
+            path: window.location.pathname,
+            pageSize: 30,
+            avatar:'mm', 
+       })
+    </script> 
+<script>
+    if(window.location.hash){
+        var checkExist = setInterval(function() {
+           if ($(window.location.hash).length) {
+              $('html, body').animate({scrollTop: $(window.location.hash).offset().top-90}, 1000);
+              clearInterval(checkExist);
+           }
+        }, 100);
+    }
+</script>
+                                </article>
 
-  </body>
+                                    
+                        </div>
+                      </div>
+    
+                
+
+              </div>
+                    <footer class="footer mdui-m-t-5 mdui-text-center">
+               <nav class="social-links">
+                      <ul>
+                      
+                      
+                           
+                      
+                           
+                      	
+                        <li class="social-link"><a href="https://github.com/AlbertLiDesign" target="_blank"><i class="iconfont icon-github"></i></a></li>
+                          
+                           
+                      
+                           
+                      
+                           
+                      
+                           
+                      
+                           
+                      
+                           
+                      
+                           
+                      
+                           
+                      
+                           
+                      
+                           
+                      </ul>
+                    </nav>
+                    <div class="copyright">
+                      <p>Powered by <a href="https://github.com/AlbertLiDesign" target="_blank">AlbertLiDesign</a> <br/> Theme <a href="https://github.com/alterfang/gridea-theme-song/" target="_blank"  title="宋"  >Song</a> by <a href="https://shanbu.fun/" target="_blank"  title="山卜方" >shanbufun</a> </p>
+                  </div>
+                  
+              </footer>
+    </body>
 </html>
