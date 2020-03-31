@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html>
+        <head>
+        <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1,initial-scale=1,user-scalable=no" />
+        <meta charset="utf-8">
+        <title>Learn CUDA Programming(2) | AlbertLiDesign</title>
+        <link rel="stylesheet" href="https://albertlidesign.github.io/styles/main.css">
+        <link rel="stylesheet" href="https://at.alicdn.com/t/font_1306644_jwtuc2zzbrd.css">
+        <link href="https://cdn.bootcss.com/animate.css/3.7.2/animate.min.css" rel="stylesheet">
+         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+        <script src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js"></script>
+         <script src="https://cdn.bootcss.com/highlight.js/9.15.10/highlight.min.js"></script>
+         <script >hljs.initHighlightingOnLoad();</script>
+
+    </head>
+    <body>
+              <header class="header mdui-m-b-5">      
+            <div class="container  ">
+                <div class="index-title animated fadeInDown mdui-text-center mdui-text-color-white mdui-m-b-2" style="animation-delay: 0.2s"><a href="https://albertlidesign.github.io">AlbertLiDesign</a></div>
+                <div class="mdui-text-color-white animated fadeInDown mdui-text-center  mdui-m-b-3" style="animation-delay: 0.4s">Welcome to Albert Li Design. This is a blog for random braindumps on my programming adventures, graphics and design research, some of my more serious writings and other interesting things.</div>
+           
+            <nav id="nav" class="mdui-text-center animated fadeInDown" style="animation-delay: 0.6s">
+                   
+                            <li><a href="/">Home</a>
+                                <span class="nav-style top"></span>
+                                <span class="nav-style bottom"></span>
+                                <span class="nav-style left"></span>
+                                <span class="nav-style right"></span>
+                                </li>
+                    
+                            <li><a href="/archives">Archives</a>
+                                <span class="nav-style top"></span>
+                                <span class="nav-style bottom"></span>
+                                <span class="nav-style left"></span>
+                                <span class="nav-style right"></span>
+                                </li>
+                    
+                            <li><a href="/tags">Tags</a>
+                                <span class="nav-style top"></span>
+                                <span class="nav-style bottom"></span>
+                                <span class="nav-style left"></span>
+                                <span class="nav-style right"></span>
+                                </li>
+                    
+                            <li><a href="/post/about">About</a>
+                                <span class="nav-style top"></span>
+                                <span class="nav-style bottom"></span>
+                                <span class="nav-style left"></span>
+                                <span class="nav-style right"></span>
+                                </li>
+                    
+                  </nav>
+                </div>
+        </header>
+        <div class="mdui-container ">
+                <div class="mdui-row">
+                        <div class="mdui-col-md-8 mdui-col-offset-md-2 ">
+                                <article class="mdui-p-a-2 post animated fadeIn" style="animation-delay: 0.8s;animation-duration: 2s">
+                                    <div class="post-title  mdui-m-b-1">Learn CUDA Programming(2)</div>
+                                    <div class="mdui-typo-body-2 mdui-m-b-2" datetime="2020-03-31 18:40:34">2020-03-31 / 13 min read</div>
+                                    <div class="mdui-m-b-2 mdui-typo post-neirong"><h3 id="writing-parallel-kernels">Writing parallel kernels</h3>
+<p>在开始写kernels之前，我们需要对CUDA线程的两层结构有所了解。<br>
+<img src="https://upload-images.jianshu.io/upload_images/19551947-bf848636643a7a61.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/600" alt="" loading="lazy"></p>
+<ul>
+<li>一个线程是一个序列的执行单元，特点是所有的线程会执行相同的代码，而且是并行执行的。</li>
+<li>在GPU中，多个线程组成的一个线程块，我们称之为线程块（Thread Block），而且这些线程可以通过shared memory（共享内存）进行通讯，还有一个同步函数，会对每一个线程进行同步。Block是放在流多处理器（SM）上面进行执行。</li>
+<li>多个线程为一组组成了block，多个block就构成了线程网（Thread Grid），Grid对应的是整个GPU设备，在Grid之间不同设备之间是无法同步的，没有一个规定的同步函数对它进行同步。尽管它们之间可以通过global memory进行通讯，但是并不推荐这样，这样会影响到程序的效率。</li>
+<li>因此对于gpu的线程分布的话，我们尽量让block与block之间相互独立。</li>
+</ul>
+<p><img src="https://upload-images.jianshu.io/upload_images/19551947-45e395aa1554bd35.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/600" alt="" loading="lazy"><br>
+在一个block中，线程的维度可以是三维，同理，在一个grid中，block的维度也可以是三维。所以我们对于grid和block中的多个线程，都有对应的id。<br>
+首先我们要了解一下如何分配这样的结构。如图所示，我们可以看到这个grid中是一个二维的结构，横向有3个，纵向有2个，第三个维度只有一个单位所以是1，因此我们定义一个grid初始化为(3,2,1)，表示它是一个二维的结构，x轴的维度是3，y轴的维度是2。同理在每一个block，我们同样可以定义一个类型，x轴维度是5，y轴维度是3，就有block(5,3,1)。这样我们就定义好了配置文件。kernel函数中的尖括号里面需要设置的就是配置信息，在编程的过程中，每一个block都对应了一个id，我们用一些变量来标识这些id，因此我们可以看到，x维的话我们使用threadIdx.[x]，y维就是用threadIdx.[y]，例如Thread(2,1,0)中，threadIdx.[x] = 2， threadIdx.[y] = 1。同理block也有类似的机制。除了调用的id外，还可以返回它们的维度，比如blockDim.[x]返回线程在x轴上的维度为5，gridDim[y]返回block在y轴的维度是2。</p>
+<ul>
+<li>这些概念都与gpu硬件是一一对应的。一个线程会被发送到一个CUDA Core上进行计算，block就跟流多处理器进行对应，grid与Devie进行对应。</li>
+</ul>
+<p>举个例子，刚才我们说每一个线程都有一个对应的id，那么我们如何读取这些数据呢？假设我们有一个data数据，里面有16个元素，那么我们给它分配16个线程，每个线程读取data中每一个对应的元素，在这里我们以4个线程为一组进行分组，因此我们知道每个block就会有4个线程，然后16个线程组成4个block。这样就有了三组id。<br>
+<img src="https://upload-images.jianshu.io/upload_images/19551947-b7bb73bbb436b108.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/600" alt="" loading="lazy"></p>
+<p>那么我们看一下如何利用gpu多线程来加速向量加法运算。假如我们有两个数组a和b，每个数组都有n个元素，然后我们要计算a和b中每个对应元素的和然后将其存储到c数组中。<br>
+这里我们写了一个简单的函数</p>
+<pre><code>void  vecAdd(int n, float *a, float *b, float *c)
+{
+  for (int i=0; i&lt;n; i++)
+  {
+    c[i]=a[i]+b[i];
+  }
+}
+void main()
+{
+    int N = 1024;
+    float* a, * b, * c;
+    a = (float*)malloc(N * sizeof(float));
+    b = (float*)malloc(N * sizeof(float));
+    c = (float*)malloc(N * sizeof(float));
+    memset(c, 0, N * sizeof(float));
+    init_rand_f(a, N);
+    init_rand_f(b, N);
+
+    vecAdd(N, a, b, c);
+}
+</code></pre>
+<p>那么我们如何将这个函数在gpu上进行执行呢？</p>
+<ul>
+<li>Step 1: 确定并行性。即我们要分析一下这个算法怎么并行，并行性在哪里？即如何对它进行二维层次结构的分配，做完这一步才能开始gpu编程</li>
+<li>Step 2: 写GPU Kernel</li>
+<li>Step 3: 对GPU内存进行管理，如分配、初始化</li>
+<li>Step 4: 开始调用这个函数</li>
+<li>Step 5: 将数据从GPU端拷贝到CPU端</li>
+</ul>
+<p>对于向量加法我们开始执行以上五个步骤：</p>
+<ul>
+<li>Step 1: 确定并行性<br>
+<img src="https://upload-images.jianshu.io/upload_images/19551947-6bff07e7787a73d6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/600" alt="" loading="lazy"><br>
+由于c[i]仅依赖于a[i]和b[i]，并没有使用其他计算，因此每一个c[i]是独立的，没有依赖性的，是可以并行的。我们就可以分配n个线程，使用1维的grid和1维的block，其中每个线程的对其中一个元素进行加法运算，也就是说，Thread[0] =&gt; c[0] = a[0]+b[0]，Thread[1] =&gt; c[1] = a[1]+b[1] ... 这样就完成了并行的加法运算。</li>
+</ul>
+<p>接下来是对线程进行分配，这里我们以256个线程为一组，这样256个线程为1个block，那么为什么我们需要对线程进行分组呢？</p>
+<ul>
+<li>一个block最多支持1024个线程，如果大于1024我们就无法在一个block中分配线程</li>
+<li>分配线程会有一定的计算资源，如寄存器，比如shared memory的大小。如果一个Block中的线程过多会影响它的效率，后面讲编程优化会讲到。</li>
+</ul>
+<figure data-type="image" tabindex="1"><img src="https://upload-images.jianshu.io/upload_images/19551947-4e944f9908265d17.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/600" alt="" loading="lazy"></figure>
+<p>在这里我们简单以256为例来讲解一下整个过程。对线程进行分组以后我们需要通过刚才的方法计算出每个线程中我们要读取的数据的id，计算方法就是上文我们所说的方法：线程在block中的id+block在grid中的id*block的维度。</p>
+<pre><code>work index i = threadIdx.x+blockIdx.x*blockDim.x;
+</code></pre>
+<p>例如a[256]的索引 = 0+1*256 = 256</p>
+<ul>
+<li>Step 2: 写GPU Kernel<br>
+首先我们要在函数前加上__global__标识符，标识这个函数是运行在gpu上的。</li>
+</ul>
+<pre><code>__global__ void vecAdd(int n, float *a, float *b, float *c)
+{
+  int i = blockIdx.x * blockDim.x + threadIdx.x; //计算该线程要读取的id
+  if (i&lt;n) //因为我们只需要从0到n-1进行计算即可，而线程数可能会大于n个
+  {
+    c[i] = a[i]+b[i];
+  }
+}
+</code></pre>
+<ul>
+<li>Step 3:  对GPU内存进行管理</li>
+</ul>
+<pre><code>void main()
+{
+    int N = 1024;
+    float *a, *b, *c;
+    float *devA, *devB, *devC; // gpu上声明float
+
+    a = (float*)malloc(N * sizeof(float));
+    b = (float*)malloc(N * sizeof(float));
+    c = (float*)malloc(N * sizeof(float));
+
+    cudaMalloc(&amp;devA, N*sizeof(float));
+    cudaMalloc(&amp;devB, N*sizeof(float));
+    cudaMalloc(&amp;devC, N*sizeof(float));
+
+    memset(c, 0, N * sizeof(float));
+    init_rand_f(a, N);
+    init_rand_f(b, N);
+
+    //从cpu上拷贝到gpu
+    cudaMemcpy(devA, a, N*sizeof(float), cudaMemcpyHostToDevice);
+    cudaMemcpy(devB, b, N*sizeof(float), cudaMemcpyHostToDevice);
+}
+</code></pre>
+<ul>
+<li>Step 4:  开始调用这个函数</li>
+</ul>
+<pre><code>void  main()
+{
+    ...
+    vecAdd&lt;&lt;&lt;(N+255)/256, 256&gt;&gt;&gt;(N, devA, devB, devC);
+    ...
+}
+</code></pre>
+<p>(N+255)/256表示一个grid中有多少个block，它是为了防止N不是256的倍数，N有可能大于256的倍数，这样可以直接取整。</p>
+<ul>
+<li>Step 5:  将数据从GPU端拷贝到CPU端</li>
+</ul>
+<pre><code>void  main()
+{
+    ...
+    cudaMemcpy(c, devC, N*sizeof(float), cudaMemcpyDeviceToHost);
+    ...
+}
+</code></pre>
+<p>这样就完成了GPU加速的向量加法。相信大家有了更深的了解，可以写一个简单的Kernel来实现自己的代码功能。</p>
+<h2 id="simple-optimization-sample">Simple Optimization sample</h2>
+<p>实际上在GPU开发的过程中，我们开发的时间要比优化的时间短很多。我们会将更多的时间消耗在对代码的优化上。本节我们介绍一个简单的优化方案，这个例子跟gpu的内存有关，我们先来回顾一下gpu的内存架构。<br>
+<img src="https://upload-images.jianshu.io/upload_images/19551947-279da225f3bb6349.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/600" alt="" loading="lazy"><br>
+首先每一个线程都有它自己的Local Memory，然后每一个Block都有所有线程所共享的Shared Memory，每个Grid和Grid之间都可以使用Global Memory进行通讯。</p>
+<h3 id="global-memory">Global Memory</h3>
+<p>它的存储空间很大，生命周期从最开始分配空间到最后cudafree函数释放为止，因此它可以和多个Kernel进行通讯，例如Kernel 0计算完的数据暂时存在Global Memory里，Kernel 1可以调用这些数据进行进一步计算，直到我们使用完后可以调用cudafree函数释放，并且这些数据是可以被CPU进行读取的。<br>
+<img src="https://upload-images.jianshu.io/upload_images/19551947-8f50093f0d3392e9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/600" alt="image.png" loading="lazy"></p>
+<h3 id="shared-memory">Shared Memory</h3>
+<p><img src="https://upload-images.jianshu.io/upload_images/19551947-3598a3b77ac4dea9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/600" alt="" loading="lazy"><br>
+Shared Memory空间很大但是访问延迟很高，它是位于流多处理器片上的一段内存，生命周期与block一致，这是我们经常使用到的，它是block中所有线程所共享的。分配这段内存只需在前面加上__shared__标识符。block中的所有线程都可以通过Shared Memory进行通讯，但是在block与block之间不可以。</p>
+<h3 id="registers">Registers</h3>
+<p><img src="https://upload-images.jianshu.io/upload_images/19551947-abcc2ffaea631d1a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/600" alt="" loading="lazy"><br>
+寄存器空间是gpu中访问速度最快的空间，它是由每个线程所分配的，只能由分配的线程所读写，因此它的生命周期与线程一致。</p>
+<h3 id="stencil-example">Stencil Example</h3>
+<p><img src="https://upload-images.jianshu.io/upload_images/19551947-218e3618d91ef347.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/400" alt="" loading="lazy"><br>
+在一个数组中，这个例子的功能就是计算在该数组中每一个元素对应的周边元素和。如上图所示，以黄色的元素为例，周边半径是3，那么周边元素和就是从左边第三个元素开始，一直到右边第三个，也就是要计算这7个元素的元素和，计算完以后我们存到另外一个数组里面，位置和这个元素对应。例如我们计算4的元素和，如下图所示，其结果就是1+2+3+4+5+6+7=28<br>
+<img src="https://upload-images.jianshu.io/upload_images/19551947-d1f2775f758ab381.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/400" alt="" loading="lazy"><br>
+这个程序其实实现的功能也很简单，这个程序其实和向量加法十分相似。相同的是每个计算都是相互独立的，无数据依赖性，因此我们仍然可以分配n个线程来计算每一个值。</p>
+<pre><code>//每个线程对周边元素和的计算
+__global__ void stencil(int* in, int* out)
+{
+    int globIdx = blockIdx.x * blockDim.x + threadIdx.x;
+    int value = 0; //该变量位于寄存器中
+    for (offset = -RADIUS; offset &lt;=  RADIUS; offset++)
+    {
+        value += in[globIdx + offset];
+    }
+    out[globIdx] = value;
+}
+</code></pre>
+<p>这个程序并不是最优的，因为in和out都是在global memory里面，我们知道global memory延迟很大，在这里其实每个元素都会被读取很多次，我们这里可以简单看一下，半径是3的情况下它被读取了几次。我们以中间这个元素为例，最后可以得到这个元素被读取了7次，而且都是从global memory进行读取的。<br>
+<img src="https://upload-images.jianshu.io/upload_images/19551947-421d238edbe52a57.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/600" alt="" loading="lazy"><br>
+我们知道Shared Memory访问速度更快，因此我们可以对它进行一个优化，优化方案就是在计算之前我们将这一段内存从global memory拷贝到shared memory，我们在shared memory进行读写，拷贝的大小是BLOCK_SIZE+2*RADIUS<br>
+<img src="https://upload-images.jianshu.io/upload_images/19551947-68f19a7be590ae0b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/600" alt="" loading="lazy"></p>
+<p>（1） 第一步，我们设定RADIUS = 3， BLOCK_SIZE = 16。先声明一段共享内存空间，大小为BLOCK_SIZE+2*RADIUS。声明以后，在每一个Block中都会有一段Shared Memory的空间，它是用来该Block中所有数据来计算的数据源。<br>
+（2）接着我们要计算两个id，第一个id是globIdx，即每个线程在整个Grid中的id，第二个id我们称之为locIdx，是读取数据的id。我们知道在共享内存中，我们数据的长度是比线程数多两个RADIUS的，左边右边各有RADIUS个，线程0是从最左边RADIUS个开始算的，因此我们这里要加一个半径，即</p>
+<pre><code>int locIdx = threadIdx.x+RAIDUS;
+</code></pre>
+<p>（3）接下来是数据搬移，从Global搬移到Shared，第一步就是要搬移中间16个元素，因此我们使16个线程，每个线程都读取对应的元素，从in中拷贝到Shared里面</p>
+<pre><code>shared[locIdx] = in[globIdx];
+</code></pre>
+<p>然后再拷贝两侧的数据</p>
+<pre><code>if (threadIdx.x&lt;RADIUS)
+{
+    shared[locIdx - RADIUS] = in[globIdx - RADIUS];
+    shared[locIdx + BLOCK_DIMX] = in[globIdx + BLOCK_SIZE];
+}
+</code></pre>
+<p>（4）拷贝结束以后，我们就知道所有需要的数据都存储在shared memory里面，因此我们可以从shared里面开始计算，计算方法跟刚才一样。</p>
+<pre><code>    __syncthreads();//线程同步函数
+    int value = 0;
+    for (offset = -RADIUS; offset &lt;=  RADIUS; offset++)
+    {
+        value += in[globIdx + offset];
+    }
+    out[globIdx] = value;
+</code></pre>
+<figure data-type="image" tabindex="2"><img src="https://upload-images.jianshu.io/upload_images/19551947-e5cd3d2a327efdd3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/600" alt="" loading="lazy"></figure>
+<h3 id="thread-synchronization-function">Thread Synchronization Function</h3>
+<pre><code>void __syncthreads();
+</code></pre>
+<p>线程同步就是在一个block中，保证所有线程都完成了前面的工作，上述示例中，我们加入了一个 __syncthreads();，保证所有的线程都完成了线程搬移工作以后，我们才能开始进行下面的计算。我们知道线程与线程之间是并行的，但是先后顺序不可而知，如果不加入同步函数，一个线程还没有完成搬移的话，另外一个线程已经提前到计算的时候，那么它读取的数据就是错误的，这就是典型的一个“读后写”。为了防止类似这样的问题发生，我们加入这个函数。注意这个函数要对所有线程起作用，如果通过一些判断导致一些线程没有发生同步就会造成线程的死锁。</p>
+<h2 id="references">References</h2>
+<figure data-type="image" tabindex="3"><img src="https://upload-images.jianshu.io/upload_images/19551947-699fe7e02d51843f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/600" alt="" loading="lazy"></figure>
+</div>
+                                    <div class="mdui-divider mdui-m-b-2"></div>
+                                    <div class="mdui-row-xs-2 post-fenye">
+                                       
+                                        <div class="mdui-col"> </div>
+                                        
+
+                                        
+                                        <div class="mdui-col"><div class="mdui-text-right "><a href="https://albertlidesign.github.io/post/learncudaprogramming1/">Learn CUDA Programming(1)</a></div> </div>
+                                       
+                                      </div>
+                                   
+                                    <div class="mdui-divider mdui-m-t-2 mdui-m-b-2"></div>
+                                    
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '',
+    clientSecret: '',
+    repo: '',
+    owner: '',
+    admin: [''],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+          
+        
+                                     <script src="https://albertlidesign.github.io/media/scripts/Valine.min.js"></script>
+ <div class="comment"></div>
+
+<script>
+      new Valine({
+            el: '.comment',
+
+
+
+            path: window.location.pathname,
+            pageSize: 30,
+            avatar:'mm', 
+       })
+    </script> 
+<script>
+    if(window.location.hash){
+        var checkExist = setInterval(function() {
+           if ($(window.location.hash).length) {
+              $('html, body').animate({scrollTop: $(window.location.hash).offset().top-90}, 1000);
+              clearInterval(checkExist);
+           }
+        }, 100);
+    }
+</script>
+                                </article>
+
+                                    
+                        </div>
+                      </div>
+    
+                
+
+              </div>
+                    <footer class="footer mdui-m-t-5 mdui-text-center">
+               <nav class="social-links">
+                      <ul>
+                      
+                      
+                           
+                      
+                           
+                      	
+                        <li class="social-link"><a href="https://github.com/AlbertLiDesign" target="_blank"><i class="iconfont icon-github"></i></a></li>
+                          
+                           
+                      
+                           
+                      
+                           
+                      
+                           
+                      
+                           
+                      
+                           
+                      
+                           
+                      
+                           
+                      
+                           
+                      
+                           
+                      </ul>
+                    </nav>
+                    <div class="copyright">
+                      <p>Powered by <a href="https://github.com/AlbertLiDesign" target="_blank">AlbertLiDesign</a> <br/> Theme <a href="https://github.com/alterfang/gridea-theme-song/" target="_blank"  title="宋"  >Song</a> by <a href="https://shanbu.fun/" target="_blank"  title="山卜方" >shanbufun</a> </p>
+                  </div>
+                  
+              </footer>
+    </body>
+</html>
