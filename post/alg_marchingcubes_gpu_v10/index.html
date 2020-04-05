@@ -59,8 +59,8 @@
                                     <div class="post-title  mdui-m-b-1">ALG_MarchingCubes_GPU v1.0</div>
                                     <div class="mdui-typo-body-2 mdui-m-b-2" datetime="2020-04-05 18:28:52">2020-04-05 / 3 min read</div>
                                     <div class="mdui-m-b-2 mdui-typo post-neirong"><h2 id="introduction">Introduction</h2>
-<p>ALG_MarchingCubes_GPU is an isosurface extraction plug-in for Grasshopper built on GPU. It provides C# (<a href="http://www.aleagpu.com/release/3_0_4/doc/">Alea GPU</a>) and C++ (<a href="https://developer.nvidia.com/cuda-downloads">CUDA v10.2</a>) to implement GPU parallel acceleration. Since this project is preparing for a Grasshopper component, it also provided a method to pass C++ functions to C# (using IntPtr to receive structural Pointers from C++). As this project is an important learning experience for me, I hope it can be a good parallel programming case to help GPU programming beginners and Grasshopper developers.</p>
-<p>At present, its computational efficiency can still be optimized (e.g. 99% of computing time is spent on the memory copy), I will continue to improve it in the future work.</p>
+<p>ALG_MarchingCubes_GPU is an isosurface extraction plug-in for Grasshopper run on GPU. It provides two versions(C# and C++) to implement Marching Cubes on GPU, the C# version is based on <a href="http://www.aleagpu.com/release/3_0_4/doc/">Alea GPU</a>) and the C++ version is based on <a href="https://developer.nvidia.com/cuda-downloads">CUDA v10.2</a>. This project is an important learning experience for me, I hope it can be a parallel programming reference case to help GPU programming beginners and Grasshopper developers.</p>
+<p>At present, its computational performance can still be optimized (e.g. 99% of computing time is spent on the memory copy), I will continue to improve it in the future work.</p>
 <figure data-type="image" tabindex="1"><img src="https://albertlidesign.github.io/post-images/1586082938627.png" alt="" loading="lazy"></figure>
 <h2 id="installation">Installation</h2>
 <h3 id="alea-gpu">Alea GPU</h3>
@@ -71,7 +71,7 @@
 <h3 id="cuda">CUDA</h3>
 <p>If you want to compile the c++ version, you should install <a href="https://developer.nvidia.com/cuda-downloads">CUDA v10.2</a>.</p>
 <h2 id="performance">Performance</h2>
-<p>The GPU device I used was RTX 2060, which took about 525.89ms to extract isosurface from 7524 sample points. It calculated the values of 8 corners of 1295029 voxels and compares them with specified Isovalues. At present, 99.6% of computing time was spent on the memory copy. The following image is a performance analysis report using NIVIDIA Visual Profiler.</p>
+<p>The GPU device I use is RTX 2060, which take about 525.89ms to extract isosurface from 7524 sample points. During the execution of the program, the computer calculated the values of 8 corners of 1295029 voxels and compares them with specified Isovalues. The following image is a performance analysis report using NIVIDIA Visual Profiler. It's worth noting that 99.6% of computing time is spent on the memory copy in this program.</p>
 <figure data-type="image" tabindex="3"><img src="https://albertlidesign.github.io/post-images/1586082652606.png" alt="" loading="lazy"></figure>
 <h2 id="reference">Reference</h2>
 <p>[1]Dyken, C., Ziegler, G., Theobalt, C., &amp; Seidel, H. P. (2008, December). High‐speed marching cubes using histopyramids. In Computer Graphics Forum (Vol. 27, No. 8, pp. 2028-2039). Oxford, UK: Blackwell Publishing Ltd.</p>
