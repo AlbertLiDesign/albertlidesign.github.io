@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://albertlidesign.github.io</id>
     <title>AlbertLiDesign</title>
-    <updated>2020-04-05T11:12:50.200Z</updated>
+    <updated>2020-04-05T11:15:32.346Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://albertlidesign.github.io"/>
     <link rel="self" href="https://albertlidesign.github.io/atom.xml"/>
@@ -32,7 +32,7 @@
 <p>The GPU device I use is RTX 2060, which take about 525.89ms to extract isosurface from 7524 sample points. During the execution of the program, the computer calculated the values of 8 corners of 1295029 voxels and compares them with specified Isovalues. The following image is a performance analysis report using NIVIDIA Visual Profiler. It's worth noting that 99.6% of computing time is spent on the memory copy in this program.</p>
 <figure data-type="image" tabindex="3"><img src="https://albertlidesign.github.io/post-images/1586082652606.png" alt="" loading="lazy"></figure>
 <h2 id="reference">Reference</h2>
-<p>[1]Dyken, C., Ziegler, G., Theobalt, C., &amp; Seidel, H. P. (2008, December). High‐speed marching cubes using histopyramids. In Computer Graphics Forum (Vol. 27, No. 8, pp. 2028-2039). Oxford, UK: Blackwell Publishing Ltd.</p>
+<p>[1] Dyken, C., Ziegler, G., Theobalt, C., &amp; Seidel, H. P. (2008, December). High‐speed marching cubes using histopyramids. In Computer Graphics Forum (Vol. 27, No. 8, pp. 2028-2039). Oxford, UK: Blackwell Publishing Ltd.</p>
 <p>[2] Lorensen W E, Cline H E. Marching cubes: A high resolution 3D surface construction algorithm. ACM SIGGRAPH Computer Graphics. 1987;21(4)</p>
 <p>[3] C. Dyken, G. Ziegler, C. Theobalt, and H.-P. Seidel. High-speed Marching Cubes using HistoPyramids. Computer Graphics Forum, 27(8):2028–2039, Dec. 2008.</p>
 <p>[4] The algorithm and lookup tables by Paul Bourke httppaulbourke.netgeometrypolygonise：http://paulbourke.net/geometry/polygonise/</p>
