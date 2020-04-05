@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://albertlidesign.github.io</id>
     <title>AlbertLiDesign</title>
-    <updated>2020-04-05T10:35:47.052Z</updated>
+    <updated>2020-04-05T10:38:01.340Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://albertlidesign.github.io"/>
     <link rel="self" href="https://albertlidesign.github.io/atom.xml"/>
@@ -12,8 +12,8 @@
     <rights>All rights reserved 2020, AlbertLiDesign</rights>
     <entry>
         <title type="html"><![CDATA[ALG_MarchingCubes_GPU v1.0]]></title>
-        <id>https://albertlidesign.github.io/post/alg_marchingcubes_gpu-v10/</id>
-        <link href="https://albertlidesign.github.io/post/alg_marchingcubes_gpu-v10/">
+        <id>https://albertlidesign.github.io/post/alg_marchingcubes_gpu_v10/</id>
+        <link href="https://albertlidesign.github.io/post/alg_marchingcubes_gpu_v10/">
         </link>
         <updated>2020-04-05T10:28:52.000Z</updated>
         <content type="html"><![CDATA[<h2 id="introduction">Introduction</h2>

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+        <head>
+        <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1,initial-scale=1,user-scalable=no" />
+        <meta charset="utf-8">
+        <title>ALG_MarchingCubes_GPU v1.0 | AlbertLiDesign</title>
+        <link rel="stylesheet" href="https://albertlidesign.github.io/styles/main.css">
+        <link rel="stylesheet" href="https://at.alicdn.com/t/font_1306644_jwtuc2zzbrd.css">
+        <link href="https://cdn.bootcss.com/animate.css/3.7.2/animate.min.css" rel="stylesheet">
+         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+        <script src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js"></script>
+         <script src="https://cdn.bootcss.com/highlight.js/9.15.10/highlight.min.js"></script>
+         <script >hljs.initHighlightingOnLoad();</script>
+
+    </head>
+    <body>
+              <header class="header mdui-m-b-5">      
+            <div class="container  ">
+                <div class="index-title animated fadeInDown mdui-text-center mdui-text-color-white mdui-m-b-2" style="animation-delay: 0.2s"><a href="https://albertlidesign.github.io">AlbertLiDesign</a></div>
+                <div class="mdui-text-color-white animated fadeInDown mdui-text-center  mdui-m-b-3" style="animation-delay: 0.4s">Welcome to Albert Li Design. This is a blog for random braindumps on my programming adventures, graphics and design research, some of my more serious writings and other interesting things.</div>
+           
+            <nav id="nav" class="mdui-text-center animated fadeInDown" style="animation-delay: 0.6s">
+                   
+                            <li><a href="/">Home</a>
+                                <span class="nav-style top"></span>
+                                <span class="nav-style bottom"></span>
+                                <span class="nav-style left"></span>
+                                <span class="nav-style right"></span>
+                                </li>
+                    
+                            <li><a href="/archives">Archives</a>
+                                <span class="nav-style top"></span>
+                                <span class="nav-style bottom"></span>
+                                <span class="nav-style left"></span>
+                                <span class="nav-style right"></span>
+                                </li>
+                    
+                            <li><a href="/tags">Tags</a>
+                                <span class="nav-style top"></span>
+                                <span class="nav-style bottom"></span>
+                                <span class="nav-style left"></span>
+                                <span class="nav-style right"></span>
+                                </li>
+                    
+                            <li><a href="/post/about">About</a>
+                                <span class="nav-style top"></span>
+                                <span class="nav-style bottom"></span>
+                                <span class="nav-style left"></span>
+                                <span class="nav-style right"></span>
+                                </li>
+                    
+                  </nav>
+                </div>
+        </header>
+        <div class="mdui-container ">
+                <div class="mdui-row">
+                        <div class="mdui-col-md-8 mdui-col-offset-md-2 ">
+                                <article class="mdui-p-a-2 post animated fadeIn" style="animation-delay: 0.8s;animation-duration: 2s">
+                                    <div class="post-title  mdui-m-b-1">ALG_MarchingCubes_GPU v1.0</div>
+                                    <div class="mdui-typo-body-2 mdui-m-b-2" datetime="2020-04-05 18:28:52">2020-04-05 / 3 min read</div>
+                                    <div class="mdui-m-b-2 mdui-typo post-neirong"><h2 id="introduction">Introduction</h2>
+<p>ALG_MarchingCubes_GPU is an isosurface extraction plug-in for Grasshopper built on GPU. It provides C# (<a href="http://www.aleagpu.com/release/3_0_4/doc/">Alea GPU</a>) and C++ (<a href="https://developer.nvidia.com/cuda-downloads">CUDA v10.2</a>) to implement GPU parallel acceleration. Since this project is preparing for a Grasshopper component, it also provided a method to pass C++ functions to C# (using IntPtr to receive structural Pointers from C++). As this project is an important learning experience for me, I hope it can be a good parallel programming case to help GPU programming beginners and Grasshopper developers.</p>
+<p>At present, its computational efficiency can still be optimized (e.g. 99% of computing time is spent on the memory copy), I will continue to improve it in the future work.</p>
+<figure data-type="image" tabindex="1"><img src="https://albertlidesign.github.io/post-images/1586082938627.png" alt="" loading="lazy"></figure>
+<h2 id="installation">Installation</h2>
+<h3 id="alea-gpu">Alea GPU</h3>
+<p>If you want to compile the c# version, you should install <a href="http://www.aleagpu.com/release/3_0_4/doc/">Alea GPU</a>.  Alea GPU requires a CUDA-capable GPU with <strong>compute capability 2.0</strong> or higher.</p>
+<p>Alea GPU consists of several assemblies, tools and resources, organized in multiple <a href="http://www.nuget.org/profiles/quantalea">NuGet packages</a>. So you can install them directly through Visual Studio. It is important to note that you need to install <strong>FSharp.Core</strong> package and <strong>CUDA v9.0</strong> (CUDA v10.2 is not supported) before using Alea GPU in C#.</p>
+<p>If you want to learn more about Alea GPU, please check the web site <a href="http://www.aleagpu.com/release/3_0_4/doc/">Alea GPU</a></p>
+<figure data-type="image" tabindex="2"><img src="https://albertlidesign.github.io/post-images/1586082600760.png" alt="" loading="lazy"></figure>
+<h3 id="cuda">CUDA</h3>
+<p>If you want to compile the c++ version, you should install <a href="https://developer.nvidia.com/cuda-downloads">CUDA v10.2</a>.</p>
+<h2 id="performance">Performance</h2>
+<p>The GPU device I used was RTX 2060, which took about 525.89ms to extract isosurface from 7524 sample points. It calculated the values of 8 corners of 1295029 voxels and compares them with specified Isovalues. At present, 99.6% of computing time was spent on the memory copy. The following image is a performance analysis report using NIVIDIA Visual Profiler.</p>
+<figure data-type="image" tabindex="3"><img src="https://albertlidesign.github.io/post-images/1586082652606.png" alt="" loading="lazy"></figure>
+<h2 id="reference">Reference</h2>
+<p>[1]Dyken, C., Ziegler, G., Theobalt, C., &amp; Seidel, H. P. (2008, December). High‐speed marching cubes using histopyramids. In Computer Graphics Forum (Vol. 27, No. 8, pp. 2028-2039). Oxford, UK: Blackwell Publishing Ltd.</p>
+<p>[2] Lorensen W E, Cline H E. Marching cubes: A high resolution 3D surface construction algorithm. ACM SIGGRAPH Computer Graphics. 1987;21(4)</p>
+<p>[3] C. Dyken, G. Ziegler, C. Theobalt, and H.-P. Seidel. High-speed Marching Cubes using HistoPyramids. Computer Graphics Forum, 27(8):2028–2039, Dec. 2008.</p>
+<p>[4] The algorithm and lookup tables by Paul Bourke httppaulbourke.netgeometrypolygonise：http://paulbourke.net/geometry/polygonise/</p>
+<p>[5] Marching Cubes implementation using OpenCL and OpenGL：https://www.eriksmistad.no/marching-cubes-implementation-using-opencl-and-opengl/</p>
+<p>[6] Samples for CUDA Developers which demonstrates features in CUDA Toolkit: https://github.com/NVIDIA/cuda-samples</p>
+<p>[7] Samples and C# GPU Programming tutorials for Alea GPU Developers: http://www.aleagpu.com/release/3_0_4/doc/</p>
+</div>
+                                    <div class="mdui-divider mdui-m-b-2"></div>
+                                    <div class="mdui-row-xs-2 post-fenye">
+                                       
+                                        <div class="mdui-col"> </div>
+                                        
+
+                                        
+                                        <div class="mdui-col"><div class="mdui-text-right "><a href="https://albertlidesign.github.io/post/learncudaprogramming2/">Learn CUDA Programming(2)</a></div> </div>
+                                       
+                                      </div>
+                                   
+                                    <div class="mdui-divider mdui-m-t-2 mdui-m-b-2"></div>
+                                    
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '',
+    clientSecret: '',
+    repo: '',
+    owner: '',
+    admin: [''],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+          
+        
+                                     <script src="https://albertlidesign.github.io/media/scripts/Valine.min.js"></script>
+ <div class="comment"></div>
+
+<script>
+      new Valine({
+            el: '.comment',
+
+
+
+            path: window.location.pathname,
+            pageSize: 30,
+            avatar:'mm', 
+       })
+    </script> 
+<script>
+    if(window.location.hash){
+        var checkExist = setInterval(function() {
+           if ($(window.location.hash).length) {
+              $('html, body').animate({scrollTop: $(window.location.hash).offset().top-90}, 1000);
+              clearInterval(checkExist);
+           }
+        }, 100);
+    }
+</script>
+                                </article>
+
+                                    
+                        </div>
+                      </div>
+    
+                
+
+              </div>
+                    <footer class="footer mdui-m-t-5 mdui-text-center">
+               <nav class="social-links">
+                      <ul>
+                      
+                      
+                           
+                      
+                           
+                      	
+                        <li class="social-link"><a href="https://github.com/AlbertLiDesign" target="_blank"><i class="iconfont icon-github"></i></a></li>
+                          
+                           
+                      
+                           
+                      
+                           
+                      
+                           
+                      
+                           
+                      
+                           
+                      
+                           
+                      
+                           
+                      
+                           
+                      
+                           
+                      </ul>
+                    </nav>
+                    <div class="copyright">
+                      <p>Powered by <a href="https://github.com/AlbertLiDesign" target="_blank">AlbertLiDesign</a> <br/> Theme <a href="https://github.com/alterfang/gridea-theme-song/" target="_blank"  title="宋"  >Song</a> by <a href="https://shanbu.fun/" target="_blank"  title="山卜方" >shanbufun</a> </p>
+                  </div>
+                  
+              </footer>
+    </body>
+</html>
