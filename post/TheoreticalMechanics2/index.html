@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html>
+        <head>
+        <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1,initial-scale=1,user-scalable=no" />
+        <meta charset="utf-8">
+        <title>理论力学 第二章 静力学公理及常见约束 | AlbertLiDesign</title>
+        <link rel="stylesheet" href="https://albertlidesign.github.io/styles/main.css">
+        <link rel="stylesheet" href="https://at.alicdn.com/t/font_1306644_jwtuc2zzbrd.css">
+        <link href="https://cdn.bootcss.com/animate.css/3.7.2/animate.min.css" rel="stylesheet">
+         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+        <script src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js"></script>
+         <script src="https://cdn.bootcss.com/highlight.js/9.15.10/highlight.min.js"></script>
+         <script >hljs.initHighlightingOnLoad();</script>
+
+    </head>
+    <body>
+              <header class="header mdui-m-b-5">      
+            <div class="container  ">
+                <div class="index-title animated fadeInDown mdui-text-center mdui-text-color-white mdui-m-b-2" style="animation-delay: 0.2s"><a href="https://albertlidesign.github.io">AlbertLiDesign</a></div>
+                <div class="mdui-text-color-white animated fadeInDown mdui-text-center  mdui-m-b-3" style="animation-delay: 0.4s">Welcome to Albert Li Design. This is a blog for random braindumps on my programming adventures, graphics and design research, some of my more serious writings and other interesting things.</div>
+           
+            <nav id="nav" class="mdui-text-center animated fadeInDown" style="animation-delay: 0.6s">
+                   
+                            <li><a href="/">Home</a>
+                                <span class="nav-style top"></span>
+                                <span class="nav-style bottom"></span>
+                                <span class="nav-style left"></span>
+                                <span class="nav-style right"></span>
+                                </li>
+                    
+                            <li><a href="/archives">Archives</a>
+                                <span class="nav-style top"></span>
+                                <span class="nav-style bottom"></span>
+                                <span class="nav-style left"></span>
+                                <span class="nav-style right"></span>
+                                </li>
+                    
+                            <li><a href="/tags">Tags</a>
+                                <span class="nav-style top"></span>
+                                <span class="nav-style bottom"></span>
+                                <span class="nav-style left"></span>
+                                <span class="nav-style right"></span>
+                                </li>
+                    
+                            <li><a href="/post/about">About</a>
+                                <span class="nav-style top"></span>
+                                <span class="nav-style bottom"></span>
+                                <span class="nav-style left"></span>
+                                <span class="nav-style right"></span>
+                                </li>
+                    
+                  </nav>
+                </div>
+        </header>
+        <div class="mdui-container ">
+                <div class="mdui-row">
+                        <div class="mdui-col-md-8 mdui-col-offset-md-2 ">
+                                <article class="mdui-p-a-2 post animated fadeIn" style="animation-delay: 0.8s;animation-duration: 2s">
+                                    <div class="post-title  mdui-m-b-1">理论力学 第二章 静力学公理及常见约束</div>
+                                    <div class="mdui-typo-body-2 mdui-m-b-2" datetime="2020-04-13 17:37:29">2020-04-13 / 11 min read</div>
+                                    <div class="mdui-m-b-2 mdui-typo post-neirong"><h1 id="二-静力学公理及常见约束">二、静力学公理及常见约束</h1>
+<h2 id="21-静力学引言">2.1 静力学引言</h2>
+<ul>
+<li>建筑应用<br>
+<img src="https://albertlidesign.github.io/post-images/1586770863754.png" alt="" width="400" loading="lazy"><br>
+<img src="https://albertlidesign.github.io/post-images/1586771143596.png" alt="" width="400" loading="lazy"><br>
+<img src="https://albertlidesign.github.io/post-images/1586771149416.png" alt="" width="400" loading="lazy"><br>
+<img src="https://albertlidesign.github.io/post-images/1586771152584.png" alt="" width="400" loading="lazy"></li>
+<li>分析事故原因<br>
+<img src="https://albertlidesign.github.io/post-images/1586771155365.png" alt="" width="400" loading="lazy"><br>
+<img src="https://albertlidesign.github.io/post-images/1586771158818.png" alt="" width="400" loading="lazy"></li>
+</ul>
+<h3 id="学习静力学的目的">学习静力学的目的</h3>
+<ol>
+<li>直接解决工程实际问题；</li>
+<li>为后续课程打基础，例如材料力学、结构力学、弹性力学、建筑力学、机械设计等。</li>
+<li>解决工程应用中的实际问题</li>
+</ol>
+<h3 id="静力学中的几个基本概念">静力学中的几个基本概念</h3>
+<ul>
+<li>
+<p><strong>刚体</strong>：在力的作用下，其内部任意两点间的距离始终保持不变的物体。<br>
+例如用手推动桌子时，桌子自身结构会发生微小变形，但是变形量对于我们研究的问题过小，所以这个桌子可以被视为刚体。<br>
+<strong>一个物体能否被视为刚体，与物体本身的绝对刚度没有关系，与我们所研究的问题有关。</strong><br>
+例如一个网球，如果我们研究它的飞行轨迹和落点，它可以被视为<strong>刚体</strong>。如果我们研究的是击球的瞬间网球所发生的变形，那么要分析内部的受力情况，那么此时它应该被视作<strong>变形体</strong>。</p>
+</li>
+<li>
+<p><strong>力</strong>：物体间相互的机械作用，作用效果使物体的机械运动状态发生改变。<br>
+力有三要素：大小、方向、作用点<br>
+力是矢量，本课程用<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mover accent="true"><mi>F</mi><mo>⃗</mo></mover></mrow><annotation encoding="application/x-tex">\vec F</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.9663299999999999em;vertical-align:0em;"></span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.9663299999999999em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span></span><span style="top:-3.25233em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.15216em;"><span class="overlay" style="height:0.714em;width:0.471em;"><svg width='0.471em' height='0.714em' style='width:0.471em' viewBox='0 0 471 714' preserveAspectRatio='xMinYMin'><path d='M377 20c0-5.333 1.833-10 5.5-14S391 0 397 0c4.667 0 8.667 1.667 12 5
+3.333 2.667 6.667 9 10 19 6.667 24.667 20.333 43.667 41 57 7.333 4.667 11
+10.667 11 18 0 6-1 10-3 12s-6.667 5-14 9c-28.667 14.667-53.667 35.667-75 63
+-1.333 1.333-3.167 3.5-5.5 6.5s-4 4.833-5 5.5c-1 .667-2.5 1.333-4.5 2s-4.333 1
+-7 1c-4.667 0-9.167-1.833-13.5-5.5S337 184 337 178c0-12.667 15.667-32.333 47-59
+H213l-171-1c-8.667-6-13-12.333-13-19 0-4.667 4.333-11.333 13-20h359
+c-16-25.333-24-45-24-59z'/></svg></span></span></span></span></span></span></span></span></span></span>或<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>F</mi></mrow><annotation encoding="application/x-tex">F</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span></span></span></span>来表示。</p>
+</li>
+<li>
+<p><strong>力系</strong>：由很多个力在一起组成的系统，或者说一群力。</p>
+</li>
+<li>
+<p><strong>平衡</strong>：物体（系）相对惯性参考系（如地面）静止或作匀速直线运动。</p>
+</li>
+</ul>
+<h3 id="静力学的任务">静力学的任务</h3>
+<ul>
+<li>对物体进行受力分析</li>
+<li>对力系进行等效替换（或简化）</li>
+<li>建立各种力系的平衡条件，并求解未知力。</li>
+</ul>
+<h2 id="22-静力学五个公理">2.2 静力学五个公理</h2>
+<h3 id="公理1-力的平行四边形法则">公理1 力的平行四边形法则</h3>
+<ul>
+<li>作用在物体上同一点的两个力，可以合成为一个合力。</li>
+<li>合力的作用点也在该点，合力的大小和方向，由这两个力为邻边构成的平行四边形的对角线确定</li>
+<li>合力（合力的大小与方向）<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mover accent="true"><mi>F</mi><mo>⃗</mo></mover><mi>R</mi></msub><mo>=</mo><msub><mover accent="true"><mi>F</mi><mo>⃗</mo></mover><mn>1</mn></msub><mo>+</mo><msub><mover accent="true"><mi>F</mi><mo>⃗</mo></mover><mn>2</mn></msub></mrow><annotation encoding="application/x-tex">\vec F_R = \vec F_1 + \vec F_2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.1163299999999998em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.9663299999999999em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span></span><span style="top:-3.25233em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.15216em;"><span class="overlay" style="height:0.714em;width:0.471em;"><svg width='0.471em' height='0.714em' style='width:0.471em' viewBox='0 0 471 714' preserveAspectRatio='xMinYMin'><path d='M377 20c0-5.333 1.833-10 5.5-14S391 0 397 0c4.667 0 8.667 1.667 12 5
+3.333 2.667 6.667 9 10 19 6.667 24.667 20.333 43.667 41 57 7.333 4.667 11
+10.667 11 18 0 6-1 10-3 12s-6.667 5-14 9c-28.667 14.667-53.667 35.667-75 63
+-1.333 1.333-3.167 3.5-5.5 6.5s-4 4.833-5 5.5c-1 .667-2.5 1.333-4.5 2s-4.333 1
+-7 1c-4.667 0-9.167-1.833-13.5-5.5S337 184 337 178c0-12.667 15.667-32.333 47-59
+H213l-171-1c-8.667-6-13-12.333-13-19 0-4.667 4.333-11.333 13-20h359
+c-16-25.333-24-45-24-59z'/></svg></span></span></span></span></span></span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.00773em;">R</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.1163299999999998em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.9663299999999999em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span></span><span style="top:-3.25233em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.15216em;"><span class="overlay" style="height:0.714em;width:0.471em;"><svg width='0.471em' height='0.714em' style='width:0.471em' viewBox='0 0 471 714' preserveAspectRatio='xMinYMin'><path d='M377 20c0-5.333 1.833-10 5.5-14S391 0 397 0c4.667 0 8.667 1.667 12 5
+3.333 2.667 6.667 9 10 19 6.667 24.667 20.333 43.667 41 57 7.333 4.667 11
+10.667 11 18 0 6-1 10-3 12s-6.667 5-14 9c-28.667 14.667-53.667 35.667-75 63
+-1.333 1.333-3.167 3.5-5.5 6.5s-4 4.833-5 5.5c-1 .667-2.5 1.333-4.5 2s-4.333 1
+-7 1c-4.667 0-9.167-1.833-13.5-5.5S337 184 337 178c0-12.667 15.667-32.333 47-59
+H213l-171-1c-8.667-6-13-12.333-13-19 0-4.667 4.333-11.333 13-20h359
+c-16-25.333-24-45-24-59z'/></svg></span></span></span></span></span></span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1.1163299999999998em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.9663299999999999em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span></span><span style="top:-3.25233em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.15216em;"><span class="overlay" style="height:0.714em;width:0.471em;"><svg width='0.471em' height='0.714em' style='width:0.471em' viewBox='0 0 471 714' preserveAspectRatio='xMinYMin'><path d='M377 20c0-5.333 1.833-10 5.5-14S391 0 397 0c4.667 0 8.667 1.667 12 5
+3.333 2.667 6.667 9 10 19 6.667 24.667 20.333 43.667 41 57 7.333 4.667 11
+10.667 11 18 0 6-1 10-3 12s-6.667 5-14 9c-28.667 14.667-53.667 35.667-75 63
+-1.333 1.333-3.167 3.5-5.5 6.5s-4 4.833-5 5.5c-1 .667-2.5 1.333-4.5 2s-4.333 1
+-7 1c-4.667 0-9.167-1.833-13.5-5.5S337 184 337 178c0-12.667 15.667-32.333 47-59
+H213l-171-1c-8.667-6-13-12.333-13-19 0-4.667 4.333-11.333 13-20h359
+c-16-25.333-24-45-24-59z'/></svg></span></span></span></span></span></span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></li>
+<li>亦可用力三角形求得合力矢<br>
+<img src="https://albertlidesign.github.io/post-images/1586773178020.png" alt="" width="300" loading="lazy"></li>
+</ul>
+<h3 id="公理2-二力平衡条件">公理2 二力平衡条件</h3>
+<p>作用在<strong>刚体</strong>上的两个力，使刚体保持平衡的充要条件是：这两个力的大小相等，方向相反，且作用在同一直线上，即 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mover accent="true"><mi>F</mi><mo>⃗</mo></mover><mn>1</mn></msub><mo>=</mo><msub><mover accent="true"><mi>F</mi><mo>⃗</mo></mover><mn>2</mn></msub></mrow><annotation encoding="application/x-tex">\vec F_1 = \vec F_2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.1163299999999998em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.9663299999999999em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span></span><span style="top:-3.25233em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.15216em;"><span class="overlay" style="height:0.714em;width:0.471em;"><svg width='0.471em' height='0.714em' style='width:0.471em' viewBox='0 0 471 714' preserveAspectRatio='xMinYMin'><path d='M377 20c0-5.333 1.833-10 5.5-14S391 0 397 0c4.667 0 8.667 1.667 12 5
+3.333 2.667 6.667 9 10 19 6.667 24.667 20.333 43.667 41 57 7.333 4.667 11
+10.667 11 18 0 6-1 10-3 12s-6.667 5-14 9c-28.667 14.667-53.667 35.667-75 63
+-1.333 1.333-3.167 3.5-5.5 6.5s-4 4.833-5 5.5c-1 .667-2.5 1.333-4.5 2s-4.333 1
+-7 1c-4.667 0-9.167-1.833-13.5-5.5S337 184 337 178c0-12.667 15.667-32.333 47-59
+H213l-171-1c-8.667-6-13-12.333-13-19 0-4.667 4.333-11.333 13-20h359
+c-16-25.333-24-45-24-59z'/></svg></span></span></span></span></span></span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.1163299999999998em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.9663299999999999em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span></span><span style="top:-3.25233em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.15216em;"><span class="overlay" style="height:0.714em;width:0.471em;"><svg width='0.471em' height='0.714em' style='width:0.471em' viewBox='0 0 471 714' preserveAspectRatio='xMinYMin'><path d='M377 20c0-5.333 1.833-10 5.5-14S391 0 397 0c4.667 0 8.667 1.667 12 5
+3.333 2.667 6.667 9 10 19 6.667 24.667 20.333 43.667 41 57 7.333 4.667 11
+10.667 11 18 0 6-1 10-3 12s-6.667 5-14 9c-28.667 14.667-53.667 35.667-75 63
+-1.333 1.333-3.167 3.5-5.5 6.5s-4 4.833-5 5.5c-1 .667-2.5 1.333-4.5 2s-4.333 1
+-7 1c-4.667 0-9.167-1.833-13.5-5.5S337 184 337 178c0-12.667 15.667-32.333 47-59
+H213l-171-1c-8.667-6-13-12.333-13-19 0-4.667 4.333-11.333 13-20h359
+c-16-25.333-24-45-24-59z'/></svg></span></span></span></span></span></span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>。<br>
+<img src="https://albertlidesign.github.io/post-images/1586773220318.png" alt="" width="100" loading="lazy"></p>
+<h3 id="公理3-加减平衡力系原理">公理3 加减平衡力系原理</h3>
+<p>在已知力系上加上或减去任意的平衡力系，并不改变原力系对刚体的作用。</p>
+<h4 id="推理1-力的可传性">推理1 力的可传性</h4>
+<p>作用于刚体上某点的力，可以沿着它的作用推移到刚体内任意一点，并不改变该力对刚体的作用。<br>
+例如推桌子，用手在后面推和在前面拉桌子，如果力的大小相同，那么作用效果不变。<br>
+<img src="https://albertlidesign.github.io/post-images/1586773429783.png" alt="" width="300" loading="lazy"><br>
+对于在刚体上的力是<strong>滑动矢量</strong>，它的力的三要素为<strong>大小、方向和作用线</strong>。</p>
+<h4 id="推理2-三力平衡汇交定理">推理2 三力平衡汇交定理</h4>
+<p>作用于<strong>刚体</strong>上三个<strong>相互平衡</strong>的力，若其中两个力的作用线汇交于一点，则此三力必在同一平面内，且第三个力的作用线通过汇交点。<br>
+<img src="https://albertlidesign.github.io/post-images/1586773654511.png" alt="" width="200" loading="lazy"></p>
+<h3 id="公理4-作用和反作用定律">公理4 作用和反作用定律</h3>
+<p>作用力和反作用力总是同时存在，同时消失，等值、反向、共线，作用在相互作用的两个物体上。<br>
+在画受力图时要注意此公理的应用。</p>
+<h3 id="公理5-刚化原理针对变形体">公理5 刚化原理（针对变形体）</h3>
+<p><strong>变形体</strong>在某一力系作用下处于平衡，如将此变形体刚化为刚体，其平衡状态保持不变。（反之不一定成立）<br>
+<img src="https://albertlidesign.github.io/post-images/1586773818077.png" alt="" width="400" loading="lazy"><br>
+该公理给出了变形体在理论力学体系中的适用条件。</p>
+<h2 id="23-约束和约束反力">2.3 约束和约束反力</h2>
+<h3 id="自由物体">自由物体</h3>
+<p>空间位置不受限制的研究对象称为<strong>自由物体（简称为自由体）</strong></p>
+<ul>
+<li>气球的空间位置不受任何限制</li>
+<li>气球为自由体<br>
+自由体的真实运动取决于作用在该物体上的力，称之为<strong>主动力</strong></li>
+</ul>
+<h3 id="非自由体">非自由体</h3>
+<p>空间位置受到限制的研究对象称为<strong>非自由体（简称为非自由体）</strong></p>
+<ul>
+<li>气球被限制在套筒中上下运动</li>
+<li>气球为非自由体</li>
+</ul>
+<h3 id="约束">约束</h3>
+<p>非自由体的运动（位移）所受到的限制称为<strong>约束</strong>，或者说，对非自由体的位移起限制作用的<strong>物体</strong>，称之为<strong>约束</strong>。</p>
+<ul>
+<li>对气球位移起限制作用的套筒称为气球的约束</li>
+</ul>
+<h3 id="约束力">约束力</h3>
+<p>非自由体的真实运动是两种力共同作用的结果</p>
+<ul>
+<li>主动力（气球的浮力）</li>
+<li>约束对该物体的作用力：<strong>约束力</strong>或<strong>约束反力</strong>（套筒对气球的限制）</li>
+</ul>
+<h4 id="两类约束力">两类约束力</h4>
+<p>限制小球在套筒中的运动：理想约束力<br>
+不起这种限制作用：非理想约束力，例如气球与套筒间的摩擦力<br>
+理想约束：只考虑理想约束力的约束<br>
+<img src="https://albertlidesign.github.io/post-images/1586774777406.png" alt="" width="100" loading="lazy"></p>
+<h3 id="小结">小结</h3>
+<ul>
+<li>约束：对物体的位移起限制作用的物体。</li>
+<li>约束反力：约束对被约束物体的作用力。也可称为<strong>被动力</strong>。</li>
+<li>主动力：使物体产生运动或运动趋势的力。<strong>重力、风力、载荷力</strong>等</li>
+<li>约束反力的<strong>大小</strong>是待定的，<strong>方向</strong>与该约束所能阻碍的位移方向相反，<strong>作用点</strong>为接触处。</li>
+</ul>
+<h2 id="24-工程中常见约束及约束力方向的确定">2.4 工程中常见约束及约束力方向的确定</h2>
+<h3 id="具有光滑接触表面的约束光滑接触约束">具有光滑接触表面的约束（光滑接触约束）</h3>
+<p><img src="https://albertlidesign.github.io/post-images/1586775710342.png" alt="" width="400" loading="lazy"><br>
+这类约束是指约束与被约束物体之间，虽然相互接触但是彼此是独立的，并且接触的表面被认为是光滑的，它不能够限制被约束物体沿约束物体表面切线的位移，只能约束沿法线并进入约束内部的位移，这个约束仅仅通过被约束物体的正压力来产生作用。<br>
+比如说沿着光滑表面滑动的滑块，它受到的约束力都是沿着约束表面垂直于被约束物体的。用更准确的语言表述：<strong>光滑接触约束，它所提供的约束力垂直于两个接触面的公切面，沿着公切面的法线方向，指向被约束物体的。</strong><br>
+<img src="https://albertlidesign.github.io/post-images/1586775718279.png" alt="" width="200" loading="lazy"></p>
+<p>但是对于有些物体而言，比如两个啮合的齿轮，如果忽略摩擦力的话，两个接触面是互为光滑的。在考虑二维的情况下，那么它的约束力是垂直于二者的公切面方向，指向被约束物体的。比如说对于右边的齿轮来说，它受到下面齿轮的约束力，指向它自己。<br>
+<img src="https://albertlidesign.github.io/post-images/1586775874466.png" alt="" width="400" loading="lazy"></p>
+<h4 id="总结">总结</h4>
+<p>光滑支撑接触对物体的约束力，<strong>作用在接触处</strong>；<strong>方向沿接触处的公法线并指向受力物体，故称为法向约束力，用<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>F</mi><mi>N</mi></msub></mrow><annotation encoding="application/x-tex">F_N</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.10903em;">N</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>表示。</strong><br>
+具体约束实例：可以忽略摩擦力的一般常见的接触约束。</p>
+<h3 id="由柔软的绳索-胶带或链条等构成的约束柔索类约束">由柔软的绳索、胶带或链条等构成的约束（柔索类约束）</h3>
+<p>我们知道柔索只能承受拉力，不能承受压力，所以说柔索这类的约束，它所提供的约束力为<strong>张力，一般用<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>F</mi><mi>T</mi></msub></mrow><annotation encoding="application/x-tex">F_T</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.13889em;">T</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>来表示</strong><br>
+<img src="https://albertlidesign.github.io/post-images/1586776128408.png" alt="" width="300" loading="lazy"></p>
+<p>以皮带轮为例，假象将皮带切开，分为左右两部分，对于两部分来说，它们都受到向上下皮带的拉力，这些拉力都是沿着皮带的方向并且背向皮带轮。<br>
+<img src="https://albertlidesign.github.io/post-images/1586776267462.png" alt="" width="300" loading="lazy"></p>
+<h4 id="总结-2">总结</h4>
+<ul>
+<li>柔索对物体的约束力<strong>沿着柔索背向被约束物体。</strong></li>
+<li>皮带（链条）对轮的约束力沿轮缘的<strong>切线方向</strong>，为拉力。</li>
+</ul>
+<h3 id="光滑铰链约束径向轴承-圆柱铰链-固定铰链支座等">光滑铰链约束（径向轴承、圆柱铰链、固定铰链支座等）</h3>
+<p><strong>铰链是指用来连接两个构件，并允许二者之间做相对转动的一种机械装置。<strong>如果忽略摩擦力的影响的话，这样的铰链称之为</strong>光滑铰链</strong>。工程中铰链通常分为三类，径向轴承、<br>
+<img src="https://albertlidesign.github.io/post-images/1586776473416.png" alt="" width="300" loading="lazy"></p>
+<h4 id="径向轴承向心轴承">径向轴承（向心轴承）</h4>
+<p>它是通过一个带有圆筒的轴承来对转轴进行约束的装置。<br>
+<img src="https://albertlidesign.github.io/post-images/1586776868180.png" alt="" width="200" loading="lazy"><br>
+约束特点：</p>
+<ul>
+<li>轴在轴承孔内，轴被视为约束体、轴承孔为约束。</li>
+<li>可以用简图来表示：圆孔代表轴承，被约束的轴只能在圆孔中转动，不能在圆孔中做任何移动。<br>
+<img src="https://albertlidesign.github.io/post-images/1586776725452.png" alt="" width="50" loading="lazy"><br>
+约束力：</li>
+<li>当不计摩擦时，轴与孔在接触处为<strong>光滑接触约束</strong>——法向约束力。约束力作用在接触处，沿径向指向轴心。</li>
+<li>当外界载荷变化时，接触顶会变，则约束力的大小与方向均有改变。<br>
+<img src="https://albertlidesign.github.io/post-images/1586776946978.png" alt="" width="400" loading="lazy"></li>
+</ul>
+<p>我们可用两个通过轴心的正交分力<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>F</mi><mi>x</mi></msub></mrow><annotation encoding="application/x-tex">F_x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">x</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>和<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>F</mi><mi>y</mi></msub></mrow><annotation encoding="application/x-tex">F_y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.969438em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.15139200000000003em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.03588em;">y</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span></span></span></span>来表示，注意这只是一种表示方法，实质还是一个力<br>
+<img src="https://albertlidesign.github.io/post-images/1586777008741.png" alt="" width="150" loading="lazy"></p>
+<h4 id="光滑圆柱铰链">光滑圆柱铰链</h4>
+<p>约束特点：由两个<strong>穿孔的构件</strong>和<strong>圆柱销钉</strong>组成，如剪刀<br>
+<img src="https://albertlidesign.github.io/post-images/1586777167193.png" alt="" width="400" loading="lazy"><br>
+约束力<br>
+光滑圆柱铰链：亦为<strong>孔与轴的配合问题</strong>，与轴承一样，可用两个正交分力表示。<br>
+<img src="https://albertlidesign.github.io/post-images/1586777384881.png" alt="" width="200" loading="lazy"><br>
+两组约束互为<strong>作用</strong>和<strong>反作用</strong>关系，即<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>F</mi><mrow><mi>C</mi><mi>x</mi></mrow></msub><mo>=</mo><mo>−</mo><msubsup><mi>F</mi><mrow><mi>C</mi><mi>x</mi></mrow><mo mathvariant="normal">′</mo></msubsup></mrow><annotation encoding="application/x-tex">F_{Cx} = -F&#x27;_{Cx}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.07153em;">C</span><span class="mord mathdefault mtight">x</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.027223em;vertical-align:-0.275331em;"></span><span class="mord">−</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.751892em;"><span style="top:-2.424669em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.07153em;">C</span><span class="mord mathdefault mtight">x</span></span></span></span><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.275331em;"><span></span></span></span></span></span></span></span></span></span>，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>F</mi><mrow><mi>C</mi><mi>y</mi></mrow></msub><mo>=</mo><mo>−</mo><msubsup><mi>F</mi><mrow><mi>C</mi><mi>y</mi></mrow><mo mathvariant="normal">′</mo></msubsup></mrow><annotation encoding="application/x-tex">F_{Cy} = -F&#x27;_{Cy}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.969438em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.328331em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.07153em;">C</span><span class="mord mathdefault mtight" style="margin-right:0.03588em;">y</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.163331em;vertical-align:-0.411439em;"></span><span class="mord">−</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.751892em;"><span style="top:-2.424669em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.07153em;">C</span><span class="mord mathdefault mtight" style="margin-right:0.03588em;">y</span></span></span></span><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.411439em;"><span></span></span></span></span></span></span></span></span></span><br>
+但是要注意，这两个构件之间并不是直接发生作用的，它们是通过销钉来传递的，所以一般情况下，我们将销钉和某个构件放在一起，不单独分析销钉的受力，如果要分析销钉的受力，需要将它单独取出。<br>
+<img src="https://albertlidesign.github.io/post-images/1586777588828.png" alt="" width="200" loading="lazy"></p>
+<h4 id="固定铰链支座也称固定铰支座">固定铰链支座（也称固定铰支座）</h4>
+<p>它的组成与光滑圆柱铰链类似，只不过将其中一个构件换成固定支座形式，另一个被约束的构件只能做定轴转动。<br>
+<img src="https://albertlidesign.github.io/post-images/1586777914530.png" alt="" width="400" loading="lazy"><br>
+约束特点：由径向轴承约束与地面或机架固定而成。<br>
+约束力：与圆柱铰链相同</p>
+<h4 id="小结-2">小结</h4>
+<p>这三种约束（径向轴承、光滑圆柱铰链、固定铰支座），其约束特性相同，均为<strong>轴与孔的配合问题</strong>，都可称作<strong>光滑圆柱铰链</strong>。约束力一般用<strong>两个正交分力</strong>表示，但本质上是一个力。</p>
+<h3 id="其他类型约束">其他类型约束</h3>
+<h4 id="滚动支座约束">滚动支座约束</h4>
+<p>滚动支座就是可以随意滚动的铰链支座，它相当于在固定铰链支座的基础上，在支座与地面间装上光滑的滚轴而形成的。<br>
+<img src="https://albertlidesign.github.io/post-images/1586778322607.png" alt="" width="400" loading="lazy"><br>
+约束特点：在前述固定铰支座与光滑固定平面之间装有光滑滚轴而成。它仅仅限制构件在竖直方向的位移，而不限制构件绕 支点的转动和在水平方向上的位移。<br>
+约束力：构件受到垂直于光滑面的约束力，可能是压力也可能是拉力。</p>
+<p>滚动支座在实际工程中有广泛的应用，比如在桥梁的一端必须设计成滚动支座，这是为了让桥梁自由地伸缩从而防止因热胀冷缩所带来的破坏。</p>
+<h4 id="球铰链">球铰链</h4>
+<p>它是由一个球和球壳组成的，构件可以连接在球体上，也可以连接在球壳上。<br>
+<img src="https://albertlidesign.github.io/post-images/1586778622772.png" alt="" width="400" loading="lazy"><br>
+约束特点：通过球与球壳将构件连接，构件可以绕球心相对转动，但不能有任何移动。<br>
+约束力：当忽略摩擦时，球与球壳亦是光滑约束问题。约束力通过接触点，并指向球心，<strong>是一个不能预先确定的空间力</strong>。可用三个正交分力表示，本质是一个力。</p>
+<p>工程中球铰链的应用有很多，比如换挡器，各种球节点等都属于球铰链约束类型。</p>
+<h4 id="止推轴承">止推轴承</h4>
+<p>它是由轴承和一个止推伐，因此它比径向轴承多了一个轴向的位移限制。<br>
+约束特点：止推轴承比径向轴承多一个轴向的位移限制。<br>
+约束力：比径向轴承多一个轴项的约束力，亦可有三个正交分力<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>F</mi><mrow><mi>A</mi><mi>x</mi></mrow></msub></mrow><annotation encoding="application/x-tex">F_{Ax}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">A</span><span class="mord mathdefault mtight">x</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>F</mi><mrow><mi>A</mi><mi>y</mi></mrow></msub></mrow><annotation encoding="application/x-tex">F_{Ay}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.969438em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.328331em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">A</span><span class="mord mathdefault mtight" style="margin-right:0.03588em;">y</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span></span></span></span> <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>F</mi><mrow><mi>A</mi><mi>z</mi></mrow></msub></mrow><annotation encoding="application/x-tex">F_{Az}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">A</span><span class="mord mathdefault mtight" style="margin-right:0.04398em;">z</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>。<br>
+<img src="https://albertlidesign.github.io/post-images/1586778863385.png" alt="" width="100" loading="lazy"></p>
+<h4 id="小结-3">小结</h4>
+<p>工程中的约束多种多样，有的还很复杂，分析起来需要专门的知识和经验，有时需要适当的简化和抽象化。后续的学习中还会陆续介绍。</p>
+<p>手臂的约束：肩膀与手臂的关节为球铰链约束，手臂肘处的约束为光滑圆柱铰链约束，手腕处为两个并联的球铰链约束，手指为光滑圆柱铰链约束。</p>
+</div>
+                                    <div class="mdui-divider mdui-m-b-2"></div>
+                                    <div class="mdui-row-xs-2 post-fenye">
+                                       
+                                        <div class="mdui-col"> </div>
+                                        
+
+                                        
+                                        <div class="mdui-col"><div class="mdui-text-right "><a href="https://albertlidesign.github.io/post/meshisart1/">Mesh is Art(1)：网格技术概论</a></div> </div>
+                                       
+                                      </div>
+                                   
+                                    <div class="mdui-divider mdui-m-t-2 mdui-m-b-2"></div>
+                                    
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '',
+    clientSecret: '',
+    repo: '',
+    owner: '',
+    admin: [''],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+          
+        
+                                     <script src="https://albertlidesign.github.io/media/scripts/Valine.min.js"></script>
+ <div class="comment"></div>
+
+<script>
+      new Valine({
+            el: '.comment',
+
+
+
+            path: window.location.pathname,
+            pageSize: 30,
+            avatar:'mm', 
+       })
+    </script> 
+<script>
+    if(window.location.hash){
+        var checkExist = setInterval(function() {
+           if ($(window.location.hash).length) {
+              $('html, body').animate({scrollTop: $(window.location.hash).offset().top-90}, 1000);
+              clearInterval(checkExist);
+           }
+        }, 100);
+    }
+</script>
+                                </article>
+
+                                    
+                        </div>
+                      </div>
+    
+                
+
+              </div>
+                    <footer class="footer mdui-m-t-5 mdui-text-center">
+               <nav class="social-links">
+                      <ul>
+                      
+                      
+                           
+                      
+                           
+                      	
+                        <li class="social-link"><a href="https://github.com/AlbertLiDesign" target="_blank"><i class="iconfont icon-github"></i></a></li>
+                          
+                           
+                      
+                           
+                      
+                           
+                      
+                           
+                      
+                           
+                      
+                           
+                      
+                           
+                      
+                           
+                      
+                           
+                      
+                           
+                      </ul>
+                    </nav>
+                    <div class="copyright">
+                      <p>Powered by <a href="https://github.com/AlbertLiDesign" target="_blank">AlbertLiDesign</a> <br/> Theme <a href="https://github.com/alterfang/gridea-theme-song/" target="_blank"  title="宋"  >Song</a> by <a href="https://shanbu.fun/" target="_blank"  title="山卜方" >shanbufun</a> </p>
+                  </div>
+                  
+              </footer>
+    </body>
+</html>
