@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://albertlidesign.github.io</id>
     <title>AlbertLiDesign</title>
-    <updated>2020-04-14T06:33:37.577Z</updated>
+    <updated>2020-04-14T06:35:27.007Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://albertlidesign.github.io"/>
     <link rel="self" href="https://albertlidesign.github.io/atom.xml"/>
@@ -12,8 +12,8 @@
     <rights>All rights reserved 2020, AlbertLiDesign</rights>
     <entry>
         <title type="html"><![CDATA[理论力学 第三章 物体的受力分析和受力图]]></title>
-        <id>https://albertlidesign.github.io/post/li-lun-li-xue-di-san-zhang-wu-ti-de-shou-li-fen-xi-he-shou-li-tu/</id>
-        <link href="https://albertlidesign.github.io/post/li-lun-li-xue-di-san-zhang-wu-ti-de-shou-li-fen-xi-he-shou-li-tu/">
+        <id>https://albertlidesign.github.io/post/TheoreticalMechanics3/</id>
+        <link href="https://albertlidesign.github.io/post/TheoreticalMechanics3/">
         </link>
         <updated>2020-04-13T22:34:11.000Z</updated>
         <content type="html"><![CDATA[<h1 id="第三章-物体的受力分析和受力图">第三章 物体的受力分析和受力图</h1>
