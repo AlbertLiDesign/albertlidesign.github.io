@@ -3,7 +3,7 @@
         <head>
         <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1,initial-scale=1,user-scalable=no" />
         <meta charset="utf-8">
-        <title>ALG_MarchingCubes_GPU v1.0 | AlbertLiDesign</title>
+        <title>ALG_Metaballs | AlbertLiDesign</title>
         <link rel="stylesheet" href="https://albertlidesign.github.io/styles/main.css">
         <link rel="stylesheet" href="https://at.alicdn.com/t/font_1306644_jwtuc2zzbrd.css">
         <link href="https://cdn.bootcss.com/animate.css/3.7.2/animate.min.css" rel="stylesheet">
@@ -56,13 +56,20 @@
                 <div class="mdui-row">
                         <div class="mdui-col-md-8 mdui-col-offset-md-2 ">
                                 <article class="mdui-p-a-2 post animated fadeIn" style="animation-delay: 0.8s;animation-duration: 2s">
-                                    <div class="post-title  mdui-m-b-1">ALG_MarchingCubes_GPU v1.0</div>
-                                    <div class="mdui-typo-body-2 mdui-m-b-2" datetime="2020-04-05 18:28:52">2020-04-05 / 3 min read</div>
+                                    <div class="post-title  mdui-m-b-1">ALG_Metaballs</div>
+                                    <div class="mdui-typo-body-2 mdui-m-b-2" datetime="2020-04-17 18:29:23">2020-04-17 / 4 min read</div>
                                     <div class="mdui-m-b-2 mdui-typo post-neirong"><h2 id="introduction">Introduction</h2>
-<p>ALG_MarchingCubes_GPU is an isosurface extraction plug-in for Grasshopper using <a href="https://en.wikipedia.org/wiki/Marching_cubes">Marching Cubes algorithm</a> on GPU.<br>
-<img src="https://albertlidesign.github.io/post-images/1586082938627.png" alt="" loading="lazy"></p>
+<p>ALG_Metaballs is an plug-in to generate 3d metaballs for Grasshopper using <a href="https://en.wikipedia.org/wiki/Marching_cubes">Marching Cubes algorithm</a> on GPU. The development of this project is an important learning experience for me. I hope it can be a parallel programming reference case which can help GPU programming beginners and Grasshopper developers.</p>
+<p>At present, its computational performance can still be optimized. I will continue to improve it in my future work.</p>
+<figure data-type="image" tabindex="1"><img src="https://albertlidesign.github.io/post-images/1587119438162.gif" alt="" width="300" loading="lazy"></figure>
 <h2 id="algorithm">Algorithm</h2>
 <ol>
+<li>
+<p>Compute bounding box from input points.</p>
+</li>
+<li>
+<p>Generation of a voxel-based grid inside the box.</p>
+</li>
 <li>
 <p>Classify voxels: Mark all the active voxels to get an active voxels array and calculate the number of vertices in each voxel by looking up vertices table. It is executed using one thread per voxel.</p>
 </li>
@@ -79,24 +86,27 @@
 <p>Generate a mesh model from result points.</p>
 </li>
 </ol>
+<h2 id="how-metaballs-work-10">How metaballs work [10]</h2>
+<p>Each metaball has a &quot;sphere of influence&quot;. When you <a href="https://www.sidefx.com/docs/houdini/nodes/sop/merge.html">merge</a> two metaballs and they extend into each other’s sphere of influence, they react in a way similar to drops of water: the surface tension works to form a smooth bridge between them. This is useful for making organic &quot;blobby&quot; shapes which meld into each other.</p>
+<p>Metaballs can be thought of as spherical force fields whose surface is an implicit function defined at any point where the density of the force field equals a certain threshold. Because the density of the force field can be increased by the proximity of other metaball force fields, metaballs have the unique property that they change their shape to adapt and fuse with surrounding metaballs. This makes them very effective for modeling organic surfaces. For example, below we have a metaball. The surface of the metaball exists whenever the density of the metaball’s field reaches a certain threshold:</p>
+<figure data-type="image" tabindex="2"><img src="https://www.sidefx.com/docs/houdini/nodes/images/MetaballFields.jpg" alt="" loading="lazy"></figure>
+<p>When two or more metaball force fields are combined, as in the illustration below, the resulting density of the force fields is added, and the surface extends to include that area where the force fields intersect and create density values with a value of one.</p>
+<figure data-type="image" tabindex="3"><img src="https://www.sidefx.com/docs/houdini/nodes/images/MetaballFieldsa.jpg" alt="" loading="lazy"></figure>
 <h2 id="reference">Reference</h2>
-<p>[1] Dyken, C., Ziegler, G., Theobalt, C., &amp; Seidel, H. P. (2008, December). High‐speed marching cubes using histopyramids. In Computer Graphics Forum (Vol. 27, No. 8, pp. 2028-2039). Oxford, UK: Blackwell Publishing Ltd.</p>
-<p>[2] Lorensen W E, Cline H E. Marching cubes: A high resolution 3D surface construction algorithm. ACM SIGGRAPH Computer Graphics. 1987;21(4)</p>
-<p>[3] C. Dyken, G. Ziegler, C. Theobalt, and H.-P. Seidel. High-speed Marching Cubes using HistoPyramids. Computer Graphics Forum, 27(8):2028–2039, Dec. 2008.</p>
-<p>[4] The algorithm and lookup tables by Paul Bourke httppaulbourke.netgeometrypolygonise：http://paulbourke.net/geometry/polygonise/</p>
-<p>[5] Marching Cubes implementation using OpenCL and OpenGL：https://www.eriksmistad.no/marching-cubes-implementation-using-opencl-and-opengl/</p>
-<p>[6] A sample extracts a geometric isosurface from a volume dataset using the marching cubes algorithm.: https://github.com/tpn/cuda-samples/tree/master/v10.2/2_Graphics/marchingCubes</p>
-<p>[7] The introduction of marching cubes: http://www.cs.carleton.edu/cs_comps/0405/shape/marching_cubes.html</p>
-<p>[8] The introduction of marching cubes: https://medium.com/zeg-ai/voxel-to-mesh-conversion-marching-cube-algorithm-43dbb0801359</p>
+<p>[1] Lorensen W E, Cline H E. Marching cubes: A high resolution 3D surface construction algorithm. ACM SIGGRAPH Computer Graphics. 1987;21(4)</p>
+<p>[2] The algorithm and lookup tables by Paul Bourke httppaulbourke.netgeometrypolygonise：http://paulbourke.net/geometry/polygonise/</p>
+<p>[3] Triquet, F., Meseure, P., &amp; Chaillou, C. (2001). Fast polygonization of implicit surfaces.</p>
+<p>[4] McPheeters, G. W. C., &amp; Wyvill, B. (1986). Data structure for soft objects. The Visual Computer, 2(4), 227-234.</p>
+<p>[5] https://www.sidefx.com/docs/houdini/nodes/sop/metaball.html</p>
 </div>
                                     <div class="mdui-divider mdui-m-b-2"></div>
                                     <div class="mdui-row-xs-2 post-fenye">
                                        
-                                        <div class="mdui-col"> <div class="mdui-text-left"><a href="https://albertlidesign.github.io/post/meshisart1/">Mesh is Art(1)：网格技术概论</a></div></div>
+                                        <div class="mdui-col"> </div>
                                         
 
                                         
-                                        <div class="mdui-col"><div class="mdui-text-right "><a href="https://albertlidesign.github.io/post/learncudaprogramming2/">Learn CUDA Programming(2)</a></div> </div>
+                                        <div class="mdui-col"><div class="mdui-text-right "><a href="https://albertlidesign.github.io/post/TheoreticalMechanics5/">理论力学 第五节 平面任意力系</a></div> </div>
                                        
                                       </div>
                                    
