@@ -1,22 +1,64 @@
-<?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom">
-    <id>https://albertlidesign.github.io</id>
-    <title>AlbertLiDesign</title>
-    <updated>2020-04-25T03:26:44.820Z</updated>
-    <generator>https://github.com/jpmonette/feed</generator>
-    <link rel="alternate" href="https://albertlidesign.github.io"/>
-    <link rel="self" href="https://albertlidesign.github.io/atom.xml"/>
-    <subtitle>Welcome to Albert Li Design. This is a blog for random braindumps on my programming adventures, graphics and design research, some of my more serious writings and other interesting things.</subtitle>
-    <logo>https://albertlidesign.github.io/images/avatar.png</logo>
-    <icon>https://albertlidesign.github.io/favicon.ico</icon>
-    <rights>All rights reserved 2020, AlbertLiDesign</rights>
-    <entry>
-        <title type="html"><![CDATA[数值分析 第一章 绪论]]></title>
-        <id>https://albertlidesign.github.io/post/shu-zhi-fen-xi-di-yi-zhang-xu-lun/</id>
-        <link href="https://albertlidesign.github.io/post/shu-zhi-fen-xi-di-yi-zhang-xu-lun/">
-        </link>
-        <updated>2020-04-24T10:56:06.000Z</updated>
-        <content type="html"><![CDATA[<h2 id="误差的来源和分类">误差的来源和分类</h2>
+<!DOCTYPE html>
+<html>
+        <head>
+        <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1,initial-scale=1,user-scalable=no" />
+        <meta charset="utf-8">
+        <title>数值分析 第一章 绪论 | AlbertLiDesign</title>
+        <link rel="stylesheet" href="https://albertlidesign.github.io/styles/main.css">
+        <link rel="stylesheet" href="https://at.alicdn.com/t/font_1306644_jwtuc2zzbrd.css">
+        <link href="https://cdn.bootcss.com/animate.css/3.7.2/animate.min.css" rel="stylesheet">
+         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+        <script src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js"></script>
+         <script src="https://cdn.bootcss.com/highlight.js/9.15.10/highlight.min.js"></script>
+         <script >hljs.initHighlightingOnLoad();</script>
+
+    </head>
+    <body>
+              <header class="header mdui-m-b-5">      
+            <div class="container  ">
+                <div class="index-title animated fadeInDown mdui-text-center mdui-text-color-white mdui-m-b-2" style="animation-delay: 0.2s"><a href="https://albertlidesign.github.io">AlbertLiDesign</a></div>
+                <div class="mdui-text-color-white animated fadeInDown mdui-text-center  mdui-m-b-3" style="animation-delay: 0.4s">Welcome to Albert Li Design. This is a blog for random braindumps on my programming adventures, graphics and design research, some of my more serious writings and other interesting things.</div>
+           
+            <nav id="nav" class="mdui-text-center animated fadeInDown" style="animation-delay: 0.6s">
+                   
+                            <li><a href="/">Home</a>
+                                <span class="nav-style top"></span>
+                                <span class="nav-style bottom"></span>
+                                <span class="nav-style left"></span>
+                                <span class="nav-style right"></span>
+                                </li>
+                    
+                            <li><a href="/archives">Archives</a>
+                                <span class="nav-style top"></span>
+                                <span class="nav-style bottom"></span>
+                                <span class="nav-style left"></span>
+                                <span class="nav-style right"></span>
+                                </li>
+                    
+                            <li><a href="/tags">Tags</a>
+                                <span class="nav-style top"></span>
+                                <span class="nav-style bottom"></span>
+                                <span class="nav-style left"></span>
+                                <span class="nav-style right"></span>
+                                </li>
+                    
+                            <li><a href="/post/about">About</a>
+                                <span class="nav-style top"></span>
+                                <span class="nav-style bottom"></span>
+                                <span class="nav-style left"></span>
+                                <span class="nav-style right"></span>
+                                </li>
+                    
+                  </nav>
+                </div>
+        </header>
+        <div class="mdui-container ">
+                <div class="mdui-row">
+                        <div class="mdui-col-md-8 mdui-col-offset-md-2 ">
+                                <article class="mdui-p-a-2 post animated fadeIn" style="animation-delay: 0.8s;animation-duration: 2s">
+                                    <div class="post-title  mdui-m-b-1">数值分析 第一章 绪论</div>
+                                    <div class="mdui-typo-body-2 mdui-m-b-2" datetime="2020-04-24 18:56:06">2020-04-24 / 15 min read</div>
+                                    <div class="mdui-m-b-2 mdui-typo post-neirong"><h2 id="误差的来源和分类">误差的来源和分类</h2>
 <h3 id="按误差来源分类">按误差来源分类</h3>
 <ol>
 <li>
@@ -237,651 +279,114 @@ s-65,47,-65,47z M834 80H400000v40H845z'/></svg></span></span></span><span class=
 <p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>I</mi><mi>k</mi></msub><mo>−</mo><msubsup><mi>I</mi><mi>k</mi><mo>∗</mo></msubsup><mo>=</mo><mo>(</mo><mo>−</mo><mn>1</mn><msup><mo>)</mo><mrow><mi>n</mi><mo>−</mo><mi>k</mi></mrow></msup><mfrac><mrow><mi>k</mi><mo>!</mo></mrow><mrow><mi>n</mi><mo>!</mo></mrow></mfrac><mo>(</mo><msub><mi>I</mi><mi>n</mi></msub><mo>−</mo><msubsup><mi>I</mi><mi>n</mi><mo>∗</mo></msubsup><mo>)</mo><mo separator="true">,</mo><mi>k</mi><mo>=</mo><mi>n</mi><mo separator="true">,</mo><mi>n</mi><mo>−</mo><mn>1</mn><mo separator="true">,</mo><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mo separator="true">,</mo><mn>1</mn><mo separator="true">,</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">I_k - I_k^* = (-1)^{n-k}\frac{k!}{n!}(I_n-I_n^*), k=n,n-1,...,1,0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.07847em;">I</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:-0.07847em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.9718039999999999em;vertical-align:-0.2831079999999999em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.07847em;">I</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.688696em;"><span style="top:-2.4168920000000003em;margin-left:-0.07847em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span></span></span><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mbin mtight">∗</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2831079999999999em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.2251079999999999em;vertical-align:-0.345em;"></span><span class="mopen">(</span><span class="mord">−</span><span class="mord">1</span><span class="mclose"><span class="mclose">)</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8491079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">n</span><span class="mbin mtight">−</span><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span></span></span></span></span></span></span></span></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8801079999999999em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">n</span><span class="mclose mtight">!</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span><span class="mclose mtight">!</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mopen">(</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.07847em;">I</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:-0.07847em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">n</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.07847em;">I</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.688696em;"><span style="top:-2.4530000000000003em;margin-left:-0.07847em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">n</span></span></span><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mbin mtight">∗</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.247em;"><span></span></span></span></span></span></span><span class="mclose">)</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.7777700000000001em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">n</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.8388800000000001em;vertical-align:-0.19444em;"></span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">.</span><span class="mord">.</span><span class="mord">.</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">0</span></span></span></span></p>
 <p>可见，近似误差<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>I</mi><mi>k</mi></msub><mo>−</mo><msubsup><mi>I</mi><mi>k</mi><mo>∗</mo></msubsup></mrow><annotation encoding="application/x-tex">I_k-I_k^*</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.07847em;">I</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:-0.07847em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.9718039999999999em;vertical-align:-0.2831079999999999em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.07847em;">I</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.688696em;"><span style="top:-2.4168920000000003em;margin-left:-0.07847em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span></span></span><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mbin mtight">∗</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2831079999999999em;"><span></span></span></span></span></span></span></span></span></span>是可控的，因此算法是数值稳定的。</p>
 <figure data-type="image" tabindex="3"><img src="C:%5CUsers%5Calber%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200424215355186.png" alt="image-20200424215355186" loading="lazy"></figure>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[ALG_Metaballs]]></title>
-        <id>https://albertlidesign.github.io/post/alg_metaballs/</id>
-        <link href="https://albertlidesign.github.io/post/alg_metaballs/">
-        </link>
-        <updated>2020-04-17T10:29:23.000Z</updated>
-        <content type="html"><![CDATA[<h2 id="introduction">Introduction</h2>
-<p>ALG_Metaballs is an plug-in to generate 3d metaballs for Grasshopper using <a href="https://en.wikipedia.org/wiki/Marching_cubes">Marching Cubes algorithm</a> on GPU. The development of this project is an important learning experience for me. I hope it can be a parallel programming reference case which can help GPU programming beginners and Grasshopper developers.</p>
-<p>At present, its computational performance can still be optimized. I will continue to improve it in my future work.</p>
-<figure data-type="image" tabindex="1"><img src="https://albertlidesign.github.io/post-images/1587119438162.gif" alt="" width="300" loading="lazy"></figure>
-<h2 id="algorithm">Algorithm</h2>
-<ol>
-<li>
-<p>Compute bounding box from input points.</p>
-</li>
-<li>
-<p>Generation of a voxel-based grid inside the box.</p>
-</li>
-<li>
-<p>Classify voxels: Mark all the active voxels to get an active voxels array and calculate the number of vertices in each voxel by looking up vertices table. It is executed using one thread per voxel.</p>
-</li>
-<li>
-<p>Exclusive sum scan:  Get the total number of active voxels and the total number of resulting vertices using exclusive scan algorithm. They are obtained by the sum of the last value of the exclusive scan and the last value of input array.</p>
-</li>
-<li>
-<p>Compact voxels: This compacts the active voxels array to get rid of empty voxels. This allows us to execute Isosurface Extraction on only the active voxels.</p>
-</li>
-<li>
-<p>Isosurface extraction: Calculate the position of the points in the active voxel and obtain all the result points by looking up triangle table.</p>
-</li>
-<li>
-<p>Generate a mesh model from result points.</p>
-</li>
-</ol>
-<h2 id="how-metaballs-work-10">How metaballs work [10]</h2>
-<p>Each metaball has a &quot;sphere of influence&quot;. When you <a href="https://www.sidefx.com/docs/houdini/nodes/sop/merge.html">merge</a> two metaballs and they extend into each other’s sphere of influence, they react in a way similar to drops of water: the surface tension works to form a smooth bridge between them. This is useful for making organic &quot;blobby&quot; shapes which meld into each other.</p>
-<p>Metaballs can be thought of as spherical force fields whose surface is an implicit function defined at any point where the density of the force field equals a certain threshold. Because the density of the force field can be increased by the proximity of other metaball force fields, metaballs have the unique property that they change their shape to adapt and fuse with surrounding metaballs. This makes them very effective for modeling organic surfaces. For example, below we have a metaball. The surface of the metaball exists whenever the density of the metaball’s field reaches a certain threshold:</p>
-<figure data-type="image" tabindex="2"><img src="https://www.sidefx.com/docs/houdini/nodes/images/MetaballFields.jpg" alt="" loading="lazy"></figure>
-<p>When two or more metaball force fields are combined, as in the illustration below, the resulting density of the force fields is added, and the surface extends to include that area where the force fields intersect and create density values with a value of one.</p>
-<figure data-type="image" tabindex="3"><img src="https://www.sidefx.com/docs/houdini/nodes/images/MetaballFieldsa.jpg" alt="" loading="lazy"></figure>
-<h2 id="reference">Reference</h2>
-<p>[1] Lorensen W E, Cline H E. Marching cubes: A high resolution 3D surface construction algorithm. ACM SIGGRAPH Computer Graphics. 1987;21(4)</p>
-<p>[2] The algorithm and lookup tables by Paul Bourke httppaulbourke.netgeometrypolygonise：http://paulbourke.net/geometry/polygonise/</p>
-<p>[3] Triquet, F., Meseure, P., &amp; Chaillou, C. (2001). Fast polygonization of implicit surfaces.</p>
-<p>[4] McPheeters, G. W. C., &amp; Wyvill, B. (1986). Data structure for soft objects. The Visual Computer, 2(4), 227-234.</p>
-<p>[5] https://www.sidefx.com/docs/houdini/nodes/sop/metaball.html</p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[Mesh is Art(1)：网格技术概论]]></title>
-        <id>https://albertlidesign.github.io/post/meshisart1/</id>
-        <link href="https://albertlidesign.github.io/post/meshisart1/">
-        </link>
-        <updated>2020-04-08T12:14:22.000Z</updated>
-        <content type="html"><![CDATA[<figure data-type="image" tabindex="1"><img src="https://upload-images.jianshu.io/upload_images/19551947-239fa92121f18db5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="" loading="lazy"></figure>
-<p>#前言<br>
-我一直认为这样写学习笔记总结是最好的学习方式，一方面能系统地梳理自己的知识框架，另一方面能促进不断地思考，加深自己对一些概念的领悟。先介绍下自己，我是一名美术生，虽说高中数学成绩一直名列前茅，但大学后数学也就没怎么碰了。本科是环境设计，对参数化设计痴迷向往，但是随着技术的不断精进，渐渐意识到很多所谓的参数化设计其实是伪参数化，之后的很长一段时间都陷入一种苦恼，就是那种知道这是未来但是没有明确方向。</p>
-<p>后来阅读了清华大学代数拓扑专家顾险峰教授的相关文章，意识到参数化设计真正的核心应该是“量化”和“映射”。然而要想实现对形体的**“量化”和“映射”<strong>，网格处理是最关键的技术，借助网格才能将数字转化成形体，才能更容易地</strong>建立设计中的“概念”与实际形体地映射关系**（Nurbs与网格相比并不是很好的选择，原因就不在这里提了）。在那之后便开启了我的网格技术学习之路。通过两年多的学习和理解，现在已经成为了一名助理研发工程师（网格算法方向）。但仍然无奈于没有系统地学过代数拓扑和微分几何，很多概念只是道理上有了一定的理解，无法从数学上去严格地证明（说白了就是因为不懂数学，心里没底），只能从逻辑上去推导着理解网格的相关知识。不管怎么说，这次重启网格学习笔记就是为了梳理一遍自己的最底层理解，去寻找一些看似约定俗成的事物的背后的原因。</p>
-<p>有趣的是，在学习网格技术的过程中，随着我对网格技术的理解越来越深，在处理一些复杂的设计问题上，能很轻易地找到了各种简单、巧妙的方法。比如建筑上，基本所有的节点形式都可以表达成网格，各种看似复杂的节点或幕墙设计都能轻松地运用网格表达出来；各种复杂的结构，做有限元分析时能够很自然地划出均匀、高效的有限元单元；在做造型设计时，也有了很强的布线能力。工作中经常体会到“刚刚好就应该是那个样子”的感觉。我想说的是，网格思维真的是一种非常棒的设计思维、几何思维，网格不只是一种建模工具，<strong>Mesh is Art！</strong></p>
-<p>网络上对于网格技术的信息非常非常少，虽然本系列文章也是不专业的，但我想对于设计师这个群体而言，认真读完这个系列文章之后应该能有所收获，至少能加深对一些软件的理解能力，在学习软件的路上走得更快一些吧。</p>
-<p>#网格建模简介<br>
-大家都了解过CAD软件，例如Auto CAD、Rhinoceros、Maya、3D MAX等等都是工业界和设计界常用的软件。通过这些软件，我们可以在软件中的虚拟空间建立二维、三维模型，实现对脑海中所想像出的形体进行建模，这样无论是生产制造还是设计，我们都有了直观的参考，不需要再像以前一样通过理解图纸加上想像去费时费力地推测形体本身的样子。那么，计算机是如何建模表达这些三维模型的呢？</p>
-<p>学过了高中数学，我们知道可以通过构建坐标系去实现各种形体的绘制。有了坐标系，我们能在空间中绘制各种各样的曲线或者图形。然而，像曲线这样的连续几何体是不可能完全精准的表达成图形的（即便是计算机也不能），计算机的表达方法和我们高中画函数的方法其实如出一辙，就是在空间中插值取点的方法，离散地来表达形体。比如绘制一个二次函数的函数图像，我们需要通过均匀地插值取点，然后用直线段顺次连接，最终得到一条折线(Polyline)，当取无数个插值点时，就可以近似拟合成曲线了。</p>
-<p>那么，根据上面的例子，我们发现，对于一条曲线的表达，通常是用线段去拟合的（每条线段是由两个点加一根线构成的，两点一定共线）把曲线用若干条线段的过程叫做<strong>离散化</strong>。以此类推，我们不难想到，曲面的表达是用三角面去拟合的（因为每个三角面是由三个点加三条线构成的，三点一定共面，三角形是最简单的平面图形）。线段和三角形都可以称为其所处维度的<strong>单纯形（代数拓扑）</strong>。一维单纯形就是线段；二维单纯形就是三角形；三维单纯形就是四面体。</p>
-<p>有了单纯形，我们就可以用它来表达生活中能见到的所有形体（通过将形体离散成若干个单纯形的方式）。现在我们再说回到计算机表达，通过单纯形，计算机可以将任何形体用三角形或四面体表达（这里主要说二维和三维，一维的线可以看作三角形和四面体的子集），像这种用三角形或四面体表示形体的建模方式称为<strong>网格建模</strong>，说网格通常指的就是<strong>三角形或四面体</strong>（当然还有其他形式，这里先不做展开）及所构成的图形。</p>
-<p>#网格的应用<br>
-在引言中，相信大家对网格有了基本的认识，对于网格在各行各业的应用，我们就直接来看图吧。<br>
-<img src="https://upload-images.jianshu.io/upload_images/19551947-36560a3391c3c111.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/400" alt="图1.游戏、动画模型建模（图片来自网络）" loading="lazy"><br>
-<img src="https://upload-images.jianshu.io/upload_images/19551947-926e8a00cbff70d1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/400" alt="图2.CG艺术（图片来自网络）" loading="lazy"><br>
-<img src="https://upload-images.jianshu.io/upload_images/19551947-0adce17949a5d173.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/400" alt="图3.机械零件建模（图片来自网络）" loading="lazy"><br>
-<img src="https://upload-images.jianshu.io/upload_images/19551947-fd1678f722fe3877.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/400" alt="图4.建筑设计建模（图片来自网络）" loading="lazy"></p>
-<ul>
-<li>对于建筑设计师来说，理解了网格可以使用算法生形，提高建模的效率和建模质量，对接其他工程师可以降低沟通成本。风环境、光环境、热环境等各种可视化分析均与网格质量密切相关。</li>
-<li>对于幕墙设计师来说，理解网格可以快速生成曲面的幕墙嵌板模型，可以利用细分算法变换嵌板类型，利用平板算法降低幕墙造价，利用网格几何特性减少嵌板数量及安装复杂度。</li>
-<li>对于结构（机械）工程师来说，理解网格可以更好地使用有限元计算，对于合适的模型采用合适的网格划分。在拓扑优化中可以用网格算法进行后处理。</li>
-<li>对于CG艺术家来说，理解网格有助于提高建模质量，理解贴图、渲染等技术。</li>
-</ul>
-<p>#网格的基本单元</p>
-<p>这里我们再回到单纯形的解释，前面说了网格通常指三角形、四面体及它们所构成的图形。这里还有一些值得一提的点，我们先来设想这样的问题，对于一个球体的表达，可以有两种认识：其一是将球认为是球的外壳，即我们将这个球看作一个闭合成球这个形状的曲面，生活中举例的话比如足球，只有外皮，里面是空的；另一种是将球认为是填实的实体，举个例子就比如雪球，里面都是雪，很厚实。这两种表达方法各有优劣，对于“球壳”来说，我们对它进行一些剪切、拼贴、变形等操作都相对较容易，在网格处理上大多都会选择这样的表达方法，如Rhinoceros、Maya；对于实体球来说，一般用于结构工程的有限元分析，可以想象，结构分析当然要认定一个结构体是密闭填实的，只计算“外皮”和计算实体是完全不同的两个概念，因此在计算一些需要考虑到内部填充的操作时必须将物体考虑成密闭实体，这类软件的代表就如结构专业常用的有限元分析Abaqus。相信大家也猜到了，前者的单纯形就是三角形，后者是四面体。由于四面体填充的形式一般仅在结构分析中会涉及，非结构和计算机专业的人一般不会过多去关注这方面，本系列笔记也是介绍二维单元作为网格基本单元的情况。</p>
-<p>理解了为什么要用二维单纯形作为网格基本单元后，我需要再补充一下，网格的基本单元除了三角形还有四边形（四边形不叫作单纯形了，但仍然是网格的基本单元）。为什么又多了一个四边形呢？这里又得提两个概念了，<strong>结构化网格</strong>和<strong>非结构化网格</strong>。**结构化网格是说，这个网格模型的大多数顶点所连接的网格面的数目（网格顶点的价）是相等的。**如果这句话现在理解不了也没关系，因为大多出情况都没有那么严格，比较直观的理解就是一张网格拟合的曲面，看上去结构线清晰分明就是结构化网格（如图5、6）。非结构化网格就是与结构化网格相对，看上去乱七八糟的单元排布就是非结构化网格。通常我们得到的三维扫描模型都是非结构化网格，这样的网格如果每个网格面片的大小近似相等的话那还好说，但是如果大小变化剧烈，就很难继续编辑，网格质量糟糕，一般必须通过算法或人工重建才能继续使用。<br>
-<img src="https://upload-images.jianshu.io/upload_images/19551947-06c6a5caf812cdbd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/400" alt="图5.大英博物馆顶部的结构化网格（三角形单元，图片来自网络）" loading="lazy"><br>
-<img src="https://upload-images.jianshu.io/upload_images/19551947-1b15ec1713e7f325.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/400" alt="图6.用结构化网格作为浴室铺装（四边形单元，图片来自网络）" loading="lazy"><br>
-<img src="https://upload-images.jianshu.io/upload_images/19551947-7bbaf006b820be9e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/400" alt="图7.从左至右分别是三角形非结构化网格、四边形结构化网格和三角形结构化网格（作者自制）" loading="lazy"><br>
-然而四边形，作为具有明显方向特征的基本单元，通常就被用作表达结构化网格了。四边形网格和三角形网格的特性如图8所示。<br>
-<img src="https://upload-images.jianshu.io/upload_images/19551947-5ae29a98e27010b2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/440" alt="图8.三角形网格和四边形网格特性（作者自制）" loading="lazy"><br>
-#网格的数据结构</p>
-<p>阅读到这大概对网格有了一个感性的认识了，对于好奇心比较重的你可能会发问：计算机是如何识别出这是一个三角网格（或四边网格）的呢？（我们这里先不讨论颜色）</p>
-<p>实际上计算机并不认识图形，要想让计算机知道，哦这里有一个三角面，那就必须用逻辑关系来表达出来。比如我们知道，三角面由三个顶点三条边和一张面构成（点线面全了），那么，顶点在空间中能表达出来，就是三个三维坐标嘛；边可以看作是两个顶点放在一起，也就是一个有顺序的，从一个三维坐标到另一个三维坐标的关系；面则可认为是三条边有序排列在一起的关系。再傻瓜一点说，就是空间三个顶点A、B、C，我把顶点A和顶点B放在一起就能表示从A到B这条边，其他边的表示依次类推，面的表示就是把三个顶点按照某一顺序放在一起就是一张面。<br>
-<img src="https://upload-images.jianshu.io/upload_images/19551947-446ca7953eadc676.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/400" alt="图9.网格元素（作者自制）" loading="lazy"></p>
-<p>也就是说，网格最最底层的构成就是顶点的坐标和它们相连的关系。由此引出，网格的存储信息分为两部分，<strong>几何信息（顶点坐标）和拓扑信息（顶点连接关系）</strong>。<br>
-<img src="https://upload-images.jianshu.io/upload_images/19551947-df32549dcb4425f3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/400" alt="图10.Grasshopper中网格的构成" loading="lazy"></p>
-<p>网格模型的数据存储有很多种方式，当前数据结构有很多，篇幅关系我这里说两个最常用的，Faced-Based Data Structures和Half-Edge Data Structure。</p>
-<p>Faced-Based Data Structures是最简单直观的数据结构，说它直观是因为它就是上文我们所说的，只存储了顶点坐标和顶点拓扑关系两种数据的数据结构。但看似简单的东西其实也还有玄机，这里暂且不谈，下一节将焊接和法向的时候会再提出来的，现在只要有个感性的认识即可。<br>
-<img src="https://upload-images.jianshu.io/upload_images/19551947-e50318ca4747839b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/400" alt="图11.Faced-Based Data Structures（图片来自网络）" loading="lazy"><br>
- Half-Edge Data Structure直译就是半边数据结构，半边是非常好用的网格数据结构，它在相邻元素查找的问题上十分方便。这种数据结构是以网格边为主导的，是将每条边分成两条半边，这两条半边的长度与原网格边相同，但是方向相反。可以理解为把一条边拆成了两个方向相反、长度相同的向量，向量都是有始有终的，因此可以很容易将一个网格的所有半边首尾相接连起来，这也正是这种数据结构的妙处所在。具体的内容也在后面会详细解析，这里说太多反而容易把读者绕晕。</p>
-<p>总之在这里我们只需要知道一点，在解决不同的网格编辑问题时，数据结构的选择非常重要，在运行程序时，合适的数据结构能大大提高运行效率，同样的算法，用不同的数据结构来实现，其运行效率会有很大的差别。</p>
-<p>一般来说，判定一个网格的数据结构是否适合解决这个问题的依据有以下几点（现在理解不了可以后面靠实践去体会）：<br>
-      （1）构建数据结构的时间复杂度<br>
-      （2）进行查询操作的时间复杂度<br>
-      （3）网格编辑操作的时间复杂度<br>
-      （4）空间复杂度</p>
-<p>作为笔记的第一篇，我想讲的详细一些，里面内容很多是我查阅的资料加上自己的理解。由此可见，对网格有一定程度（几何上）的理解根本不需要什么高等数学，初中数学足以。相信本系列笔记会对大家有所启发。</p>
-<p>下面是网格数据结构相关的资料链接，放出来供大家学习参考：</p>
-<p>https://mrl.nyu.edu/~dzorin/ig04/lecture24/meshes.pdf</p>
-<p>https://www.jianshu.com/p/464cda593ac1</p>
-<p>https://blog.csdn.net/wozhengtao/article/details/51430025</p>
-<p>作为笔记的第一篇，我说了很多我自己的底层认识，看完的朋友应该也能感觉到，理解网格根本不需要什么高等数学，初中数学足以。有了这些认识，在平常的建模和设计过程中，可能就会有更多的角度和思路去看待问题。当然仅是这一篇还远远不够，有兴趣的童鞋可以关注一下，希望本系列笔记会对大家有所启发。</p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[ALG_MarchingCubes_GPU v1.0]]></title>
-        <id>https://albertlidesign.github.io/post/alg_marchingcubes_gpu_v10/</id>
-        <link href="https://albertlidesign.github.io/post/alg_marchingcubes_gpu_v10/">
-        </link>
-        <updated>2020-04-05T10:28:52.000Z</updated>
-        <content type="html"><![CDATA[<h2 id="introduction">Introduction</h2>
-<p>ALG_MarchingCubes_GPU is an isosurface extraction plug-in for Grasshopper using <a href="https://en.wikipedia.org/wiki/Marching_cubes">Marching Cubes algorithm</a> on GPU.<br>
-<img src="https://albertlidesign.github.io/post-images/1586082938627.png" alt="" loading="lazy"></p>
-<h2 id="algorithm">Algorithm</h2>
-<ol>
-<li>
-<p>Classify voxels: Mark all the active voxels to get an active voxels array and calculate the number of vertices in each voxel by looking up vertices table. It is executed using one thread per voxel.</p>
-</li>
-<li>
-<p>Exclusive sum scan:  Get the total number of active voxels and the total number of resulting vertices using exclusive scan algorithm. They are obtained by the sum of the last value of the exclusive scan and the last value of input array.</p>
-</li>
-<li>
-<p>Compact voxels: This compacts the active voxels array to get rid of empty voxels. This allows us to execute Isosurface Extraction on only the active voxels.</p>
-</li>
-<li>
-<p>Isosurface extraction: Calculate the position of the points in the active voxel and obtain all the result points by looking up triangle table.</p>
-</li>
-<li>
-<p>Generate a mesh model from result points.</p>
-</li>
-</ol>
-<h2 id="reference">Reference</h2>
-<p>[1] Dyken, C., Ziegler, G., Theobalt, C., &amp; Seidel, H. P. (2008, December). High‐speed marching cubes using histopyramids. In Computer Graphics Forum (Vol. 27, No. 8, pp. 2028-2039). Oxford, UK: Blackwell Publishing Ltd.</p>
-<p>[2] Lorensen W E, Cline H E. Marching cubes: A high resolution 3D surface construction algorithm. ACM SIGGRAPH Computer Graphics. 1987;21(4)</p>
-<p>[3] C. Dyken, G. Ziegler, C. Theobalt, and H.-P. Seidel. High-speed Marching Cubes using HistoPyramids. Computer Graphics Forum, 27(8):2028–2039, Dec. 2008.</p>
-<p>[4] The algorithm and lookup tables by Paul Bourke httppaulbourke.netgeometrypolygonise：http://paulbourke.net/geometry/polygonise/</p>
-<p>[5] Marching Cubes implementation using OpenCL and OpenGL：https://www.eriksmistad.no/marching-cubes-implementation-using-opencl-and-opengl/</p>
-<p>[6] A sample extracts a geometric isosurface from a volume dataset using the marching cubes algorithm.: https://github.com/tpn/cuda-samples/tree/master/v10.2/2_Graphics/marchingCubes</p>
-<p>[7] The introduction of marching cubes: http://www.cs.carleton.edu/cs_comps/0405/shape/marching_cubes.html</p>
-<p>[8] The introduction of marching cubes: https://medium.com/zeg-ai/voxel-to-mesh-conversion-marching-cube-algorithm-43dbb0801359</p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[Learn CUDA Programming(2)]]></title>
-        <id>https://albertlidesign.github.io/post/learncudaprogramming2/</id>
-        <link href="https://albertlidesign.github.io/post/learncudaprogramming2/">
-        </link>
-        <updated>2020-03-31T10:40:34.000Z</updated>
-        <content type="html"><![CDATA[<h3 id="writing-parallel-kernels">Writing parallel kernels</h3>
-<p>在开始写kernels之前，我们需要对CUDA线程的两层结构有所了解。<br>
-<img src="https://upload-images.jianshu.io/upload_images/19551947-bf848636643a7a61.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/600" alt="" loading="lazy"></p>
-<ul>
-<li>一个线程是一个序列的执行单元，特点是所有的线程会执行相同的代码，而且是并行执行的。</li>
-<li>在GPU中，多个线程组成的一个线程块，我们称之为线程块（Thread Block），而且这些线程可以通过shared memory（共享内存）进行通讯，还有一个同步函数，会对每一个线程进行同步。Block是放在流多处理器（SM）上面进行执行。</li>
-<li>多个线程为一组组成了block，多个block就构成了线程网（Thread Grid），Grid对应的是整个GPU设备，在Grid之间不同设备之间是无法同步的，没有一个规定的同步函数对它进行同步。尽管它们之间可以通过global memory进行通讯，但是并不推荐这样，这样会影响到程序的效率。</li>
-<li>因此对于gpu的线程分布的话，我们尽量让block与block之间相互独立。</li>
-</ul>
-<p><img src="https://upload-images.jianshu.io/upload_images/19551947-45e395aa1554bd35.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/600" alt="" loading="lazy"><br>
-在一个block中，线程的维度可以是三维，同理，在一个grid中，block的维度也可以是三维。所以我们对于grid和block中的多个线程，都有对应的id。<br>
-首先我们要了解一下如何分配这样的结构。如图所示，我们可以看到这个grid中是一个二维的结构，横向有3个，纵向有2个，第三个维度只有一个单位所以是1，因此我们定义一个grid初始化为(3,2,1)，表示它是一个二维的结构，x轴的维度是3，y轴的维度是2。同理在每一个block，我们同样可以定义一个类型，x轴维度是5，y轴维度是3，就有block(5,3,1)。这样我们就定义好了配置文件。kernel函数中的尖括号里面需要设置的就是配置信息，在编程的过程中，每一个block都对应了一个id，我们用一些变量来标识这些id，因此我们可以看到，x维的话我们使用threadIdx.[x]，y维就是用threadIdx.[y]，例如Thread(2,1,0)中，threadIdx.[x] = 2， threadIdx.[y] = 1。同理block也有类似的机制。除了调用的id外，还可以返回它们的维度，比如blockDim.[x]返回线程在x轴上的维度为5，gridDim[y]返回block在y轴的维度是2。</p>
-<ul>
-<li>这些概念都与gpu硬件是一一对应的。一个线程会被发送到一个CUDA Core上进行计算，block就跟流多处理器进行对应，grid与Devie进行对应。</li>
-</ul>
-<p>举个例子，刚才我们说每一个线程都有一个对应的id，那么我们如何读取这些数据呢？假设我们有一个data数据，里面有16个元素，那么我们给它分配16个线程，每个线程读取data中每一个对应的元素，在这里我们以4个线程为一组进行分组，因此我们知道每个block就会有4个线程，然后16个线程组成4个block。这样就有了三组id。<br>
-<img src="https://upload-images.jianshu.io/upload_images/19551947-b7bb73bbb436b108.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/600" alt="" loading="lazy"></p>
-<p>那么我们看一下如何利用gpu多线程来加速向量加法运算。假如我们有两个数组a和b，每个数组都有n个元素，然后我们要计算a和b中每个对应元素的和然后将其存储到c数组中。<br>
-这里我们写了一个简单的函数</p>
-<pre><code>void  vecAdd(int n, float *a, float *b, float *c)
-{
-  for (int i=0; i&lt;n; i++)
-  {
-    c[i]=a[i]+b[i];
-  }
-}
-void main()
-{
-    int N = 1024;
-    float* a, * b, * c;
-    a = (float*)malloc(N * sizeof(float));
-    b = (float*)malloc(N * sizeof(float));
-    c = (float*)malloc(N * sizeof(float));
-    memset(c, 0, N * sizeof(float));
-    init_rand_f(a, N);
-    init_rand_f(b, N);
+</div>
+                                    <div class="mdui-divider mdui-m-b-2"></div>
+                                    <div class="mdui-row-xs-2 post-fenye">
+                                       
+                                        <div class="mdui-col"> </div>
+                                        
 
-    vecAdd(N, a, b, c);
-}
-</code></pre>
-<p>那么我们如何将这个函数在gpu上进行执行呢？</p>
-<ul>
-<li>Step 1: 确定并行性。即我们要分析一下这个算法怎么并行，并行性在哪里？即如何对它进行二维层次结构的分配，做完这一步才能开始gpu编程</li>
-<li>Step 2: 写GPU Kernel</li>
-<li>Step 3: 对GPU内存进行管理，如分配、初始化</li>
-<li>Step 4: 开始调用这个函数</li>
-<li>Step 5: 将数据从GPU端拷贝到CPU端</li>
-</ul>
-<p>对于向量加法我们开始执行以上五个步骤：</p>
-<ul>
-<li>Step 1: 确定并行性<br>
-<img src="https://upload-images.jianshu.io/upload_images/19551947-6bff07e7787a73d6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/600" alt="" loading="lazy"><br>
-由于c[i]仅依赖于a[i]和b[i]，并没有使用其他计算，因此每一个c[i]是独立的，没有依赖性的，是可以并行的。我们就可以分配n个线程，使用1维的grid和1维的block，其中每个线程的对其中一个元素进行加法运算，也就是说，Thread[0] =&gt; c[0] = a[0]+b[0]，Thread[1] =&gt; c[1] = a[1]+b[1] ... 这样就完成了并行的加法运算。</li>
-</ul>
-<p>接下来是对线程进行分配，这里我们以256个线程为一组，这样256个线程为1个block，那么为什么我们需要对线程进行分组呢？</p>
-<ul>
-<li>一个block最多支持1024个线程，如果大于1024我们就无法在一个block中分配线程</li>
-<li>分配线程会有一定的计算资源，如寄存器，比如shared memory的大小。如果一个Block中的线程过多会影响它的效率，后面讲编程优化会讲到。</li>
-</ul>
-<figure data-type="image" tabindex="1"><img src="https://upload-images.jianshu.io/upload_images/19551947-4e944f9908265d17.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/600" alt="" loading="lazy"></figure>
-<p>在这里我们简单以256为例来讲解一下整个过程。对线程进行分组以后我们需要通过刚才的方法计算出每个线程中我们要读取的数据的id，计算方法就是上文我们所说的方法：线程在block中的id+block在grid中的id*block的维度。</p>
-<pre><code>work index i = threadIdx.x+blockIdx.x*blockDim.x;
-</code></pre>
-<p>例如a[256]的索引 = 0+1*256 = 256</p>
-<ul>
-<li>Step 2: 写GPU Kernel<br>
-首先我们要在函数前加上__global__标识符，标识这个函数是运行在gpu上的。</li>
-</ul>
-<pre><code>__global__ void vecAdd(int n, float *a, float *b, float *c)
-{
-  int i = blockIdx.x * blockDim.x + threadIdx.x; //计算该线程要读取的id
-  if (i&lt;n) //因为我们只需要从0到n-1进行计算即可，而线程数可能会大于n个
-  {
-    c[i] = a[i]+b[i];
-  }
-}
-</code></pre>
-<ul>
-<li>Step 3:  对GPU内存进行管理</li>
-</ul>
-<pre><code>void main()
-{
-    int N = 1024;
-    float *a, *b, *c;
-    float *devA, *devB, *devC; // gpu上声明float
+                                        
+                                        <div class="mdui-col"><div class="mdui-text-right "><a href="https://albertlidesign.github.io/post/alg_metaballs/">ALG_Metaballs</a></div> </div>
+                                       
+                                      </div>
+                                   
+                                    <div class="mdui-divider mdui-m-t-2 mdui-m-b-2"></div>
+                                    
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
 
-    a = (float*)malloc(N * sizeof(float));
-    b = (float*)malloc(N * sizeof(float));
-    c = (float*)malloc(N * sizeof(float));
+<div id="gitalk-container"></div>
 
-    cudaMalloc(&amp;devA, N*sizeof(float));
-    cudaMalloc(&amp;devB, N*sizeof(float));
-    cudaMalloc(&amp;devC, N*sizeof(float));
+<script>
 
-    memset(c, 0, N * sizeof(float));
-    init_rand_f(a, N);
-    init_rand_f(b, N);
+  var gitalk = new Gitalk({
+    clientID: '',
+    clientSecret: '',
+    repo: '',
+    owner: '',
+    admin: [''],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
 
-    //从cpu上拷贝到gpu
-    cudaMemcpy(devA, a, N*sizeof(float), cudaMemcpyHostToDevice);
-    cudaMemcpy(devB, b, N*sizeof(float), cudaMemcpyHostToDevice);
-}
-</code></pre>
-<ul>
-<li>Step 4:  开始调用这个函数</li>
-</ul>
-<pre><code>void  main()
-{
-    ...
-    vecAdd&lt;&lt;&lt;(N+255)/256, 256&gt;&gt;&gt;(N, devA, devB, devC);
-    ...
-}
-</code></pre>
-<p>(N+255)/256表示一个grid中有多少个block，它是为了防止N不是256的倍数，N有可能大于256的倍数，这样可以直接取整。</p>
-<ul>
-<li>Step 5:  将数据从GPU端拷贝到CPU端</li>
-</ul>
-<pre><code>void  main()
-{
-    ...
-    cudaMemcpy(c, devC, N*sizeof(float), cudaMemcpyDeviceToHost);
-    ...
-}
-</code></pre>
-<p>这样就完成了GPU加速的向量加法。相信大家有了更深的了解，可以写一个简单的Kernel来实现自己的代码功能。</p>
-<h2 id="simple-optimization-sample">Simple Optimization sample</h2>
-<p>实际上在GPU开发的过程中，我们开发的时间要比优化的时间短很多。我们会将更多的时间消耗在对代码的优化上。本节我们介绍一个简单的优化方案，这个例子跟gpu的内存有关，我们先来回顾一下gpu的内存架构。<br>
-<img src="https://upload-images.jianshu.io/upload_images/19551947-279da225f3bb6349.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/600" alt="" loading="lazy"><br>
-首先每一个线程都有它自己的Local Memory，然后每一个Block都有所有线程所共享的Shared Memory，每个Grid和Grid之间都可以使用Global Memory进行通讯。</p>
-<h3 id="global-memory">Global Memory</h3>
-<p>它的存储空间很大，生命周期从最开始分配空间到最后cudafree函数释放为止，因此它可以和多个Kernel进行通讯，例如Kernel 0计算完的数据暂时存在Global Memory里，Kernel 1可以调用这些数据进行进一步计算，直到我们使用完后可以调用cudafree函数释放，并且这些数据是可以被CPU进行读取的。<br>
-<img src="https://upload-images.jianshu.io/upload_images/19551947-8f50093f0d3392e9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/600" alt="image.png" loading="lazy"></p>
-<h3 id="shared-memory">Shared Memory</h3>
-<p><img src="https://upload-images.jianshu.io/upload_images/19551947-3598a3b77ac4dea9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/600" alt="" loading="lazy"><br>
-Shared Memory空间很大但是访问延迟很高，它是位于流多处理器片上的一段内存，生命周期与block一致，这是我们经常使用到的，它是block中所有线程所共享的。分配这段内存只需在前面加上__shared__标识符。block中的所有线程都可以通过Shared Memory进行通讯，但是在block与block之间不可以。</p>
-<h3 id="registers">Registers</h3>
-<p><img src="https://upload-images.jianshu.io/upload_images/19551947-abcc2ffaea631d1a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/600" alt="" loading="lazy"><br>
-寄存器空间是gpu中访问速度最快的空间，它是由每个线程所分配的，只能由分配的线程所读写，因此它的生命周期与线程一致。</p>
-<h3 id="stencil-example">Stencil Example</h3>
-<p><img src="https://upload-images.jianshu.io/upload_images/19551947-218e3618d91ef347.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/400" alt="" loading="lazy"><br>
-在一个数组中，这个例子的功能就是计算在该数组中每一个元素对应的周边元素和。如上图所示，以黄色的元素为例，周边半径是3，那么周边元素和就是从左边第三个元素开始，一直到右边第三个，也就是要计算这7个元素的元素和，计算完以后我们存到另外一个数组里面，位置和这个元素对应。例如我们计算4的元素和，如下图所示，其结果就是1+2+3+4+5+6+7=28<br>
-<img src="https://upload-images.jianshu.io/upload_images/19551947-d1f2775f758ab381.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/400" alt="" loading="lazy"><br>
-这个程序其实实现的功能也很简单，这个程序其实和向量加法十分相似。相同的是每个计算都是相互独立的，无数据依赖性，因此我们仍然可以分配n个线程来计算每一个值。</p>
-<pre><code>//每个线程对周边元素和的计算
-__global__ void stencil(int* in, int* out)
-{
-    int globIdx = blockIdx.x * blockDim.x + threadIdx.x;
-    int value = 0; //该变量位于寄存器中
-    for (offset = -RADIUS; offset &lt;=  RADIUS; offset++)
-    {
-        value += in[globIdx + offset];
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+          
+        
+                                     <script src="https://albertlidesign.github.io/media/scripts/Valine.min.js"></script>
+ <div class="comment"></div>
+
+<script>
+      new Valine({
+            el: '.comment',
+
+
+
+            path: window.location.pathname,
+            pageSize: 30,
+            avatar:'mm', 
+       })
+    </script> 
+<script>
+    if(window.location.hash){
+        var checkExist = setInterval(function() {
+           if ($(window.location.hash).length) {
+              $('html, body').animate({scrollTop: $(window.location.hash).offset().top-90}, 1000);
+              clearInterval(checkExist);
+           }
+        }, 100);
     }
-    out[globIdx] = value;
-}
-</code></pre>
-<p>这个程序并不是最优的，因为in和out都是在global memory里面，我们知道global memory延迟很大，在这里其实每个元素都会被读取很多次，我们这里可以简单看一下，半径是3的情况下它被读取了几次。我们以中间这个元素为例，最后可以得到这个元素被读取了7次，而且都是从global memory进行读取的。<br>
-<img src="https://upload-images.jianshu.io/upload_images/19551947-421d238edbe52a57.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/600" alt="" loading="lazy"><br>
-我们知道Shared Memory访问速度更快，因此我们可以对它进行一个优化，优化方案就是在计算之前我们将这一段内存从global memory拷贝到shared memory，我们在shared memory进行读写，拷贝的大小是BLOCK_SIZE+2*RADIUS<br>
-<img src="https://upload-images.jianshu.io/upload_images/19551947-68f19a7be590ae0b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/600" alt="" loading="lazy"></p>
-<p>（1） 第一步，我们设定RADIUS = 3， BLOCK_SIZE = 16。先声明一段共享内存空间，大小为BLOCK_SIZE+2*RADIUS。声明以后，在每一个Block中都会有一段Shared Memory的空间，它是用来该Block中所有数据来计算的数据源。<br>
-（2）接着我们要计算两个id，第一个id是globIdx，即每个线程在整个Grid中的id，第二个id我们称之为locIdx，是读取数据的id。我们知道在共享内存中，我们数据的长度是比线程数多两个RADIUS的，左边右边各有RADIUS个，线程0是从最左边RADIUS个开始算的，因此我们这里要加一个半径，即</p>
-<pre><code>int locIdx = threadIdx.x+RAIDUS;
-</code></pre>
-<p>（3）接下来是数据搬移，从Global搬移到Shared，第一步就是要搬移中间16个元素，因此我们使16个线程，每个线程都读取对应的元素，从in中拷贝到Shared里面</p>
-<pre><code>shared[locIdx] = in[globIdx];
-</code></pre>
-<p>然后再拷贝两侧的数据</p>
-<pre><code>if (threadIdx.x&lt;RADIUS)
-{
-    shared[locIdx - RADIUS] = in[globIdx - RADIUS];
-    shared[locIdx + BLOCK_DIMX] = in[globIdx + BLOCK_SIZE];
-}
-</code></pre>
-<p>（4）拷贝结束以后，我们就知道所有需要的数据都存储在shared memory里面，因此我们可以从shared里面开始计算，计算方法跟刚才一样。</p>
-<pre><code>    __syncthreads();//线程同步函数
-    int value = 0;
-    for (offset = -RADIUS; offset &lt;=  RADIUS; offset++)
-    {
-        value += in[globIdx + offset];
-    }
-    out[globIdx] = value;
-</code></pre>
-<figure data-type="image" tabindex="2"><img src="https://upload-images.jianshu.io/upload_images/19551947-e5cd3d2a327efdd3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/600" alt="" loading="lazy"></figure>
-<h3 id="thread-synchronization-function">Thread Synchronization Function</h3>
-<pre><code>void __syncthreads();
-</code></pre>
-<p>线程同步就是在一个block中，保证所有线程都完成了前面的工作，上述示例中，我们加入了一个 __syncthreads();，保证所有的线程都完成了线程搬移工作以后，我们才能开始进行下面的计算。我们知道线程与线程之间是并行的，但是先后顺序不可而知，如果不加入同步函数，一个线程还没有完成搬移的话，另外一个线程已经提前到计算的时候，那么它读取的数据就是错误的，这就是典型的一个“读后写”。为了防止类似这样的问题发生，我们加入这个函数。注意这个函数要对所有线程起作用，如果通过一些判断导致一些线程没有发生同步就会造成线程的死锁。</p>
-<h2 id="references">References</h2>
-<figure data-type="image" tabindex="3"><img src="https://upload-images.jianshu.io/upload_images/19551947-699fe7e02d51843f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/600" alt="" loading="lazy"></figure>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[Learn CUDA Programming(1)]]></title>
-        <id>https://albertlidesign.github.io/post/learncudaprogramming1/</id>
-        <link href="https://albertlidesign.github.io/post/learncudaprogramming1/">
-        </link>
-        <updated>2020-03-31T10:38:44.000Z</updated>
-        <content type="html"><![CDATA[<h2 id="access-the-power-of-gpu">Access the Power of GPU</h2>
-<ul>
-<li>一般有三种方法来实现加速：<strong>Libraries</strong> or <strong>OpenACC</strong> or <strong>Programming Languages</strong></li>
-<li>函数库：</li>
-</ul>
-<figure data-type="image" tabindex="1"><img src="https://upload-images.jianshu.io/upload_images/19551947-b5c9213b0550784d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/600" alt="" loading="lazy"></figure>
-<p>例如：</p>
-<p>cuBLAS: 线性代数库</p>
-<p>cuSPARSE: 稀疏矩阵的线性代数库</p>
-<p>cuDNN: 深度神经网络</p>
-<h2 id="gpu-architecture">GPU Architecture</h2>
-<h3 id="异构计算heterogeneous-computing">异构计算(Heterogeneous Computing)</h3>
-<h4 id="terminology">Terminology:</h4>
-<ul>
-<li><strong>Host</strong>: The CPU and tis memory(host memory) <strong>主机端(CPU)</strong></li>
-<li><strong>Device</strong>: The GPU and its memory(device memory) <strong>设备端(GPU)</strong></li>
-</ul>
-<h4 id="cpu与gpu的简易架构图">CPU与GPU的简易架构图</h4>
-<figure data-type="image" tabindex="2"><img src="https://upload-images.jianshu.io/upload_images/19551947-4281687860e63623.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/600" alt="" loading="lazy"></figure>
-<ul>
-<li>CPU有很多逻辑控制单元，而GPU有很多处理核心</li>
-</ul>
-<figure data-type="image" tabindex="3"><img src="https://upload-images.jianshu.io/upload_images/19551947-d979df42fb4b03c6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/600" alt="" loading="lazy"></figure>
-<ul>
-<li>CPU是缓存优化的处理器，缓存特别大，而且有很多控制单元</li>
-<li>GPU是一个并行吞吐优化的处理器，计算核心特别多</li>
-<li>因此我们知道，GPU的单精度处理能力比CPU快很多的原因其实就是GPU将更多的晶体管用于了计算而不是缓存</li>
-</ul>
-<h4 id="程序的开发中如何选择cpu和gpu">程序的开发中如何选择CPU和GPU</h4>
-<figure data-type="image" tabindex="4"><img src="https://upload-images.jianshu.io/upload_images/19551947-38f6a35193544add.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/600" alt="" loading="lazy"></figure>
-<ul>
-<li>从图中可以看到CPU的缓存延迟非常短，这也对应它的架构里有很多复杂的逻辑控制</li>
-<li>GPU则不同，图中的W是warp，1 warp = 32 Threads，GPU是以warp为单位进行切换的。我们可以通过海量的线程的切换来对缓存延迟做隐藏，如果你的程序是计算密集型的，而且有很好的并行特性，那么gpu是更好的选择。</li>
-</ul>
-<figure data-type="image" tabindex="5"><img src="https://upload-images.jianshu.io/upload_images/19551947-9796dc4f83cd657e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/600" alt="" loading="lazy"></figure>
-<ul>
-<li>GPU的架构有两个部分组成，第一部分是计算单元，第二部分是内存单元</li>
-<li>图中的绿色部分就是一个CUDA Core</li>
-<li>从图中可以看到，GPU和CPU是通过PCle进行链接的</li>
-<li>一个GPU有很多SM（流多处理器）组成，每一个SM有很多核，因此有越多的SM，那么GPU就能在同一时间内处理更多的任务。</li>
-</ul>
-<h4 id="sm的架构">SM的架构</h4>
-<figure data-type="image" tabindex="6"><img src="https://upload-images.jianshu.io/upload_images/19551947-14cdbb0d27ac7b91.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/400" alt="" loading="lazy"></figure>
-<ul>
-<li>Kepler架构中的SM称为SMX，表示处理器更强劲，其逻辑控制单元是一个整体，控制192个CUDA Cores</li>
-<li>Maxwell架构中的SM称为SMM，其逻辑控制单元有4个，每个控制32个CUDA Cores</li>
-<li>可以简单认为，一个SMM中包含了4个SMX，这样的话就避免了因为逻辑控制单元过少而造成核心的冗余，效率更高。从架构上来看，Maxwell一个CUDA核心相比于Kepler提升了35%</li>
-</ul>
-<h4 id="memory-hierarchy">Memory Hierarchy</h4>
-<figure data-type="image" tabindex="7"><img src="https://upload-images.jianshu.io/upload_images/19551947-97024b3209a40dc5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/600" alt="" loading="lazy"></figure>
-<p>因为经常要跟内存打交道，所以需要对GPU的内存架构非常熟悉，GPU的架构分为三个层次，如图所示，和CPU类似，可以看做成一个金字塔，从下往上越来越快，首先是Global Memory，有很大的内存空间，它的空间很大，但是缓存延迟很高，因此我们需要加入一个缓存，称之为L2缓存，GPU的缓存要像Global Memory一样读取数据的话，首先我们要看这些数据是否在L2中已经有缓存，有的话称之为缓存命中，这样就不用再从Global Memory里面读数据，这样就加快了读写。L2缓存是多个缓存所共享的。再上面有很多寄存器，L1缓存等。对于不同的内存有不同的使用和优化方案。</p>
-<h4 id="gpu-in-computer-system">GPU in Computer System</h4>
-<figure data-type="image" tabindex="8"><img src="https://upload-images.jianshu.io/upload_images/19551947-d55db112286d14d5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/400" alt="" loading="lazy"></figure>
-<h2 id="cuda-programming-basics">CUDA Programming Basics</h2>
-<h3 id="配置cuda开发环境">配置CUDA开发环境</h3>
-<figure data-type="image" tabindex="9"><img src="https://upload-images.jianshu.io/upload_images/19551947-a0db2c87ff22deea.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/600" alt="" loading="lazy"></figure>
-<ul>
-<li>注意如果使用C/C++进行开发的话，我们使用的是NVCC的编译器</li>
-</ul>
-<h3 id="heterogeneous-computing-异构编程">Heterogeneous Computing 异构编程</h3>
-<ul>
-<li>
-<p>一般我们把GPU运行的程序构造成一个函数，在我们需要的时候进行调用，这个函数就是在GPU上运行</p>
-</li>
-<li>
-<p>这个函数的之前和之后都是在CPU上单线程运行的，因此我们把整个程序分为：顺序执行，并行执行，顺序执行<br>
-<img src="https://upload-images.jianshu.io/upload_images/19551947-52d9674b54ab755b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/600" alt="" loading="lazy"></p>
-</li>
-<li>
-<p>顺序执行就是利用CPU的一个线程来执行</p>
-</li>
-<li>
-<p>并行执行就是用GPU的多线程来进行计算</p>
-</li>
-<li>
-<p>因此如果一部分功能是计算密集型的，我们就可以把它写成一个函数，对它进行并行，并不是把所有的代码都在GPU上运行，而是把需要的部分放到GPU上</p>
-</li>
-</ul>
-<h4 id="cuda-kernels">CUDA Kernels</h4>
-<p>这里我们讲解一个概念，我们要将一部分代码在gpu上运行，这部分代码是一个函数，我们称为一个<strong>kernel（核函数）</strong>，CPU（Host）执行functions，GPU（Device）执行kernels。</p>
-<h3 id="hello-world">Hello World</h3>
-<pre><code>//hello_world.c
-#include &lt;stdio.h&gt;
+</script>
+                                </article>
 
-void hello_world_kernel()
-{
-    printf(&quot;Hello World\n&quot;);
-}
+                                    
+                        </div>
+                      </div>
+    
+                
 
-int main()
-{
-    hello_world_kernel();
-}
-</code></pre>
-<p>Compile &amp; Run:<br>
-gcc hello_world.c<br>
-./a.out</p>
-<p>在GPU上执行:</p>
-<pre><code>//hello_world.cu
-#include &lt;stdio.h&gt;
-
-_global_ hello_world_kernel()
-{
-    printf(&quot;Hello World\n&quot;);
-}
-
-int main()
-{
-    hello_world_kernel&lt;&lt;&lt;1.1&gt;&gt;&gt;();
-}
-</code></pre>
-<p>Compile &amp; Run:<br>
-nvcc hello_world.cu<br>
-./a.out</p>
-<h4 id="不同之处">不同之处</h4>
-<ul>
-<li>文件后缀名改为.cu</li>
-<li>_global_表示了该函数为一个核函数，标识这个函数会在gpu上运行</li>
-<li>“&lt;&lt;&lt;...,...&gt;&gt;&gt;”具体含义是GPU中的一个配置</li>
-<li>编译器改为nvcc</li>
-</ul>
-<h3 id="gpu-memory-management">GPU memory management</h3>
-<p>hello world程序非常简单明了，但是在编程过程中我们经常要和内存打交道，那么如何进行GPU内存管理呢？</p>
-<p>我们很熟悉对CPU的内存管理，我们会使用</p>
-<pre><code>malloc();//动态分配内存
-memset();//对空间进行初始化
-free();//释放一段内存
-</code></pre>
-<p>对应于，在GPU中也有类似的函数，它们分别是</p>
-<pre><code>cudaMalloc(void** pointer, sie_t nbytes);//pointer指定空间，大小是nbytes
-cudaMemset(void* pointer, int value, size_t count);
-cudaFree(void* pointer);
-</code></pre>
-<p>例如：</p>
-<pre><code>int nbytes = 1024*sizeof(int);
-int* d_a = 0;
-cudaMalloc((void**)&amp;d_a, nbytes);
-cudaMemset(d_a, 0, nbytes);
-cudaFree(d_a);
-</code></pre>
-<p>因此一定要分清楚，哪部分数据在cpu上，哪部分数据在gpu上</p>
-<h4 id="data-copies">Data Copies</h4>
-<pre><code>__host__ cudaMemcpy(void* dst, void* src, size_t nbytes, cudaMemcpyKind direction);
-</code></pre>
-<ul>
-<li>__global__是在gpu上进行的，__host__就是在cpu上执行</li>
-<li>四个形参：拷贝目的指针，拷贝原指针，拷贝大小，拷贝方向</li>
-<li>线程阻塞的，拷贝不完成，cpu不会执行下面的代码</li>
-<li>常见拷贝方向有：cudaMemcpyHostToDevice（CPU到GPU）、cudaMemcpyDeviceToHost（GPU到CPU）、cudaMemcpyDeviceToDevice（GPU到GPU）</li>
-<li>设定拷贝方向时，需要注意src和dst的指针是CPU的还是GPU的，要和拷贝方向一致</li>
-<li>上述函数为线程阻塞的，同样还有一个异步的函数：cudaMemcpyAsync();</li>
-</ul>
-<h4 id="三步流程">三步流程</h4>
-<figure data-type="image" tabindex="10"><img src="https://upload-images.jianshu.io/upload_images/19551947-ce6c188d28db2666.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/600" alt="" loading="lazy"></figure>
-<p>第一步：通过调用cudaMemcpy函数将CPU中的数据拷贝到GPU中，通过PCI Bus，方向就是HostToDevice</p>
-<figure data-type="image" tabindex="11"><img src="https://upload-images.jianshu.io/upload_images/19551947-d4b08ea810fd7bf2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/600" alt="" loading="lazy"></figure>
-<p>第二步：通过CPU启动kernel核函数，然后开始一个并行计算</p>
-<pre><code>Kernel&lt;&lt;&lt;grid, block&gt;&gt;&gt;();
-</code></pre>
-<figure data-type="image" tabindex="12"><img src="https://upload-images.jianshu.io/upload_images/19551947-48077f231db74847.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/600" alt="" loading="lazy"></figure>
-<p>第三步：计算完以后，再调用cudaMemcpy将数据从GPU端拷贝到CPU端，方向是DeviceToHost</p>
-<p>例子:</p>
-<p>代码分为五个步骤：</p>
-<ul>
-<li>在CPU端分配n个整型变量的空间</li>
-<li>在GPU端分配n个整型变量的空间</li>
-<li>初始化GPU内存为0</li>
-<li>将数据从GPU拷贝到CPU</li>
-<li>打印变量</li>
-</ul>
-<pre><code>#include&lt;stdio.h&gt;
-
-int main()
-{
-    int dimx = 16;
-    int num_bytes = dimx * sizeof(int);
-    int *d_a = 0, *h_a = 0;//设备端和主机端的指针
-    
-    //在CPU端分配n个整型变量的空间
-    h_a = (int*)malloc(num_bytes);
-    //在GPU端分配n个整型变量的空间
-    cudaMalloc((void**) &amp;d_a, num_bytes);
-    
-    if(0 == h_a || 0 == d_a)
-    {
-        printf(&quot;Couldn't allocate memory\n&quot;);
-        return 1;
-    }
-    
-    //初始化GPU内存为0
-    cudaMemset(d_a,0,num_bytes);
-    
-    //将数据从GPU拷贝到CPU
-    cudaMemcpy(h_a, d_a, num_bytes, cudaMemcpyDeviceToHost);
-    
-    //打印变量
-    for(int i=0; i &lt; dimx; i++)
-    {
-        printf(&quot;%d\t&quot;, h_a[i]);
-    }
-    free(h_a);//主机端释放
-    cudaFree(d_a);//设备端释放
-    return 0;
-}
-</code></pre>
-<ul>
-<li>这里注意，cudaMemcpy是CPU阻塞的，也就是说，不执行完该函数CPU就不会一直向下执行。如果换成一个异步的版本，CPU会在拷贝还没有完成的时候就开始打印，打印的时候很多是错误的。</li>
-</ul>
-<p>上面的示例代码缺少了GPU上面的并行计算，那么我们下一面将开始讲解如何写Kernel函数。</p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[设计师转行做开发？来看看四位过来人怎么说]]></title>
-        <id>https://albertlidesign.github.io/post/careerchanging/</id>
-        <link href="https://albertlidesign.github.io/post/careerchanging/">
-        </link>
-        <updated>2020-03-31T09:23:05.000Z</updated>
-        <content type="html"><![CDATA[<p>Hello，大家好，我是Albert，近期有一些好朋友在询问我关于学习编程、算法等知识以及转行相关的事，我自己也经常思考一些相关的问题，于是想做一期采访，正好身边有不少从设计专业转行过来做开发的朋友，就想大家一起来探讨一下，也正好作为我们对自己过去这几年转行经历的总结。</p>
-<p>采访的模式是这样的：<br>
-（1）在采访前，我找到了一些我上大学时的学弟学妹来收集他们想问的问题，经过筛选、精简、提炼出了7个问题。<br>
-（2）提炼好7个问题后分别发给除我以外的另外三名采访对象，让他们自己根据情况来选择解答。<br>
-（3）收集每个人的答案。</p>
-<p>那么下面我们就开始吧。</p>
-<h3 id="受访者简介">受访者简介</h3>
-<figure data-type="image" tabindex="1"><img src="https://upload-images.jianshu.io/upload_images/19551947-40c7a5235c112ca9.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/600" alt="" loading="lazy"></figure>
-<h3 id="1-为什么转行到现在的领域了是否基于自己的兴趣最先考虑的因素是什么">1、为什么转行到现在的领域了？是否基于自己的兴趣？最先考虑的因素是什么？</h3>
-<p><strong>Panda</strong>：转行到现在的领域也算阴差阳错吧！主要是之前的事务所熬夜太严重，做了很多无意义的重复的工作，加上身体有些吃不消，就想着换了。转到做建筑机器人和三维打印，大部分原因是基于自己的兴趣，我对于机械和和编程有着很浓厚的兴趣，其次收入要比之前好点儿，所以最先考虑应当是自己的兴趣。</p>
-<p><strong>Noy</strong>：转行早期是非常痛苦的，但是计算机专业有一点比较好，它能及时反馈你的学习成果。当然，转行到计算机，完全是基于个人兴趣。我从小喜欢捣鼓机械，更喜欢理性的事物，而计算机又特别符合我的喜好，所以转行就是完全基于我的兴趣出发的。当然工作后也体现出，相对于设计，我更擅长于编程一些，我也喜欢编程的过程。</p>
-<p><strong>咪工</strong>：对于选择工作，我个人想法是：首先不讨厌这个工作，其次看职业天花板，也就是行业里混的比较好的前10%在哪个收入水平，普遍是什么年龄，如果都可以接受，就是好的工作。<br>
-用这个方法评估，去设计院画图不是一个可以接受的选择，所以我转行了。没有最优先的因素，兴趣和报酬对我来说同等重要。</p>
-<p><strong>Albert</strong>：我最开始只是对一些异形曲面的建筑比较好奇，因为上大学的时候就读完了很多建筑史相关的书籍，一直没想通建筑在近代究竟是如何发展成那种有机曲面形态的，为了探索这个答案，就开始接触参数化相关的内容。另一方面，我中学时代一直都极其擅长数学，甚至梦想当数学家的那种，因此也想以后能从事将设计与数学相结合的领域，于是就按照“三维打印-&gt;参数化设计-&gt;计算机编程-&gt;计算机图形学”的顺序开始慢慢向这方面靠，一个由应用到底层的学习路线吧，感觉这条路上收获了很多，很多问题也渐渐清晰了，过程中考虑太多别的，就是想知道为什么，一步步就走过来了。</p>
-<h3 id="2-转行专业与过去的建筑相关专业之间的不同之处在哪里过去在学校学习的知识有运用上吗">2、转行专业与过去的建筑相关专业之间的不同之处在哪里？过去在学校学习的知识有运用上吗？</h3>
-<p><strong>Panda</strong>：现在从事的行业相比于建筑学专业，现在的专业更偏重于建筑技术研究，把一些先进的设计技术引入到建筑行业中，在提高建筑生产效率同时，去寻求一种新的建筑设计方法和理念。所以说，过去在学校学的知识大都还是必须要用的，现在我们不光去解决技术问题，同时还要做前期的建筑设计。</p>
-<p><strong>Noy</strong>：计算机行业常看到的现象是改bug，改好bug之后技术有一个提高。这个过程像在寻找正确答案，找到答案，这个事儿就算过了。写代码要求模块化，可复用度高。建筑行业，没有所谓的正确答案，甲方基于在现有建筑规范下，更多用主观臆想去主导工作进程。有可能让你一天的劳动付诸东流，工作反复且低效。<br>
-但不论是计算机，还是建筑，背后都有庞大的知识体系，都是多学科混杂着的，这点是一样的。但是计算机是解决问题的学科-偏理性，而建筑是偏设计的学科-偏感性。学习计算机如同建筑一样需要有更多的耐心和好奇心去扩大自己的思维和知识储备。这一点我在校园时期，学习建筑的时候就已经养成了，相对于大学学习到的知识，大学让我养成独立思考的习惯更重要。</p>
-<p><strong>咪工</strong>：不同之处在于，技术美术工作对一个结果的好坏往往有着比较明确的评价标准，建筑专业上似乎并不是这样，同一份设计，不同的老师会打出完全不同的分数。技术美术工作更客观一点吧，设计更主观一些。</p>
-<p><strong>Albert</strong>：在做设计的时候我的老师们总是说做设计要有逻辑，这一点我也一直在体会，学习了一些计算机知识会发现，这个领域对逻辑的要求极高，有的时候做设计，你可以用一些花言巧语把故事讲得听上去很有逻辑，但是在计算机程序里，必须完全逻辑正确，只要有一点逻辑漏洞就会造成效率的降低甚至完全错误，近期我在学习gpu并行编程中更有深刻体会。关于过去所学的知识，无时无刻不在应用吧。我觉得从设计专业里转行出来的人还是会保留从设计的角度出发去思考、解决问题的，包括善于接受新鲜知识、善于提出新想法、对作品精益求精的追求、对工作量和完成度的把控，这些养成的习惯一直在帮助我去处理很多事，它们不是实际所学到的知识，而是潜移默化地对设计师的影响，所以无论过去学了什么，都要感激那段经历，我觉得没有什么学习是没用的，就像我中学数学好，后来学了艺术设计，现在又来到一个艺术和理工的交叉学科，没有一段经历是没用的。</p>
-<h3 id="3-您认为对于想转行的建筑学学弟学妹们需要做出那些努力和尝试来提高自己的核心竞争力">3、您认为对于想转行的建筑学学弟学妹们需要做出那些努力和尝试来提高自己的核心竞争力？</h3>
-<p><strong>Panda</strong>：要转行，目标的知识或多或少都要懂一些，因为转行的优势之一就是比其他人多懂一个专业的知识，建筑转其他行业就更不用说了，建筑学本身就学的广。我觉得如果下定决心转行之前，还是要花时间去学一学目标行业的相关知识，不必要一定学得很精，但一定多少要懂一些，这样转过去之后也会学得很快。当然目标行业的知识学得很过硬，自己的核心竞争力自然就起来了！</p>
-<p><strong>Noy</strong>：如果单纯从钱的角度来说，不建议转行，这俩学科差的不是一点半点，计算机时薪高是不假，问题在于本身对它本身了解多少，能否接受转行所承担的代价（学习成本和已经付出的成本），最重要的是，自己是否适合，或者热爱与否，以及学习期是否有家庭的支持。如果转过去的薪水不满意，还能否坚持下来？如果上述问题都没有明确答案，我建议慎重考虑，毕竟这俩专业交集很小，而计算机学科需要大量且不断更新你的储备知识。就计算机专业的基础知识来说，计算机导论，数据结构与算法都是需要了解的。这对你以后的发展很重要，框架性的基础知识决定了你的发展力，一定不能仅仅只会使用代码，要学会理解代码。如果你有决心搞定以上问题，支持你转行。但转行也不一定就非要离开建筑行业。我举例几个以建筑结合计算机为目的的方向，可供了解：</p>
-<ol>
-<li>直接工作：找偏理性、偏编程的岗位，比如参数化设计师。</li>
-<li>申请建筑类硕士：这种大多出来还是做建筑师，可以专攻参数化。</li>
-<li>申请人机交互类硕士：这也是建筑系同学很常见的申请方向。理想的去处是各个科技公司的UX\UI设计师，也有强行转行码农的。</li>
-</ol>
-<p><strong>咪工</strong>：核心竞争力我觉得有三点，分别是信息收集能力，学习能力，沟通能力。这三者缺一不可。<br>
-沟通能力往往是被忽略的一点，现今社会已经没有所谓的一个人就是一只军队了，个人能力再强在巨大的工作量面前也不值一提。作为团队合作中的一员，高效的协同上下游，是每个人都需要有的能力。提升方法也很简单，学一点PM技能即可。<br>
-另外附赠一篇知乎回答，适用于学习任何公开的技术：<a href="https://www.zhihu.com/question/303215859/answer/1064258893">没专业背景的人自学houdini，可否请大佬们给我指条明路？</a> 包括了沟通能力和信息收集能力，可以细品。</p>
-<p><strong>Albert</strong>：首先如果没有非常浓厚的兴趣的话，单纯为了钱转行我认为是不太现实的。因为计算机行业的知识太过庞杂，从学习的角度上讲，为了学习这些已达到一个正常的本科计算机系毕业生的水平可能都需要像高三那样学习个两三年，这期间光苦学没人指导是非常痛苦的一件事，除非有浓厚的兴趣支撑，能建立起一个“付出就有回报”的快速反馈机制的话才有可能吧，真的需要付出极大的努力，即便我自己也觉得依然差的很远。<br>
-我觉得对于刚开始有转行想法的人，第一件事是消除疑虑，确定自己就干这个了，不把这个问题想通的话，带着犹豫是做不好的。发自内心地想做这些事的话，就不要想太多，马上开始行动（有的时候说做就做了，有什么大不了的），建立个自己的博客，每天更新自己学到的技术，买书看教程开始啃，把自己能不能转行成功这件事忘掉，只做事不带情绪，应该是没问题的。在这里推荐的学习方法就是更新博客，一方面积累自己所学的知识，另一方面给自己建立一个“付出就有回报”的快速反馈机制，有助于督促自己学习，也让自己保持兴趣吧。</p>
-<h3 id="4-能否对那些正在纠结转行却感到迷茫的后辈说几句话">4、能否对那些正在纠结转行却感到迷茫的后辈说几句话？</h3>
-<p><strong>Noy</strong>：没有基础，没有能力，想转行并不容易。转行之前，首先给自己定一个方向：你想在互联网的哪个领域发展？产品、运营、营销或者其他。找到方向，然后沉下心去学习和积累。除此之外，现实环境因素也需要考虑，转行穷三年是很有可能的，所谓有得也有失，平衡利弊后，再做考虑。<br>
-当然如果你只是感到迷茫，想要转行，而无法做到长时间沉下心不断学习，那么我不建议你转行。在现有的知识体系下，继续坚持和努力是一个更安全的选择。</p>
-<p><strong>咪工</strong>：成年人做事讲究性价比，不要做性价比低的事。比如纠结这件事本身就非常没有性价比。转行前问问自己：有没有兴趣，报酬和职业天花板能不能满足自己的物质欲望，如果两个答案都是肯定的，那就转吧，转了有可能会后悔，不转一定会后悔。</p>
-<p><strong>Albert</strong>：先分享一下我听过的一些关于转行的疑虑：我也不知道我适不适合干这个；我比不上那些专业的人怎么办；我数学不好；我觉得我太笨了，没那个脑子；万一进了这个行业还是会被取代怎么办；万一这个行业不是我想的那么好怎么办。现在简化一下，问自己两个问题，第一，喜欢这个吗？第二，愿意为此努力吗？都是yes的话，干就完了，至少在做自己喜欢的事，至少是自己选择的，不后悔就行。很多人听了别人的建议走上了一条道路会后悔，我觉得与其这样不如从一开始所有选择都自己来作，管他前方道路如何艰险，自己喜欢自己选了，走就是了。问题的答案不是yes的就去找是yes的领域，答案在自己的心中不是别人的言语。每个领域都有大师，每个大师都热爱着自己的专业，想学好一个专业最起码的是热爱吧，20多岁的人，还有无限的可能。</p>
-<h3 id="5-如何突破计算机知识不足的壁垒哪种语言最适合初学者">5、如何突破计算机知识不足的壁垒，哪种语言最适合初学者？</h3>
-<p><strong>Panda</strong>：说实话，现在任何一个专业都少不了计算机知识。学计算机，最困难的点在入门，所以想要突破这个壁垒还是需要下很大功夫的，现在网络上关于计算机的各种网课和资料数不胜数，随便找几个，入门是不成问题的。对于初学者，选择什么样计算机语言，还是要看以后主要从事什么类型工作，做开发的话少不了C/C++,当然，这也是众多计算机语言中最难的语言之一，C#也是开发必备，入门也很简单。运用类可选择Python、C#等入门简单，易上手，通用性比较广的语言。</p>
-<p><strong>咪工</strong>：如何突破计算机知识的不足：做一个结果导向的人，时常思考学这个是要解决什么问题。专注于某一个具体的问题时，往往突破是最快的。python是对初学者非常友好的语言，建议入门先学python。但不要为了学python而学python。对于我来说python可以快速的验证想法，且我的工作不看重运行效率，python应该就是最优解了。</p>
-<p><strong>Albert</strong>：这个主要取决于想做的领域，比如python适合做数据科学、AI、爬虫以及快速开发一些小工具，C/C++适合作为大型工程的底层以及一些计算机领域的科研开发（比如计算机图形学），C#适合做一些软件的二次开发、Unity游戏开发等。当然这些也不是绝对的，刚下定决心开始学的话建议先从简单的高级语言开始学起，Python、C#、Java等，Matlab也是不错的选择，在工科领域做科研经常使用。</p>
-<h3 id="6-您觉得转行需要具备哪些素质数理化已经忘记了还能转行吗">6、您觉得转行需要具备哪些素质？数理化已经忘记了，还能转行吗？</h3>
-<p><strong>Panda</strong>：我觉得转行最重要的素质就是要有求学上进的精神，学过的知识忘了不可怕，只要敢于探索和研究，再加上自己浓厚的兴趣，啥时候转行都是可以的。</p>
-<p><strong>Noy</strong>：转行到计算机行业，更需要你是一个好学的、能持续学习的人，不要过多担心过去所学习的知识，因为它们并不一定适用于工作。<br>
-有兴趣自然是最好的。如果真的觉得对这行业有兴趣，工作起来也不会那么累。但说实话，敲代码这样枯燥的活，估计没多少人真正感兴趣。</p>
-<p><strong>咪工</strong>：转行只需要动手能力。转行能不能过得更好需要学习能力，信息收集能力和沟通能力，任何行业都需要。数理化忘了很正常，捡起来就可以，而且在工程领域，并不一定需要你数学超级好，反而是交叉学科人才需求很大，所以有建筑系的背景并不是减分项，可以大胆的尝试。</p>
-<p><strong>Albert</strong>：敢于接触新事物，喜欢迎接挑战吧。我中学的时候就经常因为自己解决了一个数学难题而激动地睡不着觉，现在也是这样，看到一些复杂的问题就特别想去战胜它，有时候甚至忘记吃饭的那种，最后问题解决了我会非常兴奋，能原地跳起来，虽然很傻但是觉得这是人生的乐趣。关于数理化知识，我想说本科专业高数都没学过，忘记了不影响，学就完事了。</p>
-<h3 id="7转行后重新审视建筑学这个领域有什么启发">7.转行后，重新审视建筑学这个领域有什么启发？</h3>
-<p><strong>Panda</strong>：转行之后再重新审视建筑学才发现，实践是检验真理的唯一标准！</p>
-<p><strong>Albert</strong>：在某些角度上，学科之间是存在底层和表层关系的，建筑学的一些概念在计算机里就是很简单的一些算法和思想，比如BIM某种程度上就是编程里的面向对象思想。这也启发我们，一些应用学科的学科发展和突破可能需要一些底层学科的推动，转行之后，很多建筑学现象就更能看到一些问题的本质了。之前有一个数学系的朋友在苦恼于他所学的知识有什么应用，我喜欢与不同学科的人交流就跟他聊起来，介绍了几个数学知识在建筑设计和工程中如何帮助节省造价如何解决设计难题的例子，他也分享了他对这些问题的看法，其实很多建筑上很复杂的问题到数学里都是很平常的数学题，并且介绍了很多更好解决这些问题的数学方法，整个聊天过程很愉快，两个人都很兴奋。多学了很多东西就有了更多的启发，能从更广的角度来认识学科，看到学科发展的路线，这样的体验是非常难得可贵的。</p>
-<h3 id="总结">总结</h3>
-<p>我们四个人有共同点也有不同点，相信看了我们的回答每个人心中都已经有了答案，希望我们的分享能为你对转行这件事的认识有所帮助。</p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[About Me]]></title>
-        <id>https://albertlidesign.github.io/post/aboutme/</id>
-        <link href="https://albertlidesign.github.io/post/aboutme/">
-        </link>
-        <updated>2019-01-25T11:09:48.000Z</updated>
-        <content type="html"><![CDATA[<h1 id="about-me">About Me</h1>
-<p>I'm a student, designer and engineer specializing in the intersection of architectural design and computer graphics.</p>
-<p>Welcome to AlbertLiDesign. This is a blog for random braindumps on my programming adventures, graphics and design research, some of my more serious writings and other interesting things.</p>
-<h1 id="experiences">Experiences</h1>
-<h2 id="studied-in-tianjin-university">Studied in Tianjin University</h2>
-<p><em>Bachelor of Art, Environmental Design, School of Architecture (2014 – 2018)</em><br>
-Add more information about what you did here. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin id arcu aliquet, elementum nisi quis, condimentum nibh.</p>
-<h2 id="worked-in-xie-archi-structure-design-shanghai-co-ltd">Worked in XIE Archi-Structure Design (Shanghai) Co., Ltd.</h2>
-<p><em>Assistant Research &amp; Development Engineer, XIE Design Lab (2018 – 2019)</em><br>
-Participated in Ameba development project. Ameba is a software based on the Bi-directional Evolutionary Structural Optimization (BESO) technique originally proposed by Professor Yi-Min (Mike) Xie. The user may, according to design requirements, apply different loading and boundary conditions to the initial design domain. During the computational process by the software, the design domain will evolve and eventually reach an organic form that is structurally efficient;</p>
-<p>Developed a lot of mesh optimization functions. As a system of Ameba's post-process, it is efficient to provide a complete set of solutions for optimizing results of topology optimization.</p>
-<h2 id="will-study-in-rmit">Will Study in RMIT</h2>
-<p><em>Prospective PhD student, Civil Engineering, School of Engineering (2020 – )</em><br>
-<em>Senior Supervisor Yimin Xie, Associate Supervisor Roland Snooks.</em></p>
-<p><strong>BTW</strong> I have been waiting for my PhD visa for more than 8 months, but there have been no result or response from the Australian government.</p>
-]]></content>
-    </entry>
-</feed>
+              </div>
+                    <footer class="footer mdui-m-t-5 mdui-text-center">
+               <nav class="social-links">
+                      <ul>
+                      
+                      
+                           
+                      
+                           
+                      	
+                        <li class="social-link"><a href="https://github.com/AlbertLiDesign" target="_blank"><i class="iconfont icon-github"></i></a></li>
+                          
+                           
+                      
+                           
+                      
+                           
+                      
+                           
+                      
+                           
+                      
+                           
+                      
+                           
+                      
+                           
+                      
+                           
+                      
+                           
+                      </ul>
+                    </nav>
+                    <div class="copyright">
+                      <p>Powered by <a href="https://github.com/AlbertLiDesign" target="_blank">AlbertLiDesign</a> <br/> Theme <a href="https://github.com/alterfang/gridea-theme-song/" target="_blank"  title="宋"  >Song</a> by <a href="https://shanbu.fun/" target="_blank"  title="山卜方" >shanbufun</a> </p>
+                  </div>
+                  
+              </footer>
+    </body>
+</html>
