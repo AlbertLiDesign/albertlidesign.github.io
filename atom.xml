@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://albertlidesign.github.io</id>
     <title>AlbertLiDesign</title>
-    <updated>2020-06-07T06:23:59.358Z</updated>
+    <updated>2020-06-07T09:57:16.502Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://albertlidesign.github.io"/>
     <link rel="self" href="https://albertlidesign.github.io/atom.xml"/>
@@ -301,6 +301,7 @@ get_projection_matrix(float eye_fov, float aspect_ratio, float zNear, float zFar
 using namespace Eigen;
 
 Matrix4f get_model_matrix(float rotation_angle);
+Matrix4f get_rotation(Vector3f axis, float angle);      // build a rotation matrix about any axis through orgin
 Matrix4f get_projection_matrix(float eye_fov, float aspect_ratio, float zNear, float zFar);
 
 Matrix4f get_model_matrix(float rotation_angle)
@@ -317,6 +318,30 @@ Matrix4f get_model_matrix(float rotation_angle)
         0.0f, 0.0f, 0.0f, 1.0f;
     return RZ;
 }
+
+// build a rotation matrix about any axis through orgin
+Matrix4f get_rotation(Vector3f axis, float angle)
+{
+    Matrix3f N(3, 3);
+    Matrix3f I(4, 4);
+
+    float theta = angle / 180.0f * M_PI;
+
+    N &lt;&lt;
+        0.0f, -axis.z(), axis.y(),
+        axis.z(), 0.0f, -axis.x(),
+        -axis.y(), axis.x(), 0.0f;
+
+    Matrix3f R = cos(theta) * I + (1 - cos(theta)) * axis * axis.transpose() + sin(theta) * N;
+    Matrix4f RN(4, 4);
+    RN &lt;&lt;
+        R(0, 0), R(0, 1), R(0, 2), 0.0f,
+        R(1, 0), R(1, 1), R(1, 2), 0.0f,
+        R(2, 0), R(2, 1), R(2, 2), 0.0f,
+        0.0f, 0.0f, 0.0f, 1.0f;
+    return RN;
+}
+
 Matrix4f get_projection_matrix(float eye_fov, float aspect_ratio, float zNear, float zFar)
 {
     float fovY = eye_fov / 180.0f * M_PI;
