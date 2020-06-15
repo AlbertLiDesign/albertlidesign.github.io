@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html>
+        <head>
+        <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1,initial-scale=1,user-scalable=no" />
+        <meta charset="utf-8">
+        <title>Games101(3): Shading | AlbertLiDesign</title>
+        <link rel="stylesheet" href="https://albertlidesign.github.io/styles/main.css">
+        <link rel="stylesheet" href="https://at.alicdn.com/t/font_1306644_jwtuc2zzbrd.css">
+        <link href="https://cdn.bootcss.com/animate.css/3.7.2/animate.min.css" rel="stylesheet">
+         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+        <script src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js"></script>
+         <script src="https://cdn.bootcss.com/highlight.js/9.15.10/highlight.min.js"></script>
+         <script >hljs.initHighlightingOnLoad();</script>
+
+    </head>
+    <body>
+              <header class="header mdui-m-b-5">      
+            <div class="container  ">
+                <div class="index-title animated fadeInDown mdui-text-center mdui-text-color-white mdui-m-b-2" style="animation-delay: 0.2s"><a href="https://albertlidesign.github.io">AlbertLiDesign</a></div>
+                <div class="mdui-text-color-white animated fadeInDown mdui-text-center  mdui-m-b-3" style="animation-delay: 0.4s">Welcome to Albert Li Design. This is a blog for random braindumps on my programming adventures, graphics and design research, some of my more serious writings and other interesting things.</div>
+           
+            <nav id="nav" class="mdui-text-center animated fadeInDown" style="animation-delay: 0.6s">
+                   
+                            <li><a href="/">Home</a>
+                                <span class="nav-style top"></span>
+                                <span class="nav-style bottom"></span>
+                                <span class="nav-style left"></span>
+                                <span class="nav-style right"></span>
+                                </li>
+                    
+                            <li><a href="/archives">Archives</a>
+                                <span class="nav-style top"></span>
+                                <span class="nav-style bottom"></span>
+                                <span class="nav-style left"></span>
+                                <span class="nav-style right"></span>
+                                </li>
+                    
+                            <li><a href="/tags">Tags</a>
+                                <span class="nav-style top"></span>
+                                <span class="nav-style bottom"></span>
+                                <span class="nav-style left"></span>
+                                <span class="nav-style right"></span>
+                                </li>
+                    
+                            <li><a href="/post/about">About</a>
+                                <span class="nav-style top"></span>
+                                <span class="nav-style bottom"></span>
+                                <span class="nav-style left"></span>
+                                <span class="nav-style right"></span>
+                                </li>
+                    
+                  </nav>
+                </div>
+        </header>
+        <div class="mdui-container ">
+                <div class="mdui-row">
+                        <div class="mdui-col-md-8 mdui-col-offset-md-2 ">
+                                <article class="mdui-p-a-2 post animated fadeIn" style="animation-delay: 0.8s;animation-duration: 2s">
+                                    <div class="post-title  mdui-m-b-1">Games101(3): Shading</div>
+                                    <div class="mdui-typo-body-2 mdui-m-b-2" datetime="2020-06-15 18:25:12">2020-06-15 / 13 min read</div>
+                                    <div class="mdui-m-b-2 mdui-typo post-neirong"><p>课程链接：<a href="https://links.jianshu.com/go?to=https%3A%2F%2Fwww.bilibili.com%2Fvideo%2FBV1X7411F744%3Ffrom%3Dsearch%26seid%3D15146582739672622465">GAMES101-现代计算机图形学入门-闫令琪</a><br>
+课程讲师：闫令琪<br>
+本系列笔记为本人根据学习该门课程的笔记，仅分享出来供大家交流，希望大家多多支持GAMES相关讲座及课程，如涉及侵权请联系我删除：<a href="https://links.jianshu.com/go?to=mailto%3Aalbertlidesign%40gmail.com">albertlidesign@gmail.com</a></p>
+<p>关于光栅化还有一点关于Z-Buffering的内容，我们在这里先做一个补充。前面的课程我们知道了屏幕就是一堆像素，如何光栅化一个三角形，一些采样理论的知识和如何进行反采样，就是先做模糊再做采样。但是上一讲我们只说了频域分析，介绍了先模糊再采样是正确的，但是没有讲为什么先采样再模糊是错的。这里给大家一个提示：先采样就是把信号的频谱进行搬移，它会有频谱的混叠，然后模糊就是在混叠之后截断信号，这里就会发现混叠的信号截断了还是混叠的。（采样=频谱搬移，模糊=截断）</p>
+<h2 id="z-bufferring">Z-Bufferring</h2>
+<p>众所周知，空间中会有好多三角形，三角形各自离相机的距离也不一样，那么我们该如何将这些三角形画在屏幕上并且它们的遮挡关系是对的呢？近处的永远要遮挡远处的。在这里我们使用的方法就是<strong>深度缓存（Z-Buffering）</strong>。</p>
+<h3 id="painters-algorithm">Painter's Algorithm</h3>
+<p>场景中有很多不同的物体，既然要把这些物体放在屏幕上就要涉及到顺序的问题，以保证这张图是对的。一个比较直观的方法是像画水粉、油画一样，先把最远的物体绘制出来，再把近的物体覆盖在远的物体上，层层叠加来形成最终的结果。<br>
+<img src="https://upload-images.jianshu.io/upload_images/19551947-0d27f04330b38509.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/300" alt="" loading="lazy"><br>
+<img src="https://upload-images.jianshu.io/upload_images/19551947-d42bcbe634f85397.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/300" alt="" loading="lazy"><br>
+<img src="https://upload-images.jianshu.io/upload_images/19551947-935ad2e376560363.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/300" alt="" loading="lazy"></p>
+<p>画家先画远处的山，再画近处的草地，最后再在草地上画上树。这样由远及近地对物体做光栅化的算法就称之为<strong>画家算法（Painter's Algortihm）</strong>。例如如果我们画一个立方体，可以先画最远的面，然后再画周围的四个面，最后绘制最前方的面，这样就能出正确的结果。但是仔细思考会发现，如果绘制的顺序必须要非常严格，如果错了会造成多余的线被绘制。因此在一定程度上说，这个算法是可以的，它要求对所有物体的深度进行排序，排序的复杂度为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><mi>l</mi><mi>o</mi><mi>g</mi><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n logn)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span>（对于<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">n</span></span></span></span>个三角形）。但是当三个空间三角形构成一组互承关系时，三个两两之间存在了覆盖关系，这样就没法定义它们之间的深度关系，也就无法对它们进行排序。因此为了解决这个问题，人们提出了Z-Buffer。<br>
+<img src="https://upload-images.jianshu.io/upload_images/19551947-656728d0bb8f0073.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/300" alt="" loading="lazy"></p>
+<h3 id="z-buffer">Z-Buffer</h3>
+<p>在图形学里，人们广泛采用了Z-Buffer，引入了深度缓存的概念。这一算法其实就是避免空间中三角形的排序，它是从像素的角度来检测能看到的三角形，对于每一个像素去记录它所看见的最浅的深度的物体，也就是距离相机最近距离的物体。在图形学中，我们不光能渲染出最后的结果（Frame Buffer），在生成这个图像的同时，我们还能得到一个<strong>深度图（Depth Buffer）</strong>，<strong>它记录了每个像素所看到的几何图形的最浅深度的信息</strong>。我们利用深度图来维护遮挡信息。<br>
+<img src="https://upload-images.jianshu.io/upload_images/19551947-3968605b71cd0898.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/400" alt="" loading="lazy"></p>
+<p>在变换中，我们提到，我们始终假设相机是放在原点，并且看向<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>−</mo><mi>Z</mi></mrow><annotation encoding="application/x-tex">-Z</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="mord">−</span><span class="mord mathdefault" style="margin-right:0.07153em;">Z</span></span></span></span>，这样所有的点的<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>Z</mi></mrow><annotation encoding="application/x-tex">Z</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.07153em;">Z</span></span></span></span>坐标都是负的，并且它们越小，说明离得越远。为了方便理解，现在我们换一个概念，我们把它看作是点到摄像机的距离，这样<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>Z</mi></mrow><annotation encoding="application/x-tex">Z</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.07153em;">Z</span></span></span></span>就总是正的，那么<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>Z</mi></mrow><annotation encoding="application/x-tex">Z</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.07153em;">Z</span></span></span></span>值越小，物体越近。</p>
+<p>如上图所示，对于一个像素会记录地板的深度和物体的深度，假设对于有一个能看到物体的像素，它先记录了地板的深度，接着再记录物体的深度，如果物体的深度比地板要小，那么意味着这个物体要遮挡住地板，这个点就要画上看到物体的颜色，然后右侧的深度图也会做相应的更新。这一流程的伪代码如下：</p>
+<pre><code>// first step: initialize depth buffer to infinite
+for (each triangle T)
+  for(each sample (x,y,z) in T)
+    if (z&lt;zbuffer[x,y])              // closest sample so far
+      framebuffer[x,y] = rgs;        // update color
+      zbuffer[x,y] = z;              // update depth
+    else
+       ;                             // do nothing, this sample is occluded
+</code></pre>
+<p><img src="https://upload-images.jianshu.io/upload_images/19551947-f445696da68e5938.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/600" alt="" loading="lazy"><br>
+注意：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>R</mi></mrow><annotation encoding="application/x-tex">R</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.00773em;">R</span></span></span></span>为无限大的一个值。初始化时要把所有的像素定义为无限大（或者足够大的一个值）。</p>
+<p>在使用画家算法时，我们要把所有的三角形做一次排序，这需要花费<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><mi>l</mi><mi>o</mi><mi>g</mi><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n logn)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span>的时间。而深度缓存，每个三角形都覆盖常数个像素的话，无非就是考虑每个三角形所覆盖的常数个数的像素，也就是<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span>的算法复杂度。它并没有进行排序，只是不断地更新结果，记录当前所看到的最小深度值，因此只花了线性的时间。</p>
+<p>这里要注意，不会出现两个不同的三角形在同一个像素上有着相同的深度，因为深度缓存算法与顺序是没有关系的了，不管通过什么顺序绘制三角形，最后的结果都会是相同的。在图形学中，我们都是用浮点型来表示的，浮点型和浮点型判断相等是非常困难的事，基本上可以认为两个浮点数是完全不会相同的。此外，这一算法可以应用在几乎所有的硬件中。</p>
+<p>之前提到，为了做反走样，我们使用了MSAA算法，对一个像素取很多采样点，对于这些不同的采样点，如果我们要运用深度缓存，就要对每一个采样点检测它所能看到的深度，因此Z-Buffer还得考虑到它不是对每个像素记录深度，实际上是对每个采样点做记录。</p>
+<h2 id="shading">Shading</h2>
+<p>到目前为止，我们已经学习了如何将物体随着相机，变换到相机位于原点看向<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>−</mo><mi>Z</mi></mrow><annotation encoding="application/x-tex">-Z</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="mord">−</span><span class="mord mathdefault" style="margin-right:0.07153em;">Z</span></span></span></span>方向时的位置，即View Transformation，接着我们可以将模型映射到二维的从<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><mn>0</mn><mo separator="true">,</mo><mn>0</mn><mo>)</mo></mrow><annotation encoding="application/x-tex">(0,0)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">0</span><span class="mclose">)</span></span></span></span>到<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><mi>w</mi><mo separator="true">,</mo><mi>h</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">(w,h)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.02691em;">w</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">h</span><span class="mclose">)</span></span></span></span>的屏幕上，接着根据二维屏幕中的像素与三角形之间通过采样求出像素的值，也就是光栅化。<br>
+<img src="https://upload-images.jianshu.io/upload_images/19551947-6015685242dc76d2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/600" alt="" loading="lazy"><br>
+目前所能做的事表现出来就是这样的<br>
+<img src="https://upload-images.jianshu.io/upload_images/19551947-570ce74cd261d28e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/400" alt="" loading="lazy"><br>
+而我们期待的结果是这样的，它与我们目前做到的结果的区别在于着色。<br>
+<img src="https://upload-images.jianshu.io/upload_images/19551947-b894c041decb9897.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/400" alt="" loading="lazy"><br>
+在下面的渲染图中，可以看到杯子中有茶、蛋挞、葡萄，不同的物体会有不同的颜色，在不同的光照下，这些物体上的颜色会有变化，这都是着色的问题。<br>
+<img src="https://upload-images.jianshu.io/upload_images/19551947-1b6b788837bfeae9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/800" alt="" loading="lazy"></p>
+<p>着色 (Shading）在Merriam-Webster字典里的意思为：<br>
+shad·ing, noun, The darkening or coloring of an illustration or diagram with parallel lines or a block of color.<br>
+在我们这门课中，它的含义是：The process of <strong>applying a material</strong> to an object. 即对不同物体应用不同材质的过程。不同的材质和光照会发生不同的作用效果。</p>
+<h3 id="blinn-phong">Blinn-Phong</h3>
+<p>最基础的着色模型为Blinn-Phong反射模型。通过下图几个茶杯，我们可以看到光源应该在右上方，在每个茶杯上有<strong>高光（Specular highlights）</strong>，茶杯的其他部位的变化相对不明显，这部分叫做<strong>漫反射（Diffuse reflection）</strong>。对于最底下的茶杯的最左侧，光源从右上方照射，按说这个茶杯的最左侧不应该为黑色，因为这部分没有被光直接照射到，但为什么这里有颜色呢？是因为<strong>间接光或环境光（Ambient lighting）</strong>，它是由光线在其他物体之间发生反弹从而照亮这部分区域的。任何一个点都会接收到来自环境的反射光，它很复杂，我们在后面会讲到。<br>
+<img src="https://upload-images.jianshu.io/upload_images/19551947-f82906985ce5797d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/400" alt="" loading="lazy"></p>
+<p>我们看到一共有三部分，高光、漫反射和间接光，我们可以把这三部分分别做出来从而得到一个很相似的结果。在开始之前，我们需要定义一些东西。</p>
+<ul>
+<li>我们现在考虑光照是对任何一个点而言，假设这个点叫做shading point，那么这个点的着色结果是什么？我们定义在一个极小的范围内，它是一个平面，即与它所在的曲面相切的平面</li>
+<li>既然是平面，那么就有法线<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mover accent="true"><mi>n</mi><mo>⃗</mo></mover></mrow><annotation encoding="application/x-tex">\vec n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.714em;vertical-align:0em;"></span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.714em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathdefault">n</span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.2355em;"><span class="overlay" style="height:0.714em;width:0.471em;"><svg width='0.471em' height='0.714em' style='width:0.471em' viewBox='0 0 471 714' preserveAspectRatio='xMinYMin'><path d='M377 20c0-5.333 1.833-10 5.5-14S391 0 397 0c4.667 0 8.667 1.667 12 5
+3.333 2.667 6.667 9 10 19 6.667 24.667 20.333 43.667 41 57 7.333 4.667 11
+10.667 11 18 0 6-1 10-3 12s-6.667 5-14 9c-28.667 14.667-53.667 35.667-75 63
+-1.333 1.333-3.167 3.5-5.5 6.5s-4 4.833-5 5.5c-1 .667-2.5 1.333-4.5 2s-4.333 1
+-7 1c-4.667 0-9.167-1.833-13.5-5.5S337 184 337 178c0-12.667 15.667-32.333 47-59
+H213l-171-1c-8.667-6-13-12.333-13-19 0-4.667 4.333-11.333 13-20h359
+c-16-25.333-24-45-24-59z'/></svg></span></span></span></span></span></span></span></span></span></span>垂直于平面</li>
+<li>同样我们还可以定义一个观测方向，我们规定从shading point到相机的方向为观测方向<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mover accent="true"><mi>v</mi><mo>⃗</mo></mover></mrow><annotation encoding="application/x-tex">\vec v</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.714em;vertical-align:0em;"></span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.714em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.20772em;"><span class="overlay" style="height:0.714em;width:0.471em;"><svg width='0.471em' height='0.714em' style='width:0.471em' viewBox='0 0 471 714' preserveAspectRatio='xMinYMin'><path d='M377 20c0-5.333 1.833-10 5.5-14S391 0 397 0c4.667 0 8.667 1.667 12 5
+3.333 2.667 6.667 9 10 19 6.667 24.667 20.333 43.667 41 57 7.333 4.667 11
+10.667 11 18 0 6-1 10-3 12s-6.667 5-14 9c-28.667 14.667-53.667 35.667-75 63
+-1.333 1.333-3.167 3.5-5.5 6.5s-4 4.833-5 5.5c-1 .667-2.5 1.333-4.5 2s-4.333 1
+-7 1c-4.667 0-9.167-1.833-13.5-5.5S337 184 337 178c0-12.667 15.667-32.333 47-59
+H213l-171-1c-8.667-6-13-12.333-13-19 0-4.667 4.333-11.333 13-20h359
+c-16-25.333-24-45-24-59z'/></svg></span></span></span></span></span></span></span></span></span></span></li>
+<li>同样道理，从shading point到光源的方向称为光照方向<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mover accent="true"><mi>l</mi><mo>⃗</mo></mover></mrow><annotation encoding="application/x-tex">\vec l</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.9774399999999999em;vertical-align:0em;"></span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.9774399999999999em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span></span><span style="top:-3.26344em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.15216em;"><span class="overlay" style="height:0.714em;width:0.471em;"><svg width='0.471em' height='0.714em' style='width:0.471em' viewBox='0 0 471 714' preserveAspectRatio='xMinYMin'><path d='M377 20c0-5.333 1.833-10 5.5-14S391 0 397 0c4.667 0 8.667 1.667 12 5
+3.333 2.667 6.667 9 10 19 6.667 24.667 20.333 43.667 41 57 7.333 4.667 11
+10.667 11 18 0 6-1 10-3 12s-6.667 5-14 9c-28.667 14.667-53.667 35.667-75 63
+-1.333 1.333-3.167 3.5-5.5 6.5s-4 4.833-5 5.5c-1 .667-2.5 1.333-4.5 2s-4.333 1
+-7 1c-4.667 0-9.167-1.833-13.5-5.5S337 184 337 178c0-12.667 15.667-32.333 47-59
+H213l-171-1c-8.667-6-13-12.333-13-19 0-4.667 4.333-11.333 13-20h359
+c-16-25.333-24-45-24-59z'/></svg></span></span></span></span></span></span></span></span></span></span></li>
+<li>注意，因为我们只关心这些向量的方向，所以它们都是单位向量，长度为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn></mrow><annotation encoding="application/x-tex">1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span></li>
+<li>我们还需要定义一些表面参数，比如颜色，亮度（shininess）等<br>
+<img src="https://upload-images.jianshu.io/upload_images/19551947-3d4d3526f16c347c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/400" alt="" loading="lazy"></li>
+</ul>
+<h3 id="diffuse-reflection">Diffuse Reflection</h3>
+<p>Blinn-Phone有三个不同的部分，我们从最简单的漫反射开始。当有一根光线打到物体表面上的某一点，光线会被均匀地反射到不同方向上去，这个过程叫漫反射。<br>
+<img src="https://upload-images.jianshu.io/upload_images/19551947-052a78c2d63e0cb0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/400" alt="" loading="lazy"><br>
+当我们考虑shading point所在表面的朝向与光照方向有一定夹角的时候，会发现得到的明暗是不一样的。如图所示，假如光是离散的，有六根光线打到表面上，每一根光线代表一个固定的能量，如果表面和光线垂直的话会接收到所有的光，但是如果表面旋转到了某一个角度，比如<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>60</mn><mi mathvariant="normal">°</mi></mrow><annotation encoding="application/x-tex">60°</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord">6</span><span class="mord">0</span><span class="mord">°</span></span></span></span>，我们会发现只接受到了三根光线，那么就会变得暗一些。因此会发现表面的明暗会与光线与法线的夹角存在一定关系。为了量化，我们用shading point周围的单位面积来定义接收到的能量，它与夹角有关，这就是Lambert的余弦定律。<br>
+<img src="https://upload-images.jianshu.io/upload_images/19551947-6d2bbea60f2ce78d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/600" alt="" loading="lazy"><br>
+提到了接收能量也不得不提一下发散能量。不同的物体被光所照亮，光是一种能量，在这里我们认为它是一个点光源，它会无时无刻地在向外辐射出不同的能量，一个很聪明的观测方法是一个点向外发散能量，那么在某一时刻，它们一定集中在某一个球壳上。根据能量守恒定律，离中心近的球壳和离中心远的球壳的能量应该是完全相同的能量，但是随着球壳离中心越来越远，其表面积会越变越大，那也就意味着在某一个点，它的能量会越来越少。因此我们定义在距离为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn></mrow><annotation encoding="application/x-tex">1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span>的地方定义光的强度为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>I</mi></mrow><annotation encoding="application/x-tex">I</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.07847em;">I</span></span></span></span>，如果传播到距离为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>r</mi></mrow><annotation encoding="application/x-tex">r</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span></span></span></span>的球壳上时，它的能量为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mfrac><mi>I</mi><msup><mi>r</mi><mn>2</mn></msup></mfrac></mrow><annotation encoding="application/x-tex">\frac{I}{r^2}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.217331em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.872331em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.02778em;">r</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7463142857142857em;"><span style="top:-2.786em;margin-right:0.07142857142857144em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.07847em;">I</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span>。这就告诉了我们，光在某一时刻某一位置所能传播的能力是与它与光源的距离的平方成反比的。光线传播的距离越长，所能接收到的能量越小。也就是说，只要知道一个点光源，又知道shading point离光源的距离，那么就能知道有多少光传播到了当前的shading point。<br>
+<img src="https://upload-images.jianshu.io/upload_images/19551947-430f00183e737c1e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/400" alt="" loading="lazy"></p>
+<p>根据前面我们又知道了有多少光能被接收，我们就得到了diffuse的表示方法了：<br>
+<img src="https://upload-images.jianshu.io/upload_images/19551947-b2b1b43f79da23ad.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/600" alt="" loading="lazy"><br>
+假设我们有一个点光源，假设它与shading point的距离为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>r</mi></mrow><annotation encoding="application/x-tex">r</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span></span></span></span>，我们定义在单位距离上它的强度为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>I</mi></mrow><annotation encoding="application/x-tex">I</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.07847em;">I</span></span></span></span>，那么我们就能求出它到达shading point处的能量，我们有算出了有多少光能被接收，就能算出我们最后所看到的在这一点上的能量。做一个<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>m</mi><mi>a</mi><mi>x</mi><mo>(</mo><mn>0</mn><mo separator="true">,</mo><mover accent="true"><mi>n</mi><mo>⃗</mo></mover><mo separator="true">⋅</mo><mover accent="true"><mi>l</mi><mo>⃗</mo></mover><mo>)</mo></mrow><annotation encoding="application/x-tex">max(0, \vec n · \vec l)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.2274399999999999em;vertical-align:-0.25em;"></span><span class="mord mathdefault">m</span><span class="mord mathdefault">a</span><span class="mord mathdefault">x</span><span class="mopen">(</span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.714em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathdefault">n</span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.2355em;"><span class="overlay" style="height:0.714em;width:0.471em;"><svg width='0.471em' height='0.714em' style='width:0.471em' viewBox='0 0 471 714' preserveAspectRatio='xMinYMin'><path d='M377 20c0-5.333 1.833-10 5.5-14S391 0 397 0c4.667 0 8.667 1.667 12 5
+3.333 2.667 6.667 9 10 19 6.667 24.667 20.333 43.667 41 57 7.333 4.667 11
+10.667 11 18 0 6-1 10-3 12s-6.667 5-14 9c-28.667 14.667-53.667 35.667-75 63
+-1.333 1.333-3.167 3.5-5.5 6.5s-4 4.833-5 5.5c-1 .667-2.5 1.333-4.5 2s-4.333 1
+-7 1c-4.667 0-9.167-1.833-13.5-5.5S337 184 337 178c0-12.667 15.667-32.333 47-59
+H213l-171-1c-8.667-6-13-12.333-13-19 0-4.667 4.333-11.333 13-20h359
+c-16-25.333-24-45-24-59z'/></svg></span></span></span></span></span></span></span><span class="mpunct">⋅</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.9774399999999999em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span></span><span style="top:-3.26344em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.15216em;"><span class="overlay" style="height:0.714em;width:0.471em;"><svg width='0.471em' height='0.714em' style='width:0.471em' viewBox='0 0 471 714' preserveAspectRatio='xMinYMin'><path d='M377 20c0-5.333 1.833-10 5.5-14S391 0 397 0c4.667 0 8.667 1.667 12 5
+3.333 2.667 6.667 9 10 19 6.667 24.667 20.333 43.667 41 57 7.333 4.667 11
+10.667 11 18 0 6-1 10-3 12s-6.667 5-14 9c-28.667 14.667-53.667 35.667-75 63
+-1.333 1.333-3.167 3.5-5.5 6.5s-4 4.833-5 5.5c-1 .667-2.5 1.333-4.5 2s-4.333 1
+-7 1c-4.667 0-9.167-1.833-13.5-5.5S337 184 337 178c0-12.667 15.667-32.333 47-59
+H213l-171-1c-8.667-6-13-12.333-13-19 0-4.667 4.333-11.333 13-20h359
+c-16-25.333-24-45-24-59z'/></svg></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span>是说，当向量点乘为负数的时候，这是说光从背面穿过了物体达到了shading point，显然是不可能的，因此没有物理意义，因为我们考虑的是反射，因此当点乘为负时就认为是<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span>。我们再来考虑一个问题，对于shading point，它自己本身为什么会有颜色，是因为这个点会吸收颜色，或者说能量，它反射出去的是不吸收的颜色。如果我们在能量被接收后定义一个系数<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>k</mi><mi>d</mi></msub></mrow><annotation encoding="application/x-tex">k_d</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.84444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:-0.03148em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">d</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>，表示漫反射系数，如果为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn></mrow><annotation encoding="application/x-tex">1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span>就是最亮，如果为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span>那么表面就是黑的，那么如果我们把它表示成一个三通道的向量就可以表达它对RGB三个颜色的反射程度。</p>
+<figure data-type="image" tabindex="1"><img src="https://upload-images.jianshu.io/upload_images/19551947-1c3beeb973e917dc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/800" alt="" loading="lazy"></figure>
+<p>既然光打到shading point被反射到各个方向，那就意味着无论我们从哪观测它，所看到的结果应该是一样的，从公式上看也是如此，我们考虑的是光线与法线的夹角，因此漫反射跟观测角度无关完全无关。<br>
+（可以想想，你处在一个黑屋子里，眼前一个石膏球被照亮，无论你从哪个角度看这个石膏球，除了被照亮的部分其他地方都看不到，因此漫反射与观测角度无关）</p>
+</div>
+                                    <div class="mdui-divider mdui-m-b-2"></div>
+                                    <div class="mdui-row-xs-2 post-fenye">
+                                       
+                                        <div class="mdui-col"> </div>
+                                        
+
+                                        
+                                        <div class="mdui-col"><div class="mdui-text-right "><a href="https://albertlidesign.github.io/post/games101_2_rasterization/">Games101(2): Rasterization</a></div> </div>
+                                       
+                                      </div>
+                                   
+                                    <div class="mdui-divider mdui-m-t-2 mdui-m-b-2"></div>
+                                    
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '',
+    clientSecret: '',
+    repo: '',
+    owner: '',
+    admin: [''],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+          
+        
+                                     <script src="https://albertlidesign.github.io/media/scripts/Valine.min.js"></script>
+ <div class="comment"></div>
+
+<script>
+      new Valine({
+            el: '.comment',
+
+
+
+            path: window.location.pathname,
+            pageSize: 30,
+            avatar:'mm', 
+       })
+    </script> 
+<script>
+    if(window.location.hash){
+        var checkExist = setInterval(function() {
+           if ($(window.location.hash).length) {
+              $('html, body').animate({scrollTop: $(window.location.hash).offset().top-90}, 1000);
+              clearInterval(checkExist);
+           }
+        }, 100);
+    }
+</script>
+                                </article>
+
+                                    
+                        </div>
+                      </div>
+    
+                
+
+              </div>
+                    <footer class="footer mdui-m-t-5 mdui-text-center">
+               <nav class="social-links">
+                      <ul>
+                      
+                      
+                           
+                      
+                           
+                      	
+                        <li class="social-link"><a href="https://github.com/AlbertLiDesign" target="_blank"><i class="iconfont icon-github"></i></a></li>
+                          
+                           
+                      
+                           
+                      
+                           
+                      
+                           
+                      
+                           
+                      
+                           
+                      
+                           
+                      
+                           
+                      
+                           
+                      
+                           
+                      </ul>
+                    </nav>
+                    <div class="copyright">
+                      <p>Powered by <a href="https://github.com/AlbertLiDesign" target="_blank">AlbertLiDesign</a> <br/> Theme <a href="https://github.com/alterfang/gridea-theme-song/" target="_blank"  title="宋"  >Song</a> by <a href="https://shanbu.fun/" target="_blank"  title="山卜方" >shanbufun</a> </p>
+                  </div>
+                  
+              </footer>
+    </body>
+</html>

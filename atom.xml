@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://albertlidesign.github.io</id>
     <title>AlbertLiDesign</title>
-    <updated>2020-06-10T15:06:35.920Z</updated>
+    <updated>2020-06-15T10:25:50.524Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://albertlidesign.github.io"/>
     <link rel="self" href="https://albertlidesign.github.io/atom.xml"/>
@@ -10,6 +10,114 @@
     <logo>https://albertlidesign.github.io/images/avatar.png</logo>
     <icon>https://albertlidesign.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, AlbertLiDesign</rights>
+    <entry>
+        <title type="html"><![CDATA[Games101(3): Shading]]></title>
+        <id>https://albertlidesign.github.io/post/games101_3_shading/</id>
+        <link href="https://albertlidesign.github.io/post/games101_3_shading/">
+        </link>
+        <updated>2020-06-15T10:25:12.000Z</updated>
+        <content type="html"><![CDATA[<p>课程链接：<a href="https://links.jianshu.com/go?to=https%3A%2F%2Fwww.bilibili.com%2Fvideo%2FBV1X7411F744%3Ffrom%3Dsearch%26seid%3D15146582739672622465">GAMES101-现代计算机图形学入门-闫令琪</a><br>
+课程讲师：闫令琪<br>
+本系列笔记为本人根据学习该门课程的笔记，仅分享出来供大家交流，希望大家多多支持GAMES相关讲座及课程，如涉及侵权请联系我删除：<a href="https://links.jianshu.com/go?to=mailto%3Aalbertlidesign%40gmail.com">albertlidesign@gmail.com</a></p>
+<p>关于光栅化还有一点关于Z-Buffering的内容，我们在这里先做一个补充。前面的课程我们知道了屏幕就是一堆像素，如何光栅化一个三角形，一些采样理论的知识和如何进行反采样，就是先做模糊再做采样。但是上一讲我们只说了频域分析，介绍了先模糊再采样是正确的，但是没有讲为什么先采样再模糊是错的。这里给大家一个提示：先采样就是把信号的频谱进行搬移，它会有频谱的混叠，然后模糊就是在混叠之后截断信号，这里就会发现混叠的信号截断了还是混叠的。（采样=频谱搬移，模糊=截断）</p>
+<h2 id="z-bufferring">Z-Bufferring</h2>
+<p>众所周知，空间中会有好多三角形，三角形各自离相机的距离也不一样，那么我们该如何将这些三角形画在屏幕上并且它们的遮挡关系是对的呢？近处的永远要遮挡远处的。在这里我们使用的方法就是<strong>深度缓存（Z-Buffering）</strong>。</p>
+<h3 id="painters-algorithm">Painter's Algorithm</h3>
+<p>场景中有很多不同的物体，既然要把这些物体放在屏幕上就要涉及到顺序的问题，以保证这张图是对的。一个比较直观的方法是像画水粉、油画一样，先把最远的物体绘制出来，再把近的物体覆盖在远的物体上，层层叠加来形成最终的结果。<br>
+<img src="https://upload-images.jianshu.io/upload_images/19551947-0d27f04330b38509.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/300" alt="" loading="lazy"><br>
+<img src="https://upload-images.jianshu.io/upload_images/19551947-d42bcbe634f85397.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/300" alt="" loading="lazy"><br>
+<img src="https://upload-images.jianshu.io/upload_images/19551947-935ad2e376560363.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/300" alt="" loading="lazy"></p>
+<p>画家先画远处的山，再画近处的草地，最后再在草地上画上树。这样由远及近地对物体做光栅化的算法就称之为<strong>画家算法（Painter's Algortihm）</strong>。例如如果我们画一个立方体，可以先画最远的面，然后再画周围的四个面，最后绘制最前方的面，这样就能出正确的结果。但是仔细思考会发现，如果绘制的顺序必须要非常严格，如果错了会造成多余的线被绘制。因此在一定程度上说，这个算法是可以的，它要求对所有物体的深度进行排序，排序的复杂度为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><mi>l</mi><mi>o</mi><mi>g</mi><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n logn)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span>（对于<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">n</span></span></span></span>个三角形）。但是当三个空间三角形构成一组互承关系时，三个两两之间存在了覆盖关系，这样就没法定义它们之间的深度关系，也就无法对它们进行排序。因此为了解决这个问题，人们提出了Z-Buffer。<br>
+<img src="https://upload-images.jianshu.io/upload_images/19551947-656728d0bb8f0073.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/300" alt="" loading="lazy"></p>
+<h3 id="z-buffer">Z-Buffer</h3>
+<p>在图形学里，人们广泛采用了Z-Buffer，引入了深度缓存的概念。这一算法其实就是避免空间中三角形的排序，它是从像素的角度来检测能看到的三角形，对于每一个像素去记录它所看见的最浅的深度的物体，也就是距离相机最近距离的物体。在图形学中，我们不光能渲染出最后的结果（Frame Buffer），在生成这个图像的同时，我们还能得到一个<strong>深度图（Depth Buffer）</strong>，<strong>它记录了每个像素所看到的几何图形的最浅深度的信息</strong>。我们利用深度图来维护遮挡信息。<br>
+<img src="https://upload-images.jianshu.io/upload_images/19551947-3968605b71cd0898.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/400" alt="" loading="lazy"></p>
+<p>在变换中，我们提到，我们始终假设相机是放在原点，并且看向<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>−</mo><mi>Z</mi></mrow><annotation encoding="application/x-tex">-Z</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="mord">−</span><span class="mord mathdefault" style="margin-right:0.07153em;">Z</span></span></span></span>，这样所有的点的<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>Z</mi></mrow><annotation encoding="application/x-tex">Z</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.07153em;">Z</span></span></span></span>坐标都是负的，并且它们越小，说明离得越远。为了方便理解，现在我们换一个概念，我们把它看作是点到摄像机的距离，这样<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>Z</mi></mrow><annotation encoding="application/x-tex">Z</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.07153em;">Z</span></span></span></span>就总是正的，那么<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>Z</mi></mrow><annotation encoding="application/x-tex">Z</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.07153em;">Z</span></span></span></span>值越小，物体越近。</p>
+<p>如上图所示，对于一个像素会记录地板的深度和物体的深度，假设对于有一个能看到物体的像素，它先记录了地板的深度，接着再记录物体的深度，如果物体的深度比地板要小，那么意味着这个物体要遮挡住地板，这个点就要画上看到物体的颜色，然后右侧的深度图也会做相应的更新。这一流程的伪代码如下：</p>
+<pre><code>// first step: initialize depth buffer to infinite
+for (each triangle T)
+  for(each sample (x,y,z) in T)
+    if (z&lt;zbuffer[x,y])              // closest sample so far
+      framebuffer[x,y] = rgs;        // update color
+      zbuffer[x,y] = z;              // update depth
+    else
+       ;                             // do nothing, this sample is occluded
+</code></pre>
+<p><img src="https://upload-images.jianshu.io/upload_images/19551947-f445696da68e5938.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/600" alt="" loading="lazy"><br>
+注意：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>R</mi></mrow><annotation encoding="application/x-tex">R</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.00773em;">R</span></span></span></span>为无限大的一个值。初始化时要把所有的像素定义为无限大（或者足够大的一个值）。</p>
+<p>在使用画家算法时，我们要把所有的三角形做一次排序，这需要花费<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><mi>l</mi><mi>o</mi><mi>g</mi><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n logn)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span>的时间。而深度缓存，每个三角形都覆盖常数个像素的话，无非就是考虑每个三角形所覆盖的常数个数的像素，也就是<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span>的算法复杂度。它并没有进行排序，只是不断地更新结果，记录当前所看到的最小深度值，因此只花了线性的时间。</p>
+<p>这里要注意，不会出现两个不同的三角形在同一个像素上有着相同的深度，因为深度缓存算法与顺序是没有关系的了，不管通过什么顺序绘制三角形，最后的结果都会是相同的。在图形学中，我们都是用浮点型来表示的，浮点型和浮点型判断相等是非常困难的事，基本上可以认为两个浮点数是完全不会相同的。此外，这一算法可以应用在几乎所有的硬件中。</p>
+<p>之前提到，为了做反走样，我们使用了MSAA算法，对一个像素取很多采样点，对于这些不同的采样点，如果我们要运用深度缓存，就要对每一个采样点检测它所能看到的深度，因此Z-Buffer还得考虑到它不是对每个像素记录深度，实际上是对每个采样点做记录。</p>
+<h2 id="shading">Shading</h2>
+<p>到目前为止，我们已经学习了如何将物体随着相机，变换到相机位于原点看向<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>−</mo><mi>Z</mi></mrow><annotation encoding="application/x-tex">-Z</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="mord">−</span><span class="mord mathdefault" style="margin-right:0.07153em;">Z</span></span></span></span>方向时的位置，即View Transformation，接着我们可以将模型映射到二维的从<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><mn>0</mn><mo separator="true">,</mo><mn>0</mn><mo>)</mo></mrow><annotation encoding="application/x-tex">(0,0)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">0</span><span class="mclose">)</span></span></span></span>到<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><mi>w</mi><mo separator="true">,</mo><mi>h</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">(w,h)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.02691em;">w</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">h</span><span class="mclose">)</span></span></span></span>的屏幕上，接着根据二维屏幕中的像素与三角形之间通过采样求出像素的值，也就是光栅化。<br>
+<img src="https://upload-images.jianshu.io/upload_images/19551947-6015685242dc76d2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/600" alt="" loading="lazy"><br>
+目前所能做的事表现出来就是这样的<br>
+<img src="https://upload-images.jianshu.io/upload_images/19551947-570ce74cd261d28e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/400" alt="" loading="lazy"><br>
+而我们期待的结果是这样的，它与我们目前做到的结果的区别在于着色。<br>
+<img src="https://upload-images.jianshu.io/upload_images/19551947-b894c041decb9897.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/400" alt="" loading="lazy"><br>
+在下面的渲染图中，可以看到杯子中有茶、蛋挞、葡萄，不同的物体会有不同的颜色，在不同的光照下，这些物体上的颜色会有变化，这都是着色的问题。<br>
+<img src="https://upload-images.jianshu.io/upload_images/19551947-1b6b788837bfeae9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/800" alt="" loading="lazy"></p>
+<p>着色 (Shading）在Merriam-Webster字典里的意思为：<br>
+shad·ing, noun, The darkening or coloring of an illustration or diagram with parallel lines or a block of color.<br>
+在我们这门课中，它的含义是：The process of <strong>applying a material</strong> to an object. 即对不同物体应用不同材质的过程。不同的材质和光照会发生不同的作用效果。</p>
+<h3 id="blinn-phong">Blinn-Phong</h3>
+<p>最基础的着色模型为Blinn-Phong反射模型。通过下图几个茶杯，我们可以看到光源应该在右上方，在每个茶杯上有<strong>高光（Specular highlights）</strong>，茶杯的其他部位的变化相对不明显，这部分叫做<strong>漫反射（Diffuse reflection）</strong>。对于最底下的茶杯的最左侧，光源从右上方照射，按说这个茶杯的最左侧不应该为黑色，因为这部分没有被光直接照射到，但为什么这里有颜色呢？是因为<strong>间接光或环境光（Ambient lighting）</strong>，它是由光线在其他物体之间发生反弹从而照亮这部分区域的。任何一个点都会接收到来自环境的反射光，它很复杂，我们在后面会讲到。<br>
+<img src="https://upload-images.jianshu.io/upload_images/19551947-f82906985ce5797d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/400" alt="" loading="lazy"></p>
+<p>我们看到一共有三部分，高光、漫反射和间接光，我们可以把这三部分分别做出来从而得到一个很相似的结果。在开始之前，我们需要定义一些东西。</p>
+<ul>
+<li>我们现在考虑光照是对任何一个点而言，假设这个点叫做shading point，那么这个点的着色结果是什么？我们定义在一个极小的范围内，它是一个平面，即与它所在的曲面相切的平面</li>
+<li>既然是平面，那么就有法线<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mover accent="true"><mi>n</mi><mo>⃗</mo></mover></mrow><annotation encoding="application/x-tex">\vec n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.714em;vertical-align:0em;"></span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.714em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathdefault">n</span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.2355em;"><span class="overlay" style="height:0.714em;width:0.471em;"><svg width='0.471em' height='0.714em' style='width:0.471em' viewBox='0 0 471 714' preserveAspectRatio='xMinYMin'><path d='M377 20c0-5.333 1.833-10 5.5-14S391 0 397 0c4.667 0 8.667 1.667 12 5
+3.333 2.667 6.667 9 10 19 6.667 24.667 20.333 43.667 41 57 7.333 4.667 11
+10.667 11 18 0 6-1 10-3 12s-6.667 5-14 9c-28.667 14.667-53.667 35.667-75 63
+-1.333 1.333-3.167 3.5-5.5 6.5s-4 4.833-5 5.5c-1 .667-2.5 1.333-4.5 2s-4.333 1
+-7 1c-4.667 0-9.167-1.833-13.5-5.5S337 184 337 178c0-12.667 15.667-32.333 47-59
+H213l-171-1c-8.667-6-13-12.333-13-19 0-4.667 4.333-11.333 13-20h359
+c-16-25.333-24-45-24-59z'/></svg></span></span></span></span></span></span></span></span></span></span>垂直于平面</li>
+<li>同样我们还可以定义一个观测方向，我们规定从shading point到相机的方向为观测方向<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mover accent="true"><mi>v</mi><mo>⃗</mo></mover></mrow><annotation encoding="application/x-tex">\vec v</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.714em;vertical-align:0em;"></span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.714em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.20772em;"><span class="overlay" style="height:0.714em;width:0.471em;"><svg width='0.471em' height='0.714em' style='width:0.471em' viewBox='0 0 471 714' preserveAspectRatio='xMinYMin'><path d='M377 20c0-5.333 1.833-10 5.5-14S391 0 397 0c4.667 0 8.667 1.667 12 5
+3.333 2.667 6.667 9 10 19 6.667 24.667 20.333 43.667 41 57 7.333 4.667 11
+10.667 11 18 0 6-1 10-3 12s-6.667 5-14 9c-28.667 14.667-53.667 35.667-75 63
+-1.333 1.333-3.167 3.5-5.5 6.5s-4 4.833-5 5.5c-1 .667-2.5 1.333-4.5 2s-4.333 1
+-7 1c-4.667 0-9.167-1.833-13.5-5.5S337 184 337 178c0-12.667 15.667-32.333 47-59
+H213l-171-1c-8.667-6-13-12.333-13-19 0-4.667 4.333-11.333 13-20h359
+c-16-25.333-24-45-24-59z'/></svg></span></span></span></span></span></span></span></span></span></span></li>
+<li>同样道理，从shading point到光源的方向称为光照方向<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mover accent="true"><mi>l</mi><mo>⃗</mo></mover></mrow><annotation encoding="application/x-tex">\vec l</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.9774399999999999em;vertical-align:0em;"></span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.9774399999999999em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span></span><span style="top:-3.26344em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.15216em;"><span class="overlay" style="height:0.714em;width:0.471em;"><svg width='0.471em' height='0.714em' style='width:0.471em' viewBox='0 0 471 714' preserveAspectRatio='xMinYMin'><path d='M377 20c0-5.333 1.833-10 5.5-14S391 0 397 0c4.667 0 8.667 1.667 12 5
+3.333 2.667 6.667 9 10 19 6.667 24.667 20.333 43.667 41 57 7.333 4.667 11
+10.667 11 18 0 6-1 10-3 12s-6.667 5-14 9c-28.667 14.667-53.667 35.667-75 63
+-1.333 1.333-3.167 3.5-5.5 6.5s-4 4.833-5 5.5c-1 .667-2.5 1.333-4.5 2s-4.333 1
+-7 1c-4.667 0-9.167-1.833-13.5-5.5S337 184 337 178c0-12.667 15.667-32.333 47-59
+H213l-171-1c-8.667-6-13-12.333-13-19 0-4.667 4.333-11.333 13-20h359
+c-16-25.333-24-45-24-59z'/></svg></span></span></span></span></span></span></span></span></span></span></li>
+<li>注意，因为我们只关心这些向量的方向，所以它们都是单位向量，长度为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn></mrow><annotation encoding="application/x-tex">1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span></li>
+<li>我们还需要定义一些表面参数，比如颜色，亮度（shininess）等<br>
+<img src="https://upload-images.jianshu.io/upload_images/19551947-3d4d3526f16c347c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/400" alt="" loading="lazy"></li>
+</ul>
+<h3 id="diffuse-reflection">Diffuse Reflection</h3>
+<p>Blinn-Phone有三个不同的部分，我们从最简单的漫反射开始。当有一根光线打到物体表面上的某一点，光线会被均匀地反射到不同方向上去，这个过程叫漫反射。<br>
+<img src="https://upload-images.jianshu.io/upload_images/19551947-052a78c2d63e0cb0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/400" alt="" loading="lazy"><br>
+当我们考虑shading point所在表面的朝向与光照方向有一定夹角的时候，会发现得到的明暗是不一样的。如图所示，假如光是离散的，有六根光线打到表面上，每一根光线代表一个固定的能量，如果表面和光线垂直的话会接收到所有的光，但是如果表面旋转到了某一个角度，比如<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>60</mn><mi mathvariant="normal">°</mi></mrow><annotation encoding="application/x-tex">60°</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord">6</span><span class="mord">0</span><span class="mord">°</span></span></span></span>，我们会发现只接受到了三根光线，那么就会变得暗一些。因此会发现表面的明暗会与光线与法线的夹角存在一定关系。为了量化，我们用shading point周围的单位面积来定义接收到的能量，它与夹角有关，这就是Lambert的余弦定律。<br>
+<img src="https://upload-images.jianshu.io/upload_images/19551947-6d2bbea60f2ce78d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/600" alt="" loading="lazy"><br>
+提到了接收能量也不得不提一下发散能量。不同的物体被光所照亮，光是一种能量，在这里我们认为它是一个点光源，它会无时无刻地在向外辐射出不同的能量，一个很聪明的观测方法是一个点向外发散能量，那么在某一时刻，它们一定集中在某一个球壳上。根据能量守恒定律，离中心近的球壳和离中心远的球壳的能量应该是完全相同的能量，但是随着球壳离中心越来越远，其表面积会越变越大，那也就意味着在某一个点，它的能量会越来越少。因此我们定义在距离为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn></mrow><annotation encoding="application/x-tex">1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span>的地方定义光的强度为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>I</mi></mrow><annotation encoding="application/x-tex">I</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.07847em;">I</span></span></span></span>，如果传播到距离为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>r</mi></mrow><annotation encoding="application/x-tex">r</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span></span></span></span>的球壳上时，它的能量为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mfrac><mi>I</mi><msup><mi>r</mi><mn>2</mn></msup></mfrac></mrow><annotation encoding="application/x-tex">\frac{I}{r^2}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.217331em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.872331em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.02778em;">r</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7463142857142857em;"><span style="top:-2.786em;margin-right:0.07142857142857144em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.07847em;">I</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span>。这就告诉了我们，光在某一时刻某一位置所能传播的能力是与它与光源的距离的平方成反比的。光线传播的距离越长，所能接收到的能量越小。也就是说，只要知道一个点光源，又知道shading point离光源的距离，那么就能知道有多少光传播到了当前的shading point。<br>
+<img src="https://upload-images.jianshu.io/upload_images/19551947-430f00183e737c1e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/400" alt="" loading="lazy"></p>
+<p>根据前面我们又知道了有多少光能被接收，我们就得到了diffuse的表示方法了：<br>
+<img src="https://upload-images.jianshu.io/upload_images/19551947-b2b1b43f79da23ad.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/600" alt="" loading="lazy"><br>
+假设我们有一个点光源，假设它与shading point的距离为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>r</mi></mrow><annotation encoding="application/x-tex">r</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span></span></span></span>，我们定义在单位距离上它的强度为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>I</mi></mrow><annotation encoding="application/x-tex">I</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.07847em;">I</span></span></span></span>，那么我们就能求出它到达shading point处的能量，我们有算出了有多少光能被接收，就能算出我们最后所看到的在这一点上的能量。做一个<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>m</mi><mi>a</mi><mi>x</mi><mo>(</mo><mn>0</mn><mo separator="true">,</mo><mover accent="true"><mi>n</mi><mo>⃗</mo></mover><mo separator="true">⋅</mo><mover accent="true"><mi>l</mi><mo>⃗</mo></mover><mo>)</mo></mrow><annotation encoding="application/x-tex">max(0, \vec n · \vec l)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.2274399999999999em;vertical-align:-0.25em;"></span><span class="mord mathdefault">m</span><span class="mord mathdefault">a</span><span class="mord mathdefault">x</span><span class="mopen">(</span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.714em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathdefault">n</span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.2355em;"><span class="overlay" style="height:0.714em;width:0.471em;"><svg width='0.471em' height='0.714em' style='width:0.471em' viewBox='0 0 471 714' preserveAspectRatio='xMinYMin'><path d='M377 20c0-5.333 1.833-10 5.5-14S391 0 397 0c4.667 0 8.667 1.667 12 5
+3.333 2.667 6.667 9 10 19 6.667 24.667 20.333 43.667 41 57 7.333 4.667 11
+10.667 11 18 0 6-1 10-3 12s-6.667 5-14 9c-28.667 14.667-53.667 35.667-75 63
+-1.333 1.333-3.167 3.5-5.5 6.5s-4 4.833-5 5.5c-1 .667-2.5 1.333-4.5 2s-4.333 1
+-7 1c-4.667 0-9.167-1.833-13.5-5.5S337 184 337 178c0-12.667 15.667-32.333 47-59
+H213l-171-1c-8.667-6-13-12.333-13-19 0-4.667 4.333-11.333 13-20h359
+c-16-25.333-24-45-24-59z'/></svg></span></span></span></span></span></span></span><span class="mpunct">⋅</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.9774399999999999em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span></span><span style="top:-3.26344em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.15216em;"><span class="overlay" style="height:0.714em;width:0.471em;"><svg width='0.471em' height='0.714em' style='width:0.471em' viewBox='0 0 471 714' preserveAspectRatio='xMinYMin'><path d='M377 20c0-5.333 1.833-10 5.5-14S391 0 397 0c4.667 0 8.667 1.667 12 5
+3.333 2.667 6.667 9 10 19 6.667 24.667 20.333 43.667 41 57 7.333 4.667 11
+10.667 11 18 0 6-1 10-3 12s-6.667 5-14 9c-28.667 14.667-53.667 35.667-75 63
+-1.333 1.333-3.167 3.5-5.5 6.5s-4 4.833-5 5.5c-1 .667-2.5 1.333-4.5 2s-4.333 1
+-7 1c-4.667 0-9.167-1.833-13.5-5.5S337 184 337 178c0-12.667 15.667-32.333 47-59
+H213l-171-1c-8.667-6-13-12.333-13-19 0-4.667 4.333-11.333 13-20h359
+c-16-25.333-24-45-24-59z'/></svg></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span>是说，当向量点乘为负数的时候，这是说光从背面穿过了物体达到了shading point，显然是不可能的，因此没有物理意义，因为我们考虑的是反射，因此当点乘为负时就认为是<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span>。我们再来考虑一个问题，对于shading point，它自己本身为什么会有颜色，是因为这个点会吸收颜色，或者说能量，它反射出去的是不吸收的颜色。如果我们在能量被接收后定义一个系数<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>k</mi><mi>d</mi></msub></mrow><annotation encoding="application/x-tex">k_d</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.84444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:-0.03148em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">d</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>，表示漫反射系数，如果为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn></mrow><annotation encoding="application/x-tex">1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span>就是最亮，如果为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span>那么表面就是黑的，那么如果我们把它表示成一个三通道的向量就可以表达它对RGB三个颜色的反射程度。</p>
+<figure data-type="image" tabindex="1"><img src="https://upload-images.jianshu.io/upload_images/19551947-1c3beeb973e917dc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/800" alt="" loading="lazy"></figure>
+<p>既然光打到shading point被反射到各个方向，那就意味着无论我们从哪观测它，所看到的结果应该是一样的，从公式上看也是如此，我们考虑的是光线与法线的夹角，因此漫反射跟观测角度无关完全无关。<br>
+（可以想想，你处在一个黑屋子里，眼前一个石膏球被照亮，无论你从哪个角度看这个石膏球，除了被照亮的部分其他地方都看不到，因此漫反射与观测角度无关）</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Games101(2): Rasterization]]></title>
         <id>https://albertlidesign.github.io/post/games101_2_rasterization/</id>
@@ -1467,211 +1575,6 @@ $M_o(F) = <span class="katex"><span class="katex-mathml"><math><semantics><mrow>
 <img src="https://albertlidesign.github.io/post-images/1586953669492.png" alt="" width="600" loading="lazy"><br>
 三个力的方向均已知，平衡的话需满足三力平衡汇交定理。<br>
 注意题目中没说不计重力要考虑重力，光滑接触面约束的约束力的方向是垂直于公切面。</p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[理论力学 第三节 物体的受力分析和受力图]]></title>
-        <id>https://albertlidesign.github.io/post/TheoreticalMechanics3/</id>
-        <link href="https://albertlidesign.github.io/post/TheoreticalMechanics3/">
-        </link>
-        <updated>2020-04-13T22:34:11.000Z</updated>
-        <content type="html"><![CDATA[<h1 id="第三节-物体的受力分析和受力图">第三节 物体的受力分析和受力图</h1>
-<h2 id="31-受力分析和受力图">3.1 受力分析和受力图</h2>
-<h3 id="受力分析">受力分析</h3>
-<p>简单地说就是分析物体的受力情况，确定物体受到<strong>哪些力</strong>，各个力的<strong>作用点</strong>在哪？<strong>作用方向</strong>是什么？是一种定型的分析。</p>
-<h3 id="为什么要进行受力分析">为什么要进行受力分析</h3>
-<p>只有先定性地给出物体地受力情况，才能定量地求解各力的大小，然后才能解决其他问题。没有受力分析，求解静力学问题将会无从下手。</p>
-<h3 id="受力图">受力图</h3>
-<p>把物体所受到的<strong>所有力</strong>（所有的主动力和约束反力）以一种简明的图形画出来，称为画物体的<strong>受力图</strong>。<br>
-<img src="https://albertlidesign.github.io/post-images/1586817647117.png" alt="" width="400" loading="lazy"></p>
-<h3 id="取分离体">取分离体</h3>
-<p>为了把结果清晰地显示出来，把要研究的那个物体从周围的物体中分离出来，单独画它的简图，这个步骤叫做<strong>取分离体</strong>，或者叫做<strong>取研究对象</strong>，画出来的这个简图称为<strong>分离体图</strong>。<br>
-<img src="https://albertlidesign.github.io/post-images/1586817772478.png" alt="" width="400" loading="lazy"></p>
-<h3 id="画受力图步骤">画受力图步骤</h3>
-<p>应该说画受力图没有固定的方法，但是如果遵循下面画受力图的步骤，会使画受力图变得清晰简单些：</p>
-<ol>
-<li>取所要研究物体为研究对象（分离体），画出其简图</li>
-<li>画出所有主动力</li>
-<li>按约束性质画出所有约束（被动）力，不要多画力，也不要少画力。</li>
-</ol>
-<p><img src="https://albertlidesign.github.io/post-images/1586817919517.png" alt="" width="400" loading="lazy"><br>
-解：</p>
-<ol>
-<li>画出简图<br>
-<img src="https://albertlidesign.github.io/post-images/1586818485131.png" alt="" width="150" loading="lazy"></li>
-<li>画出所有主动力<br>
-（1）自身的重力<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>P</mi></mrow><annotation encoding="application/x-tex">P</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span></span></span></span>，作用点作用在碾子的中心处，方向竖直向下。<br>
-（2）斜向上的拉力<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>F</mi></mrow><annotation encoding="application/x-tex">F</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span></span></span></span>，也是作用在碾子的中心处。<br>
-<img src="https://albertlidesign.github.io/post-images/1586818663256.png" alt="" width="150" loading="lazy"></li>
-<li>依据约束的特点，画出所有约束力<br>
-（1）B点的约束是一个光滑接触约束，它的约束力作用在接触点B，沿着公法线方向指向碾子中心。<br>
-（2）A点的约束也是一个光滑接触约束，它的约束力作用在接触点A，沿着公法线方向指向碾子中心。<br>
-<img src="https://albertlidesign.github.io/post-images/1586818809922.png" alt="" width="150" loading="lazy"></li>
-</ol>
-<p><img src="https://albertlidesign.github.io/post-images/1586818875797.png" alt="" width="500" loading="lazy"><br>
-注意：因为A处约束是固定铰链支座与地面固定在一起，所以约束力为两个正交分力。C点是通过光滑圆柱铰链与右边连接在一起，因此也是两个正交分力。<br>
-<img src="https://albertlidesign.github.io/post-images/1586819116379.png" alt="" width="300" loading="lazy"><br>
-注意：在画BC拱时，C点是带着销钉的。B处约束是固定铰链支座与地面固定在一起，所以约束力为两个正交分力。C点是受到AC拱对销钉的作用力，它与AC拱对C点的受力是一对作用力和反作用力。<br>
-<img src="https://albertlidesign.github.io/post-images/1586819338325.png" alt="" width="250" loading="lazy"><br>
-注意：在以整体为研究对象时，将AC拱和BC拱所受到的力分别画出，会发现在C点处是两组相互平衡的作用和反作用力，其实C点的受力在整体的结构中它是<strong>内力</strong>，此时不画。<br>
-所研究的系统内，物体与物体未分离处相互作用的力称为<strong>内力</strong>。<br>
-内力一律不画在受力图上，<strong>绝对禁止</strong>画在受力图上。<br>
-<img src="https://albertlidesign.github.io/post-images/1586819437327.png" alt="" width="500" loading="lazy"><br>
-所以整体的受力图应该这么画：<br>
-<img src="https://albertlidesign.github.io/post-images/1586819686951.png" alt="" width="500" loading="lazy"></p>
-<p>画受力图是静力学求解中非常关键的一步，如果受力图画错，后面的计算都是没有意义的，除了多加练习以外没有其他方法。</p>
-<h2 id="32-二力构件">3.2 二力构件</h2>
-<p>工程中有一种很常见也很重要的构件叫做二力构件，工程中画受力图的时候要特别注意这类构件的存在。我们结合这样一个例子来说明二力构件的结构特点。<br>
-<img src="https://albertlidesign.github.io/post-images/1586841184380.png" alt="" width="500" loading="lazy"><br>
-解：</p>
-<ol>
-<li>取CD杆为研究对象，画出简图</li>
-</ol>
-<ul>
-<li>画出所有主动力</li>
-<li>依据约束性质画出所有约束力<br>
-<img src="https://albertlidesign.github.io/post-images/1586841349306.png" alt="" width="200" loading="lazy"><br>
-那么这么画对不对呢？有前面关于约束的特点我们指导，D点为光滑圆柱铰链约束，本质上是光滑接触约束，本质上是一个力，C点是固定铰链约束，本质上也是一个力。因此CD杆其实处于两个力的作用下。由二力平衡公理可知，刚体上作用有两个力，使刚体保持平衡的充要条件是：这两个力大小相等，方向相反，且作用在同一直线上。因此这两个力等值、反向、共线。因此CD杆的受力是这样的，CD杆就是二力构件<br>
-<img src="https://albertlidesign.github.io/post-images/1586841561799.png" alt="" width="200" loading="lazy"></li>
-</ul>
-<h3 id="二力构件">二力构件</h3>
-<p>只在两个力作用下平衡的构件，称为<strong>二力构件</strong>；若构件为直杆或弯杆，则成为<strong>二力杆</strong>。<br>
-<strong>注意：一个构件是否为二力构件仅与它的受力有关，而与它的形状无关。</strong><br>
-二力杆（二力构件）的受力特点：两个力必定沿着两个力作用点的连线，且大小相等，方向相反。<br>
-对于直杆来说，两个力都是沿着杆的方向，大小相等方向相反，可能是压力也可能是拉力；对于弯杆来说，无论形状如何，两个力的方向必定在两个受力点之间的连线上，大小相等方向相反；对于任何形状的构件来说，只要在两个力的作用下平衡，两个力的方向都在两个受力点之间的连线上，大小相等方向相反。所以对于二力构件来说，它只有一个未知约束力，知道了一个，另一个也就知道了。<br>
-<img src="https://albertlidesign.github.io/post-images/1586841891198.png" alt="" width="400" loading="lazy"></p>
-<p>回到上述示例<br>
-2. 取AB梁为研究对象，画出简图</p>
-<ul>
-<li>画出所有主动力</li>
-<li>依据约束性质画出所有约束力<br>
-A点受到的是固定铰链支座约束，所以它的约束力可以表示为两个正交分力<br>
-D点处的受力其实是CD杆给D点处销钉的作用力，它和CD杆在D点处的受力是作用力与反作用力的关系。<br>
-<img src="https://albertlidesign.github.io/post-images/1586842150796.png" alt="" width="200" loading="lazy"></li>
-</ul>
-<p>CD杆的受力图也可以画成这样，上面CD杆的受力图是受压力，现在改成了受拉力<br>
-<img src="https://albertlidesign.github.io/post-images/1586842182885.png" alt="" width="200" loading="lazy"><br>
-那么此时AB梁的受力图应该这样画，D点处也是受拉力<br>
-<img src="https://albertlidesign.github.io/post-images/1586842254278.png" alt="" width="200" loading="lazy"></p>
-<p>注意：通过这样一个例子我们可以看到，在画受力图的时候，不一定要给出真实的受力方向。因为在实际情况下，真实的受力方向有时很难判断，我们给出的都是假定的受力方向，真实的方向需要根据具体的计算结果来得到。</p>
-<h3 id="练习">练习</h3>
-<p>请判断下列图形中，哪些是二力构件？并画出杆上D点的受力方向<br>
-<img src="https://albertlidesign.github.io/post-images/1586842623436.png" alt="" width="500" loading="lazy"></p>
-<p>详解图4：</p>
-<ul>
-<li>这个结构包含有三根杆，首先可以看出DB杆是一个二力杆，因为它一端通过固定铰链支座与地面连接在一起，另外一端为光滑圆柱铰链约束，这两个约束本质上都是光滑接触约束，所以DB杆是一个二力杆。</li>
-<li>类似地，AB杆也是一个二力杆。</li>
-<li>再来看看AC杆，在A点是固定铰链支座约束，本质上是一个光滑接触约束，是一个力，那么C点的约束可以从两个方面来考虑，一方面，如果把杆和销钉分开的话，C点其实是受到来自销钉的作用力，这是一个光滑接触约束，本质上是一个力，另外一方面，如果把销钉和杆在一起考虑的话，C点的作用力其实是作用在销钉上的两段绳子的拉力，这是两个共点力，可以合成为一个力，所以也可以看作是一个力，所以AC杆也是一个二力杆。</li>
-</ul>
-<h2 id="33-画受力图练习">3.3 画受力图练习</h2>
-<p>我们通过两个例子来练习画受力图，需要着重注意画受力图的技巧以及一些注意事项<br>
-<img src="https://albertlidesign.github.io/post-images/1586843095000.png" alt="" width="500" loading="lazy"></p>
-<ol>
-<li>首先我们来分析BC的受力，画出BC的受力图，取BC为研究对象，画出简图</li>
-<li>画出BC拱的主动力</li>
-<li>根据约束地性质画出所有约束力：B点为固定铰链支座约束，C点为光滑圆柱铰链约束，所以BC拱其实受到两个作用力，因此可以看作是一个二力构件，因此B点的约束力和C点的约束力应该是沿着两点的沿线方向，两个力大小相等方向相反。<br>
-<img src="https://albertlidesign.github.io/post-images/1586843272225.png" alt="" width="300" loading="lazy"></li>
-<li>我们再来看看AC拱的受力，取AC拱为研究对象，画出简图</li>
-<li>画出AC拱的主动力，主动力只有一个集中力<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>F</mi></mrow><annotation encoding="application/x-tex">F</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span></span></span></span>。</li>
-<li>根据约束地性质画出所有约束力：C点的约束力其实是销钉受到的来自BC拱的反作用力，它和BC拱在C点处受到的力是一对作用力和反作用力。A点的约束力按照约束的性质的话，它是一个固定铰链支座约束，应该画成两个正交的分力，但是它本质上是一个力，所以AC拱其实是受到三个力，达成平衡状态，我们根据三力平衡汇交定理知道，其中两个力<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>F</mi></mrow><annotation encoding="application/x-tex">F</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span></span></span></span>和<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msubsup><mi>F</mi><mi>C</mi><mo mathvariant="normal">′</mo></msubsup></mrow><annotation encoding="application/x-tex">F&#x27;_C</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.027223em;vertical-align:-0.275331em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.751892em;"><span style="top:-2.424669em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.07153em;">C</span></span></span><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.275331em;"><span></span></span></span></span></span></span></span></span></span>汇交于一点，那么第三个力也汇交与这一点，并且这三个力在同一个平面上，所以A点的作用方向其实是确定的。<br>
-<img src="https://albertlidesign.github.io/post-images/1586843605843.png" alt="" width="300" loading="lazy"></li>
-<li>取整体为研究对象，画出简图</li>
-<li>画出所有主动力，主动力只有一个集中力<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>F</mi></mrow><annotation encoding="application/x-tex">F</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span></span></span></span>。</li>
-<li>根据约束地性质画出所有约束力：约束力在B点的约束力方向是已知的，A点的约束力方向也是已知的，所以对整个整体的结构来说，它也是受到了三个力的作用来达到平衡，它也满足三力平衡汇交定理。<br>
-<img src="https://albertlidesign.github.io/post-images/1586843774126.png" alt="" width="300" loading="lazy"></li>
-</ol>
-<figure data-type="image" tabindex="1"><img src="https://albertlidesign.github.io/post-images/1586843820137.png" alt="" width="500" loading="lazy"></figure>
-<ol>
-<li>取BC杆为研究对象，销钉置于AC杆上，画出简图</li>
-<li>画出所有主动力，因为不考虑杆的自重，并且销钉在AC杆上，所以没有主动力。</li>
-<li>根据约束地性质画出所有约束力：B、C点都是光滑铰链约束，所以BC杆是一个二力杆。受力图如下<br>
-<img src="https://albertlidesign.github.io/post-images/1586843974343.png" alt="" width="100" loading="lazy"></li>
-<li>取AC杆为研究对象，画出简图</li>
-<li>画出所有主动力，AC杆上有销钉，它受到主动力<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>F</mi></mrow><annotation encoding="application/x-tex">F</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span></span></span></span>。</li>
-<li>依据约束性质画出所有约束力：C点受到的约束力是来自BC杆的反作用力，它和BC杆在C点处受到的力是一对作用力和反作用力，是大小相等方向相反的。通过分析C点的受力我们知道，AC杆其实也是一个二力杆，它应该也是沿着杆的方向。有的同学可能有疑问：C点的受力也是沿着杆的方向吗？是的，因为C点受到的两个力的合力是沿着杆的方向的。这个合力与A点受到的力<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>F</mi><mi>A</mi></msub></mrow><annotation encoding="application/x-tex">F_A</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">A</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>是大小相等方向相反的，所以说AC杆仍然是二力杆。<br>
-<img src="https://albertlidesign.github.io/post-images/1586844274274.png" alt="" width="200" loading="lazy"></li>
-<li>取整体为研究对象，画处出简图</li>
-<li>画出所有主动力，C点处销钉受到主动力<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>F</mi></mrow><annotation encoding="application/x-tex">F</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span></span></span></span>。</li>
-<li>依据约束性质画出所有约束力。<br>
-<img src="https://albertlidesign.github.io/post-images/1586844372534.png" alt="" width="150" loading="lazy"></li>
-</ol>
-<p>如果取AC，BC杆为研究对象，且销钉与两杆分离的话，则：<br>
-<img src="https://albertlidesign.github.io/post-images/1586844482051.png" alt="" width="500" loading="lazy"></p>
-<h2 id="34-力学模型和力学简图">3.4 力学模型和力学简图</h2>
-<p>理论力学所研究的问题都是从实际问题中抽象出来的模型，所面对的图形都是力学简图，如何实现从一个实际问题到力学简化模型的过程呢？涉及到力学建模，这一节介绍力学建模的过程。</p>
-<h3 id="力学建模">力学建模</h3>
-<p>将实际问题抽象为力学模型的过程。对任何实际问题进行力学分析、计算时都要将实际问题抽象为力学模型，然后对力学模型进行分析、计算。任何力学计算实际上都是针对力学模型进行的。将实际问题转化为力学模型是进行力学计算所必须的、重要的、关键的一环，将直接影响计算过程和结果。<br>
-<img src="https://albertlidesign.github.io/post-images/1586845018659.png" alt="" width="500" loading="lazy"><br>
-<img src="https://albertlidesign.github.io/post-images/1586845022904.png" alt="" width="500" loading="lazy"><br>
-从这些例子可以看出，力学建模的过程也是一个简化的过程，不仅是对结构的简化，也是对载荷、约束等等多方面的简化，那么简化的原则是什么？其实这也是力学建模的原则</p>
-<h3 id="力学建模的原则">力学建模的原则</h3>
-<ul>
-<li>抓住关键、本质因素、忽略次要因素</li>
-<li>多方面进行抽象化处理。</li>
-</ul>
-<ol>
-<li><strong>非均匀材料假设成均匀材料</strong>，比如说碾子的材制不可能完全均匀。</li>
-<li><strong>结构有变形但抽象成刚体</strong>，比如碾子在受力中会有变形，但是对于我们所研究的问题影响很小，我们认为它们都是刚体。</li>
-<li><strong>三维物体有时处理成二维</strong>，比如碾子的轴向几乎不受力，因此可以不考虑轴向的尺寸，把它处理成二维的圆盘。</li>
-<li><strong>把复杂形状简化为简单形状</strong>，比如碾子截面的形状不可能是标准的圆形，我们将它处理成光滑的圆盘，这对实际的影响不大。</li>
-<li><strong>载荷简化成集中力或分布力</strong>，比如碾子受到的拉力作用在中心处，它的作用面是一个面，但是因为面非常小，因此简化为<strong>集中力</strong>。类似地，如果力的作用范围是作用在一个面上，或者作用在一条线上，我们可以简化为<strong>分布载荷</strong>，如果差别不大的话，我们还可以进一步简化为<strong>均布载荷</strong>。</li>
-<li><strong>很多约束简化为理想约束</strong>，比如碾子在B点和A点都是存在摩擦力的，但是我们简化为光滑接触。<br>
-<img src="https://albertlidesign.github.io/post-images/1586845130243.png" alt="" width="200" loading="lazy"><br>
-通过这样的简化，一个复杂的工程实际问题就会变得相对简单。但是所产生的误差又是在可接受的范围之内，如果不进行简化，那么大部分的工程实际问题都是无法求解的，所以这样的简化、建模的过程都是非常重要的。<br>
-这就是力学建模的概念和原则，将力学模型画出来就是力学简图。</li>
-</ol>
-<h3 id="力学简图">力学简图</h3>
-<p>将力学模型用简单明了的图形来表示，这类图形称之为<strong>力学简图</strong>。<br>
-需要注意的是，很多实际结构，在简化后可能得到的是同一个力学模型，也就是说，同样一个力学简图可能对应多种实际结构。<br>
-<img src="https://albertlidesign.github.io/post-images/1586845776771.png" alt="" width="300" loading="lazy"><br>
-比如这是力学结构中非常常见的一种结构叫做<strong>简支梁</strong>，梁的一端通过铰链固定在地面上，另外一端通过滚动支座可以在地面上自由地伸缩。它对应的实际结构可以是桥梁中的桥箱，也可能对应的是屋顶的一根大梁。<br>
-<img src="https://albertlidesign.github.io/post-images/1586845984884.png" alt="" width="400" loading="lazy"><br>
-一个实际结构也可能简化成不同的力学模型。<br>
-一个拱桥可以简化成三铰拱桥结构，有时候简化为二铰拱桥结构。<br>
-<img src="https://albertlidesign.github.io/post-images/1586845998726.png" alt="" width="400" loading="lazy"></p>
-<h2 id="课后习题及解析">课后习题及解析</h2>
-<ol>
-<li>
-<p>如图所示结构中，不计各杆的自重，请问AB杆的受力，画出受力分析图<br>
-<img src="https://albertlidesign.github.io/post-images/1586861278538.png" alt="" width="200" loading="lazy"><br>
-首先分析CD杆不带销钉，CD杆为二力杆。<br>
-接着分析AB杆，C处带销钉，画出简图后，画出主动力<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>F</mi></mrow><annotation encoding="application/x-tex">F</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span></span></span></span>，由于CD为二力杆，C处受到的约束力为CD杆在C处作用力的反作用力，A处为固定支座约束，只有一个约束力，因此AB杆仅受三个力达到平衡，根据三力平衡汇交定理即可求出三个力的方向。<br>
-<img src="https://albertlidesign.github.io/post-images/1586861885824.png" alt="" width="200" loading="lazy"></p>
-</li>
-<li>
-<p>如图所示结构中，不计各杆的自重，绘制整体结构的受力分析图<br>
-<img src="https://albertlidesign.github.io/post-images/1586861800257.png" alt="" width="300" loading="lazy"><br>
-设AB杆和CD杆中间的约束为T。首先分析CD杆，CD杆的主动力为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>F</mi></mrow><annotation encoding="application/x-tex">F</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span></span></span></span>，约束T可以视作是光滑接触面约束，约束力方向垂直于AB杆指向右上方，C约束为光滑圆柱铰链约束，因此根据三力平衡汇交定理可以求出C处的约束力方向。<br>
-接着分析AO杆，尽管C处的约束力可以求出，但是A点的受力方向无法确定，无法利用三力平衡汇交定理确定O点受力方向，因此O点处的受力需要用两个分量来表示。<br>
-同理，对于AB杆，由于A点受力方向也无法确定，因此B点受力方向也无法确定，应用两个分量来表示。<br>
-C、T、A处的受力均为内力，不需要绘出。<br>
-<img src="https://albertlidesign.github.io/post-images/1586862307336.png" alt="" width="300" loading="lazy"></p>
-</li>
-<li>
-<p>图示结构中，F1作用在D点的销钉上，画出CD的受力图<br>
-<img src="https://albertlidesign.github.io/post-images/1586862373544.png" alt="" width="300" loading="lazy"><br>
-D点连着销钉时：<br>
-首先分析AB杆，A处为固定铰支座约束，B处为光滑圆柱铰链约束，各有一个约束力，因此AB杆为二力杆，受力方向沿着AB所在直线。<br>
-接着分析BCD杆，首先绘出主动力<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>F</mi><mn>1</mn></msub></mrow><annotation encoding="application/x-tex">F_1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>和ED杆的反作用力，因为ED杆在D点的受力方向未知，用两个正交分力表示。<br>
-C处为滚动支座约束，构件受到垂直于光滑面的约束力<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>F</mi><mrow><mi>N</mi><mi>C</mi></mrow></msub></mrow><annotation encoding="application/x-tex">F_{NC}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.10903em;">N</span><span class="mord mathdefault mtight" style="margin-right:0.07153em;">C</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>，B处连接二力杆AB，因此B处受到的约束力为AB杆在B处作用力的反作用力<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>F</mi><mi>B</mi></msub></mrow><annotation encoding="application/x-tex">F_B</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.05017em;">B</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>。D点的F1、FDx、FDy这三个力的和力与FB和FNC满足三力平衡汇交定理。<br>
-<img src="https://albertlidesign.github.io/post-images/1586862882582.png" alt="" width="200" loading="lazy"><br>
-D点不带销钉时：<br>
-首先分析AB杆，A处为固定铰支座约束，B处为光滑圆柱铰链约束，各有一个约束力，因此AB杆为二力杆，受力方向沿着AB所在直线。<br>
-接着分析BCD杆，D点不带销钉，因此不体现主动力<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>F</mi><mn>1</mn></msub></mrow><annotation encoding="application/x-tex">F_1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>。<br>
-C处为滚动支座约束，构件受到垂直于光滑面的约束力<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>F</mi><mrow><mi>N</mi><mi>C</mi></mrow></msub></mrow><annotation encoding="application/x-tex">F_{NC}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.10903em;">N</span><span class="mord mathdefault mtight" style="margin-right:0.07153em;">C</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>，B处连接二力杆AB，因此B处受到的约束力为AB杆在B处作用力的反作用力<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>F</mi><mi>B</mi></msub></mrow><annotation encoding="application/x-tex">F_B</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.05017em;">B</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>。因此可由三力平衡汇交定理确定D处受到另一端杆件的反作用力<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>F</mi><mi>D</mi></msub></mrow><annotation encoding="application/x-tex">F_D</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.02778em;">D</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>。<br>
-<img src="https://albertlidesign.github.io/post-images/1586863098204.png" alt="" width="200" loading="lazy"></p>
-</li>
-<li>
-<p>图示结构中，绘制AB杆的受力图<br>
-<img src="https://albertlidesign.github.io/post-images/1586863172943.png" alt="" width="300" loading="lazy"><br>
-不考虑CB杆的受力情况，单独考虑AB杆，不带销钉时，AB杆在AB两点的受力方向皆不可知，均用用两个正交分力表示。<br>
-<img src="https://albertlidesign.github.io/post-images/1586863597351.png" alt="" width="200" loading="lazy"><br>
-带着销钉，不考虑CB杆的受力情况，单独考虑AB杆的话，AB杆在B两点的受力方向不可知，A点为滚动支座约束，受力为销钉所受的地面支持力<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>F</mi><mrow><mi>N</mi><mi>A</mi></mrow></msub></mrow><annotation encoding="application/x-tex">F_{NA}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.10903em;">N</span><span class="mord mathdefault mtight">A</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>和二力杆AD的作用力<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>F</mi><mrow><mi>D</mi><mi>A</mi></mrow></msub></mrow><annotation encoding="application/x-tex">F_{DA}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.02778em;">D</span><span class="mord mathdefault mtight">A</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>。<br>
-<img src="https://albertlidesign.github.io/post-images/1586863754044.png" alt="" width="200" loading="lazy"><br>
-带着销钉，考虑CB杆的受力情况的话，CB杆在C点的受力可通过整体由三力平衡汇交定理得出，由此B点的受力在CB杆上通过三力平衡汇交定理得出。故AB杆在B点的受力方向可确定。A点受力为销钉所受的地面支持力<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>F</mi><mrow><mi>N</mi><mi>A</mi></mrow></msub></mrow><annotation encoding="application/x-tex">F_{NA}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.10903em;">N</span><span class="mord mathdefault mtight">A</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>和二力杆AD的作用力<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>F</mi><mrow><mi>D</mi><mi>A</mi></mrow></msub></mrow><annotation encoding="application/x-tex">F_{DA}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.02778em;">D</span><span class="mord mathdefault mtight">A</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>。<br>
-<img src="https://albertlidesign.github.io/post-images/1586863851216.png" alt="" width="200" loading="lazy"></p>
-</li>
-</ol>
 ]]></content>
     </entry>
 </feed>
