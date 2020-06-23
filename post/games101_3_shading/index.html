@@ -57,7 +57,7 @@
                         <div class="mdui-col-md-8 mdui-col-offset-md-2 ">
                                 <article class="mdui-p-a-2 post animated fadeIn" style="animation-delay: 0.8s;animation-duration: 2s">
                                     <div class="post-title  mdui-m-b-1">Games101(3): Shading</div>
-                                    <div class="mdui-typo-body-2 mdui-m-b-2" datetime="2020-06-15 18:25:12">2020-06-15 / 28 min read</div>
+                                    <div class="mdui-typo-body-2 mdui-m-b-2" datetime="2020-06-15 18:25:12">2020-06-15 / 25 min read</div>
                                     <div class="mdui-m-b-2 mdui-typo post-neirong"><p>课程链接：<a href="https://links.jianshu.com/go?to=https%3A%2F%2Fwww.bilibili.com%2Fvideo%2FBV1X7411F744%3Ffrom%3Dsearch%26seid%3D15146582739672622465">GAMES101-现代计算机图形学入门-闫令琪</a><br>
 课程讲师：闫令琪<br>
 本系列笔记为本人根据学习该门课程的笔记，仅分享出来供大家交流，希望大家多多支持GAMES相关讲座及课程，如涉及侵权请联系我删除：<a href="https://links.jianshu.com/go?to=mailto%3Aalbertlidesign%40gmail.com">albertlidesign@gmail.com</a></p>
@@ -344,24 +344,6 @@ void diffuseShader()
 <p>因此 Shader能够定义顶点、像素如何操作。现在就已经把整个实时渲染的基本思路涵盖到了，在这个基础上，就已经可以去学习一系列图形API了，会发现非常简单，所有的矩阵都不需要自己来做，都可以借助API来生成，可以很方便的写出来。这里推荐一个叫ShaderToy的网站，在这里可以只写着色器，即顶点和像素如何着色，就可以通过这个web来执行程序，就可以看出结果。Shader可以做到千变万化。</p>
 <figure data-type="image" tabindex="3"><img src="https://upload-images.jianshu.io/upload_images/19551947-19d2b548b6bfd5b2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/400" alt="" loading="lazy"></figure>
 <p>随着现在GPU的发展，显卡可以同时处理大量的几何，并且着色非常快，高度并行。现在的图形学就是向一个能够实时渲染超级复杂的场景发展。随着GPU的发展，有越来越多不同的着色器产生，比如一种叫Geometry Shader，它可以动态的产生三角形。还有一种Compute Shader可以做通用的GPU计算，称GPGPU。还需要提到，GPU分两种，一种是独立显卡，另一种是集成显卡。GPU本身可以理解为高度并行化处理器，CPU通产有8核、16核等，GPU的核数是CPU的很多很多倍，所以特别适合来做图形，因为很多像素的着色方法是一样的，这就非常利于做并行计算。</p>
-<h2 id="texture-mapping">Texture Mapping</h2>
-<p>如下图，我们可以看到两个台灯在照亮一个地板和一个球，我们是可以得到光的强度，但是比如球上面，自身有不同的颜色，尽管上面所有的点共用的是同一个着色模型，但是不同位置的漫反射系数发生了改变。对于地板来说也是如此，它有自己的漫反射系数，这个系数反映了木质的质感。因此我们希望在模型的不同位置定义不同的属性，这就要引入纹理映射的最基本的思路，它的根本作用是定义一个点的属性。<br>
-<img src="https://upload-images.jianshu.io/upload_images/19551947-1a33e2a01e11079c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/400" alt="" loading="lazy"><br>
-那么怎么定义任何一个点它的基本属性呢？我们需要理解我们要定义在物体表面上，那么我们应该怎么样去理解物体表面呢？首先，任何一个三维物体的表面其实都是二维的。例如下图，地球仪可以被展开成世界地图，这也就是说三维物体的表面其实是二维的，多个物体也可以被展开成多个平面，因此通过这种方式，我们可以和一张图来做一个一一对应关系。因此所谓纹理，其实就是一张图，这张图我们可以任意地裁切，用其中一部分，也可以拉伸、压缩等操作，最后把它蒙在三维物体的表面，这个过程就叫做<strong>纹理映射（Texture Mapping）</strong>。<br>
-<img src="https://upload-images.jianshu.io/upload_images/19551947-4998801a0d16fe20.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/600" alt="" loading="lazy"><br>
-来看一个具体的例子，左上角是一个渲染结果，即Blinn-Phong得到的结果，我们想得到有质感的模型该怎样做呢？根据刚才的思路，要把一张图贴在模型上，我们自然要知道怎么贴。三维空间中最基本的东西是三角形，那么三角形在物体上应该如何映射到纹理上呢？也就是物体上的某一个三角形在纹理上对应的位置在哪？对于任何一个三角形上的顶点都能找到它在纹理上的点。<br>
-<img src="https://upload-images.jianshu.io/upload_images/19551947-40a5d28bd23d05eb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/600" alt="" loading="lazy"><br>
-对于任何一个模型，我们要能够将它展开成一个平面，并且希望其产生的三角形尽可能地少扭曲，这是一个很重大的研究方向叫做<strong>参数化（Parameterization）</strong>，是几何上非常厉害的研究。我们这里不管怎么把三角形映射到纹理上这件事，就假设我们已经知道如何把三角形贴在纹理上，并且知道三角形上的顶点在纹理上的坐标。既然提到了纹理上的坐标，那我们就该在纹理上定义一个坐标系，这个坐标系通常会使用<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><mi>u</mi><mo separator="true">,</mo><mi>v</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">(u,v)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault">u</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span><span class="mclose">)</span></span></span></span>来表示纹理上任何一个点。例如下图所示<br>
-<img src="https://upload-images.jianshu.io/upload_images/19551947-4678c406b0ecd2fc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/400" alt="" loading="lazy"><br>
-一般来说，都认为纹理的范围是在<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>[</mo><mn>0</mn><mo separator="true">,</mo><mn>1</mn><mo>]</mo></mrow><annotation encoding="application/x-tex">[0,1]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">1</span><span class="mclose">]</span></span></span></span>中，这可以方便处理，不管分辨率、长宽比是多少。<br>
-<img src="https://upload-images.jianshu.io/upload_images/19551947-7433241b057e4eeb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/400" alt="" loading="lazy"><br>
-纹理可以应用在各种各样的物体表面，如果我们把纹理的坐标显示出来，就会看到下图结果<br>
-<img src="https://upload-images.jianshu.io/upload_images/19551947-ff366c02a1e6b4fa.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/400" alt="" loading="lazy"><br>
-纹理映射就像贴瓷砖一样不断地重复纹理，最后的渲染结果就是下图<br>
-<img src="https://upload-images.jianshu.io/upload_images/19551947-1a86e520b672f795.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/400" alt="" loading="lazy"><br>
-因此纹理可以重复多次，但是纹理在重复的过程中会产生缝隙，就容易被人发展破绽。但是上图这个例子中，它使用的纹理设计的好，使得这些纹理复制和重复的时候可以做到无缝衔接，这种纹理的设计需要各种各样的算法，其中一个叫Wang Tiled。<br>
-<img src="https://upload-images.jianshu.io/upload_images/19551947-f2893c11ab324ed0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/400" alt="" loading="lazy"><br>
-下一个问题就是，我们已经知道了三角形三个顶点对应的纹理坐标，那么我们如何知道三角形内部的点对应的纹理坐标的uv呢？这里就又涉及到了插值问题。</p>
 </div>
                                     <div class="mdui-divider mdui-m-b-2"></div>
                                     <div class="mdui-row-xs-2 post-fenye">
