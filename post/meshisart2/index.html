@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+        <head>
+        <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1,initial-scale=1,user-scalable=no" />
+        <meta charset="utf-8">
+        <title>Mesh is Art（2）：从富勒球结构说起 | AlbertLiDesign</title>
+        <link rel="stylesheet" href="https://albertlidesign.github.io/styles/main.css">
+        <link rel="stylesheet" href="https://at.alicdn.com/t/font_1306644_jwtuc2zzbrd.css">
+        <link href="https://cdn.bootcss.com/animate.css/3.7.2/animate.min.css" rel="stylesheet">
+         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+        <script src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js"></script>
+         <script src="https://cdn.bootcss.com/highlight.js/9.15.10/highlight.min.js"></script>
+         <script >hljs.initHighlightingOnLoad();</script>
+
+    </head>
+    <body>
+              <header class="header mdui-m-b-5">      
+            <div class="container  ">
+                <div class="index-title animated fadeInDown mdui-text-center mdui-text-color-white mdui-m-b-2" style="animation-delay: 0.2s"><a href="https://albertlidesign.github.io">AlbertLiDesign</a></div>
+                <div class="mdui-text-color-white animated fadeInDown mdui-text-center  mdui-m-b-3" style="animation-delay: 0.4s">Welcome to Albert Li Design. This is a blog for random braindumps on my programming adventures, graphics and design research, some of my more serious writings and other interesting things.</div>
+           
+            <nav id="nav" class="mdui-text-center animated fadeInDown" style="animation-delay: 0.6s">
+                   
+                            <li><a href="/">Home</a>
+                                <span class="nav-style top"></span>
+                                <span class="nav-style bottom"></span>
+                                <span class="nav-style left"></span>
+                                <span class="nav-style right"></span>
+                                </li>
+                    
+                            <li><a href="/archives">Archives</a>
+                                <span class="nav-style top"></span>
+                                <span class="nav-style bottom"></span>
+                                <span class="nav-style left"></span>
+                                <span class="nav-style right"></span>
+                                </li>
+                    
+                            <li><a href="/tags">Tags</a>
+                                <span class="nav-style top"></span>
+                                <span class="nav-style bottom"></span>
+                                <span class="nav-style left"></span>
+                                <span class="nav-style right"></span>
+                                </li>
+                    
+                            <li><a href="/post/about">About</a>
+                                <span class="nav-style top"></span>
+                                <span class="nav-style bottom"></span>
+                                <span class="nav-style left"></span>
+                                <span class="nav-style right"></span>
+                                </li>
+                    
+                  </nav>
+                </div>
+        </header>
+        <div class="mdui-container ">
+                <div class="mdui-row">
+                        <div class="mdui-col-md-8 mdui-col-offset-md-2 ">
+                                <article class="mdui-p-a-2 post animated fadeIn" style="animation-delay: 0.8s;animation-duration: 2s">
+                                    <div class="post-title  mdui-m-b-1">Mesh is Art（2）：从富勒球结构说起</div>
+                                    <div class="mdui-typo-body-2 mdui-m-b-2" datetime="2020-06-29 22:55:23">2020-06-29 / 11 min read</div>
+                                    <div class="mdui-m-b-2 mdui-typo post-neirong"><figure data-type="image" tabindex="1"><img src="https://upload-images.jianshu.io/upload_images/19551947-d68ea0e84b308bdc?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="" loading="lazy"></figure>
+<p>#​前言</p>
+<p>前文我们大概讲述了网格的定义、在不同领域的应用、基本元素以及它的数据结构。其中数据结构那一小节里欲言又止，是因为想详细地弄清楚一种数据结构的特性就必须有大量的实际操作经验，本文就来通过一个实际工程案例来讲讲网格的一些基本概念以及它们在实际工程中是如何体现的。</p>
+<p>上一篇我说过，网格是一种思维，为了更好地佐证这一点这次我就拿个实际案例来使大家感受这句话。据说，最高效的学习方法是按照“提出问题→作出假设→反复尝试→得出结论”这样的过程来执行的，我也看多过很多文章写作方式是在模拟这套模式，这次我也来试着写一下，希望能为设计师和工程师们带来启发。</p>
+<p>#从富勒球结构说起<br>
+<img src="https://upload-images.jianshu.io/upload_images/19551947-fc0a7cdf340f20e4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/400" alt="图1. Richard Buckminster Fuller（1895-1983，图片来自于网络）" loading="lazy"><br>
+<img src="https://upload-images.jianshu.io/upload_images/19551947-5f40148ab53e959f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/400" alt="图2. 轻质圆形穹顶结构（图片来自于网络）" loading="lazy"></p>
+<p>我想一提到这个人所有人第一反应就是他的轻质圆形穹顶结构（具体点是一个三角网架搭建起来的球形穹顶结构）。我不是结构师，在这里我不过多探讨这个结构是否合理或者怎么施工做到的，也没有查阅过这个结构的相关资料，今天我们只从网格的角度上来讨论这个结构的形。</p>
+<p>我当时看到这个结构，脑子里就产生了小问题，<strong>问题一，这个球体上的三角形是全等三角形吗？问题二，这个球体上的三角形是均匀的吗？</strong>“均匀”这个词比较模糊，换言之，三角形都有顶点对吧，每个顶点可能连接着不同数量的三角形，在这里我们把“均匀”描述成，每个顶点连接的三角形的数量是相等的吗？如果不相等，那怎样的分布看起来会比较好？</p>
+<p>这两个问题的意义很是大的：如果这个球面上的三角形全等，意味着它们的边长都相等，<strong>意味着在施工上可以批量加工等长的杆件</strong>；如果三角形都是均匀的，<strong>意味着施工上的节点链接三角单元的数量是固定的，那么可能只需要使用固定数量且角度可变的连接节点即可。无论怎么说，这两个问题关系着大量人工作业的成本</strong>。讲真，这两个问题要是深究起来，没有很好的离散几何底子是不太容易算出来这两个问题的答案的。不过好在计算机发达的今天，我们可以借助三维建模软件去感性地思考这些问题，当然，如第一篇前言所说，我无法精准地证明这件事，但是对于设计师而言，我想有一个近似确定的概念就够了（严格追究下去不是我们的工作）。不过不管怎么说，我们得先有一套描述问题的方法，先跟大家来“约定俗成”一些概念，以确保后面说我的想法时能更加方便理解。</p>
+<p>#相关网格概念<br>
+首先，前面照片也看到了，这个球壳并不是真的球，其实准确的说是一个球体被一个平面切割后保留的部分。那么它与平面切割的交界处就产生了边界，那么我们称这个边界上的点（可以认为是工程上的节点，网格上叫顶点）为<strong>边界顶点</strong>，在边界上的（工程上的）杆件称为<strong>边界边</strong>，其他就是<strong>内部顶点和内部边</strong>，这点概念还是很好理解的，下面是相对严格一些的定义。</p>
+<p>在一个网格中，如果的一条边只属于一个面，称这条边为<strong>边界边(boundary edge)</strong>；如果一个顶点属于边界边则称此顶点为<strong>边界顶点(或边界点，boundary vertex)</strong>；至少包含一个边界顶点的面称为<strong>边界面(boundary face)</strong>。 非边界的边、顶点和面分别称为<strong>内部边(internal edge)、内部顶点(internal vertex)和内部面(internal face)</strong>。网格中具有公共边的两个顶点互为<strong>邻接顶点</strong>。</p>
+<figure data-type="image" tabindex="2"><img src="https://upload-images.jianshu.io/upload_images/19551947-5fb54a1fd2174bea.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/400" alt="图3.边界顶点与内部顶点（作者自制）" loading="lazy"></figure>
+<p>上文中我们经常提到“某个顶点所连接三角面的个数”，这段话非常长而且非常绕口，我们直接称其为<strong>网格顶点的价(Valence)</strong>。这个概念非常重要，它经常作为判定网格质量的依据之一。更严格的定义是：<strong>顶点的价(Valence)是指与该顶点通过公共边相连的顶点个数</strong>。如前文所说，在幕墙领域，价数统一，意味着施工上的节点链接三角单元的数量是固定的，那么可能只需要使用固定数量且角度可变的连接节点即可（这里再重复一遍）。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/19551947-8ff5214ce6d14080.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/400" alt="图4.网格顶点的价（作者自制）" loading="lazy"><br>
+通过图4我们会发现，一个网格顶点的价变化多端，但是凭借我们强大的识别能力一眼就能看出，这张图中，价为6的顶点是“主流”，价为5和7的顶点是“非主流”。为了区分这些顶点，我们把“主流”顶点称为正则顶点，“非主流”顶点称为奇异顶点。这在多通四边管网格的交错点会特别明显地体现出来，如图5所示。<br>
+<img src="https://upload-images.jianshu.io/upload_images/19551947-27bb1d7f2992bddf.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/400" alt="图5.正则顶点与奇异顶点（作者自制）" loading="lazy"></p>
+<p>​人是很聪明的动物，儿时玩过“大家来找茬”游戏，这时候很能派上用场，我想再复杂的网格，你也一眼就能识别出哪些顶点是奇异顶点，所以我想我也不用给出严格定义了，一眼就能看出来，试试图6。<br>
+<img src="https://upload-images.jianshu.io/upload_images/19551947-9a7f4154385fca71.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/400" alt="图6.四边形网格中的奇异顶点（作者自制）" loading="lazy"><br>
+当然网格还有其他重要的概念，比如非流行、法向等等，我们放到后面再将，现在应该回到我们的富勒球结构问题了。</p>
+<p>#问题的本质<br>
+数学老师从小教导我们，研究一个问题，必须要研究到这个问题的最本质。通过上文我们了解了网格这么多的概念，不难想到，这个问题的最核心问题是<strong>奇异点的数量和分布</strong>。我们先抛个问题，即<strong>一个球体的三角剖分可能没有奇异点吗</strong>（把一个几何体划分成若干三角形组合的图形叫做三角剖分）？答案当然是否定的，至少我没见过。对于我们这些没有代数拓扑和微分几何知识的人来说，让我们证明这个问题是不可能的。但是我们可以想像啊！</p>
+<p>大家可以跟着我来推理，Ummmm，**网格没有奇异点→网格都是均匀的三角形→均匀三角形的话，那么应该是近似正三角形→近似的正三角形每个角都是近似60度的→正三角形要想密铺的话一定是由六个正三角形拼起来→六个三角形拼起来就是个正六边形。**OK，到这就关键了，我们可以把问题转化为，**能否只用六边形去密铺一个球体！**这显然是不可能的啊，要不然足球怎么不是全六边形的？</p>
+<p>上面的推理太快，再慢点说，看到图4时很多人发现了，顶点价为6的三角形是占主导的，这是巧合吗？当然不是，我们先假设一堆三角形的顶点交于一点，要想保证每个三角形三边的长度都比较均匀、近似相等，那这三个三角形都应该是趋近于正三角形的，又因为相交三角形汇于一点实现了密铺，则它们的角度之和是360度，平摊下来，每个角度都是趋近于60度的，那么它们的顶点价数就是趋近于6，尽管我没法从数学上证明这一点，但就是这个样子。所以，一般来说，控制过网格边长所产生的三角网格的正则顶点价数就是6（除非是仅由奇异顶点构成的图形，比如二十面体）。</p>
+<figure data-type="image" tabindex="3"><img src="https://upload-images.jianshu.io/upload_images/19551947-13405d6532fe6237.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/200" alt="图7.六个正三角形面拼成一个正六边形（作者自制）" loading="lazy"></figure>
+<p>既然只用六边形拼不出一个球，那怎样才能拼出一个球形呢？建筑学老师教导过我们，要学会利用前人的成果。数学家已经替我们证明了，<strong>12个五边面和20个六边面构成的足球啊</strong>，既均匀又合理（具体的证明去谷歌吧）。但是足球这个形状还不是最本质的，我们还可以继续剖析，因为五边形和六边形都不是最最基本的几何图形。刚才也提到了，六边形可以看作是六个三角形拼出来的图形，这里面的顶点都是正则的，所以奇异点不可能在这，那么奇异点只可能在五边形里了，OK，那我们顺次连接五边形的中点看看能得到什么（图8）。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/19551947-6091634b2fcc8e11.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/200" alt="图8.顺次连接足球上五边形的中点（作者自制）" loading="lazy"><br>
+<img src="https://upload-images.jianshu.io/upload_images/19551947-1acbcf2b6d1205a3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/200" alt="图9.正二十面体（作者自制）" loading="lazy"><br>
+我们发现，得到了一个**每个顶点价数都为5的正20面体（每个面都是三角面，图9），并且这个20面体的所有面都是全等的，也就是说边长是等长的！**没错，这就是最本质的图形，这个图形上的每个顶点都是奇异点！也就是最均匀的球拓扑的奇异点分布。</p>
+<p>现在我们在每个大的三角面里面都填上小三角形（Loop细分算法），并将它们用拉普拉斯圆滑算法处理一下，如下面的动图所示（这两个算法不用较真，后面的文章会说）。因为小三角形都是在大三角形面上填上去的，所以无论细分多少次，奇异点的数量都不会变，每次细分都会继承原始网格的奇异点。<br>
+<img src="https://upload-images.jianshu.io/upload_images/19551947-25e07fa0558e12aa.gif?imageMogr2/auto-orient/strip" alt="图10.正二十面体细分圆滑处理（作者自制）" loading="lazy"><br>
+<img src="https://upload-images.jianshu.io/upload_images/19551947-245117a7a1e75440?imageMogr2/auto-orient/strip%7CimageView2/2/w/200" alt="图11.细分后的奇异点继承原网格（作者自制）" loading="lazy"><br>
+细分后的网格，看上去已经和富勒的球结构非常像了，我们这里再做一次对比看看，没错就是这个样子的。他是通过裁切细分圆滑后的二十面体网格得到的形式。<br>
+​<img src="https://upload-images.jianshu.io/upload_images/19551947-8eba6e514461761c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/2000" alt="图12.Fuller的球结构（图片来自于网络）" loading="lazy"><br>
+现在回答文章开头的问题，关于长度，由于细分和圆滑算法的不同，杆件长度会有细分改变，但是工程上完全可以根据需要将细分改变的误差区间加以控制。但是至少可以确定的是，全等三角形拼出的20面体，细分不会改变这20面体的基本形态，所以我们依然能够在细分后的球壳上找到之前大三角形的痕迹，每个大三角形依然保持着全等，也就是说，<strong>会有20组全等的杆件</strong>。因此，只需要将一个三角形里面的杆件和节点复制即可，也能<strong>使杆件的长度标准化</strong>。关于节点，<strong>除了奇异点处的节点为五通节点，其余所有节点一定是六通节点！</strong></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/19551947-7a88191daa4b09f0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/400" alt="图13.杆件长度分布表及按杆件长度着色的富勒球模型（作者自制）" loading="lazy"><br>
+图13是1928根杆件的长度分布表，然后将杆件的长度分布进行着色呈现出如图所示的结果，最短的杆件和最长的杆件误差在百分之17.7，这个数虽然很大，但是杆件分布范围非常规律，在施工上完全可以按照图中的颜色进行分组加工。</p>
+<p><strong>所以最终的结论是，杆件长度分布非常规律，施工上可以采取分组加工的方式进行标准化生产，节点上除了奇异点处的节点是五通节点，其他节点均为固定的六通节点。</strong></p>
+<p>相信通过这个项目大家理解了网格的这些概念，尤其是奇异点的重要性。当然这还只是开始，还有更多的骚操作和特性值得去探索。<strong>很多建筑问题的本质都是几何问题，而网格则是将工程问题转化成几何问题的纽带。关于网格更多的内容还请继续关注：AlbertLiDesign</strong></p>
+<p>​</p>
+</div>
+                                    <div class="mdui-divider mdui-m-b-2"></div>
+                                    <div class="mdui-row-xs-2 post-fenye">
+                                       
+                                        <div class="mdui-col"> </div>
+                                        
+
+                                        
+                                        <div class="mdui-col"><div class="mdui-text-right "><a href="https://albertlidesign.github.io/post/games101_3_texture_mapping/">GAMES101(4): Texture Mapping</a></div> </div>
+                                       
+                                      </div>
+                                   
+                                    <div class="mdui-divider mdui-m-t-2 mdui-m-b-2"></div>
+                                    
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '',
+    clientSecret: '',
+    repo: '',
+    owner: '',
+    admin: [''],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+          
+        
+                                     <script src="https://albertlidesign.github.io/media/scripts/Valine.min.js"></script>
+ <div class="comment"></div>
+
+<script>
+      new Valine({
+            el: '.comment',
+
+
+
+            path: window.location.pathname,
+            pageSize: 30,
+            avatar:'mm', 
+       })
+    </script> 
+<script>
+    if(window.location.hash){
+        var checkExist = setInterval(function() {
+           if ($(window.location.hash).length) {
+              $('html, body').animate({scrollTop: $(window.location.hash).offset().top-90}, 1000);
+              clearInterval(checkExist);
+           }
+        }, 100);
+    }
+</script>
+                                </article>
+
+                                    
+                        </div>
+                      </div>
+    
+                
+
+              </div>
+                    <footer class="footer mdui-m-t-5 mdui-text-center">
+               <nav class="social-links">
+                      <ul>
+                      
+                      
+                           
+                      
+                           
+                      	
+                        <li class="social-link"><a href="https://github.com/AlbertLiDesign" target="_blank"><i class="iconfont icon-github"></i></a></li>
+                          
+                           
+                      
+                           
+                      
+                           
+                      
+                           
+                      
+                           
+                      
+                           
+                      
+                           
+                      
+                           
+                      
+                           
+                      
+                           
+                      </ul>
+                    </nav>
+                    <div class="copyright">
+                      <p>Powered by <a href="https://github.com/AlbertLiDesign" target="_blank">AlbertLiDesign</a> <br/> Theme <a href="https://github.com/alterfang/gridea-theme-song/" target="_blank"  title="宋"  >Song</a> by <a href="https://shanbu.fun/" target="_blank"  title="山卜方" >shanbufun</a> </p>
+                  </div>
+                  
+              </footer>
+    </body>
+</html>
