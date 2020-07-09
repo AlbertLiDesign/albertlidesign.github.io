@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+        <head>
+        <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1,initial-scale=1,user-scalable=no" />
+        <meta charset="utf-8">
+        <title>Mesh is Art（3）：Half-Edge Data Structure | AlbertLiDesign</title>
+        <link rel="stylesheet" href="https://albertlidesign.github.io/styles/main.css">
+        <link rel="stylesheet" href="https://at.alicdn.com/t/font_1306644_jwtuc2zzbrd.css">
+        <link href="https://cdn.bootcss.com/animate.css/3.7.2/animate.min.css" rel="stylesheet">
+         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+        <script src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js"></script>
+         <script src="https://cdn.bootcss.com/highlight.js/9.15.10/highlight.min.js"></script>
+         <script >hljs.initHighlightingOnLoad();</script>
+
+    </head>
+    <body>
+              <header class="header mdui-m-b-5">      
+            <div class="container  ">
+                <div class="index-title animated fadeInDown mdui-text-center mdui-text-color-white mdui-m-b-2" style="animation-delay: 0.2s"><a href="https://albertlidesign.github.io">AlbertLiDesign</a></div>
+                <div class="mdui-text-color-white animated fadeInDown mdui-text-center  mdui-m-b-3" style="animation-delay: 0.4s">Welcome to Albert Li Design. This is a blog for random braindumps on my programming adventures, graphics and design research, some of my more serious writings and other interesting things.</div>
+           
+            <nav id="nav" class="mdui-text-center animated fadeInDown" style="animation-delay: 0.6s">
+                   
+                            <li><a href="/">Home</a>
+                                <span class="nav-style top"></span>
+                                <span class="nav-style bottom"></span>
+                                <span class="nav-style left"></span>
+                                <span class="nav-style right"></span>
+                                </li>
+                    
+                            <li><a href="/archives">Archives</a>
+                                <span class="nav-style top"></span>
+                                <span class="nav-style bottom"></span>
+                                <span class="nav-style left"></span>
+                                <span class="nav-style right"></span>
+                                </li>
+                    
+                            <li><a href="/tags">Tags</a>
+                                <span class="nav-style top"></span>
+                                <span class="nav-style bottom"></span>
+                                <span class="nav-style left"></span>
+                                <span class="nav-style right"></span>
+                                </li>
+                    
+                            <li><a href="/post/about">About</a>
+                                <span class="nav-style top"></span>
+                                <span class="nav-style bottom"></span>
+                                <span class="nav-style left"></span>
+                                <span class="nav-style right"></span>
+                                </li>
+                    
+                  </nav>
+                </div>
+        </header>
+        <div class="mdui-container ">
+                <div class="mdui-row">
+                        <div class="mdui-col-md-8 mdui-col-offset-md-2 ">
+                                <article class="mdui-p-a-2 post animated fadeIn" style="animation-delay: 0.8s;animation-duration: 2s">
+                                    <div class="post-title  mdui-m-b-1">Mesh is Art（3）：Half-Edge Data Structure</div>
+                                    <div class="mdui-typo-body-2 mdui-m-b-2" datetime="2020-07-09 20:55:58">2020-07-09 / 9 min read</div>
+                                    <div class="mdui-m-b-2 mdui-typo post-neirong"><figure data-type="image" tabindex="1"><img src="https://upload-images.jianshu.io/upload_images/19551947-f1039e434f7ef18d.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="" loading="lazy"></figure>
+<p>#前言<br>
+在前文中，作为预热，我们大概说明了网格的某些特性在实际工程中的应用，由于后面还有更多的网格算法的讲解，要想理解这些算法，我们需要一套基本的处理网格的工具，所以这次继续回到关于网格的数据结构上，从底层架构讲起。在第一篇，我们讲述了半边数据结构，这是一种在相邻元素查找问题上非常高效实用的数据结构，广泛应用于很多网格编辑算法中。本文将重点剖析这种数据结构所带来的优势以及组成原理。</p>
+<p>#半边数据结构的底层架构<br>
+<strong>半边数据结构（Half-Edge Data Structure）<strong>是一个以网格边为基础的数据结构，在这种数据结构中，我们认为网格的每条边被划分为</strong>两条方向相反的半边（HalfEdge，如图1）</strong>。为了帮助大家更好的理解，还请跟着我的思路，从几何的角度一步步体验这种数据结构的妙处。不难想到，如果我们对一张网格面中的所有边按照顺序做同样的操作，我们可以在每一张网格面的内部<strong>得到一个闭合的、首尾相接的“回路”</strong>。接下来我们对半边网格所包含的元素分别做讲解。</p>
+<figure data-type="image" tabindex="2"><img src="https://upload-images.jianshu.io/upload_images/19551947-7bb91d59ccfe75f7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/100" alt="图1. 一条网格边被视作两条有向的半边（图片来自于网络）" loading="lazy"></figure>
+<p>##半边</p>
+<p>类似向量，每一条半边都有它的<strong>起点（Start Vertex）<strong>和</strong>终点（End Vertex）</strong>，首先，起点和终点对调，我们可以得到一条半边的<strong>反向半边（Opposite Halfedge）</strong>，其次，根据终点我们可以找到以一条半边的终点为起点的半边，同理，也可以找到以一条半边的起点为终点的半边，这样就定义了一条半边的<strong>下一条半边（Next Halfedge）<strong>和</strong>上一条半边（Prev Halfedge）</strong>。<br>
+<img src="https://upload-images.jianshu.io/upload_images/19551947-322bd85f52920730.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/300" alt="图2. 半边网格（图片来自于网络）" loading="lazy"><br>
+这里，我们可能会抛出一个问题，正如我们第一篇所讲到的，网格是有流形网格和非流形网格的，那么我们能否用半边网格去表示非流形网格？所谓非流形网格，最简单的例子就是一条网格边连接了三张网格面，但是每条边只能被划分成方向相反的两条半边。如图3， 我们可以很轻松地对两张面画出它们的半边，但是对于那条非流形边（三张面的交线），如果按照半边网格的画法，它需要三个方向的半边，但是方向只有正负，我们没有办法画出第三张面的半边。因此，<strong>半边网格是无法表示非流形网格的。</strong><br>
+<img src="https://upload-images.jianshu.io/upload_images/19551947-a74880de6b5e3607.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/300" alt="图3. 非流形网格与半边数据结构（作者自制）" loading="lazy"></p>
+<p>接着，我们继续来挖掘这种数据结构所带来的便利。如前文所述，这是一种查找相邻元素极其高效的数据结构。因为半边的划分，我们能在每一张网格面的内部**得到一个闭合的、首尾相接的“回路”，**这这里其实我们就已经将一张网格面内部的半边看作是这张网格面的属性了。举个例子，如图4，半边1-&gt;0，0-&gt;2，2-&gt;3和3-&gt;1，它们属于绿色网格面。那如果我们要检索与绿色网格面相邻的网格面，我们只需要求边2-&gt;3的反向半边所在的网格面即可。以此类推，我们会发现，我们可以将相邻网格面的索引作为一条半边的属性，**对于一个封闭流形网格，每条边的半边都会伴随一张唯一的相邻网格面（Adjacent Face）的索引，对于开放流形网格，我们可以让这个索引的值设为-1。**这样一来，检索相邻网格面几乎变成了零成本，因为这个数据从一开始就已经记录好了。<br>
+<img src="https://upload-images.jianshu.io/upload_images/19551947-683665d62be8e2b0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/300" alt="图4. 半边网格求相邻网格面方法（作者自制）" loading="lazy"><br>
+了解了这些信息，我们已经很容易去定义半边了，在Plankton（Daniel Piker开发的C#半边网格库）中，一条半边的构造方法只需要起始点（StartVertex）、相邻网格面的索引（AdjacentFace）、下一条半边（NextHalfedge）和上一条半边（PrevHalfedge）。</p>
+<p>注意：终点不再被需要，因为它可以通过检索下一条半边的起点来得到。反向半边也不需要，因为半边是成对存在的，获取反向半边可以通过已知半边的索引来查找。（C#代码：halfedgeIndex % 2 == 0 ? halfedgeIndex + 1 : halfedgeIndex - 1;）</p>
+<p>##顶点</p>
+<p>先来思考一个问题，在最常用的面-顶点网格数据结构中，当多个顶点重合时，我们会用<strong>网格焊接（Weld）<strong>来处理重复的顶点，并求这些顶点的法向量的合向量，使网格看起来更圆滑。那么半边网格有没有这个概念呢？答案是没有的，举个例子，如图4，在面-顶点网格数据结构中，3号点理应是两个重合点，分别属于绿色网格面和红色网格面，如果半边网格也是两个重合点，那么边2-&gt;3应该会产生4条半边，就变成了两张独立的网格面。因此</strong>在一个半边网格内不存在重合点的情况。</strong></p>
+<p>顶点除了常规网格数据结构中记录的XYZ三个坐标外，还有一个**以此顶点为源点的半边连接指向信息，即出半边（Outgoing Halfedge）。**此外，半边数据结构还规定了，**对于位于边界的顶点，出半边必为边界半边。**但是我们知道，只要不在网格边界内部的顶点都会与多条半边相连，半边数据结构的顶点不存在重合点情况，那么一个连接多条半边的顶点的出半边是什么呢？</p>
+<p>为了探究这个问题，我们做一个小测试，如图5所示，调用了Plankton半边网格库，把顶点索引、选取顶点和该顶点的出半边显示出来，以便观察规律。<br>
+<img src="https://upload-images.jianshu.io/upload_images/19551947-7f95343b8e6e62dc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/300" alt="图5. 探究出半边的小测试（作者自制）" loading="lazy"><br>
+测试代码如下：</p>
+<pre><code class="language-c#">  private void RunScript(Mesh x, int y, ref object Point, ref object OutgoingHalfEdge, ref object VertexIndices, ref object OutgoingStartPoint)
+  {
+    PlanktonMesh pm = x.ToPlanktonMesh();
+    Point = pm.Vertices[y].ToPoint3d();
+    Point3d startpoint = pm.Vertices[pm.Halfedges[pm.Vertices[y].OutgoingHalfedge].StartVertex].ToPoint3d();
+    Point3d endpoint = pm.Vertices[pm.Halfedges[pm.Halfedges[pm.Vertices[y].OutgoingHalfedge].NextHalfedge].StartVertex].ToPoint3d();
+    OutgoingHalfEdge = new Vector3d(endpoint - startpoint);
+    OutgoingStartPoint = startpoint;
+    List&lt;Point3d&gt; vertices = new List&lt;Point3d&gt;();
+    for (int i = 0; i &lt; pm.Vertices.Count; i++)
+    {
+      vertices.Add(pm.Vertices[i].ToPoint3d());
+    }
+    VertexIndices = vertices;
+  }
+</code></pre>
+<p>首先，根据“位于边界的顶点，出半边必为边界半边”这条性质，我们先确定出半边的走向，如图6所示。图中，我们查看2号点的出半边，是由2号点指向1号点，出半边是边界半边，所以是位于三角面片的外侧，以此类推可以画出整张网格面的半边走向。<br>
+<img src="https://upload-images.jianshu.io/upload_images/19551947-bb38b04ed6cf9e1b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/200" alt="图6. 一张三角面片的半边走向（作者自制）" loading="lazy"><br>
+下面我们来添加一张网格面，就以2号点为连接点，添加3号点，生成第二张面（如图7）。我们可以看到出半边马上由2-&gt;1变成了2-&gt;3，这还是因为“位于边界的顶点，出半边必为边界半边”。<br>
+<img src="https://upload-images.jianshu.io/upload_images/19551947-0d593fa5538429d2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/200" alt="图7.添加3号点生成第二张面（作者自制）" loading="lazy"><br>
+然后我们继续添加4号点，构成面2-3-4，发现出半边继续变化，由2-&gt;3变成了2-&gt;4（图8），紧接着最后一步，添加面0-2-4，此面添加后，2号点由边界顶点变成了内部顶点，它的出半边没有变化，出半边锁定在了将它变成内部顶点前的状态（图9）。<br>
+<img src="https://upload-images.jianshu.io/upload_images/19551947-f18eb9de6b6c31e1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/200" alt="图8.继续添加4号点生成第三张面（作者自制）" loading="lazy"><br>
+<img src="https://upload-images.jianshu.io/upload_images/19551947-efaee030d3716c91.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/200" alt="图9.添加最后一张面（作者自制）" loading="lazy"></p>
+<p>通过以上尝试，我们发现了，对于<strong>内部顶点，其出半边为其被封闭前（添加最后一个面片即被封闭）的出半边。</strong></p>
+<p>##面</p>
+<p>半边数据结构的网格的构建通常是通过面列表来创建的，也就是说，正常的构建半边数据结构网格是通过一个一个面片的添加来构建的。半边网格的面<strong>仅包含半边网格的第一条半边（FirstHalfedge）的索引。<strong>因为每条半边对应一个起点，添加面时要按顺序添加顶点，只凭第一个顶点无法确定面的法向，但是顶点对应的半边可以。另外一点，因为半边已经记录了下一条半边和上一条半边的信息，面就不再需要顶点的拓扑信息了。因此</strong>第一条半边决定了“环路”的方向，决定了面的法向，还决定了顶点的拓扑关系。</strong></p>
+<p>最后我们再思考最后一个问题，**半边数据结构能表达边数多于4的多边形网格吗？**答案是肯定的，根据半边数据结构的底层架构我们能看到这种数据结构下已经不再受限于面片中的边的数量，一切关系都由半边紧密连接。</p>
+<p>##总结</p>
+<p>**顶点(Vertex)：**包含顶点坐标，出半边（OutgoingHalfedge）的索引。</p>
+<p>**半边(HalfEdge)：**包含起始点（StartVertex）、邻接面(AdjacentFace)、下一条半边(NextHalfedge)、上一条半边(PrevHalfedge)的索引。</p>
+<p>**面片(Face)：**包含一条起始边（FirstHalfedge）的索引。</p>
+<p>##特性<br>
+（1）半边数据结构不能表达非流形网格；<br>
+（2）半边数据结构能够表达边数&gt;4的多边形网格；<br>
+（3）半边数据结构多用来处理相邻元素检索的问题。</p>
+</div>
+                                    <div class="mdui-divider mdui-m-b-2"></div>
+                                    <div class="mdui-row-xs-2 post-fenye">
+                                       
+                                        <div class="mdui-col"> </div>
+                                        
+
+                                        
+                                        <div class="mdui-col"><div class="mdui-text-right "><a href="https://albertlidesign.github.io/post/games101_5_geometry/">GAMES101(5): Geometry</a></div> </div>
+                                       
+                                      </div>
+                                   
+                                    <div class="mdui-divider mdui-m-t-2 mdui-m-b-2"></div>
+                                    
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '',
+    clientSecret: '',
+    repo: '',
+    owner: '',
+    admin: [''],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+          
+        
+                                     <script src="https://albertlidesign.github.io/media/scripts/Valine.min.js"></script>
+ <div class="comment"></div>
+
+<script>
+      new Valine({
+            el: '.comment',
+
+
+
+            path: window.location.pathname,
+            pageSize: 30,
+            avatar:'mm', 
+       })
+    </script> 
+<script>
+    if(window.location.hash){
+        var checkExist = setInterval(function() {
+           if ($(window.location.hash).length) {
+              $('html, body').animate({scrollTop: $(window.location.hash).offset().top-90}, 1000);
+              clearInterval(checkExist);
+           }
+        }, 100);
+    }
+</script>
+                                </article>
+
+                                    
+                        </div>
+                      </div>
+    
+                
+
+              </div>
+                    <footer class="footer mdui-m-t-5 mdui-text-center">
+               <nav class="social-links">
+                      <ul>
+                      
+                      
+                           
+                      
+                           
+                      	
+                        <li class="social-link"><a href="https://github.com/AlbertLiDesign" target="_blank"><i class="iconfont icon-github"></i></a></li>
+                          
+                           
+                      
+                           
+                      
+                           
+                      
+                           
+                      
+                           
+                      
+                           
+                      
+                           
+                      
+                           
+                      
+                           
+                      
+                           
+                      </ul>
+                    </nav>
+                    <div class="copyright">
+                      <p>Powered by <a href="https://github.com/AlbertLiDesign" target="_blank">AlbertLiDesign</a> <br/> Theme <a href="https://github.com/alterfang/gridea-theme-song/" target="_blank"  title="宋"  >Song</a> by <a href="https://shanbu.fun/" target="_blank"  title="山卜方" >shanbufun</a> </p>
+                  </div>
+                  
+              </footer>
+    </body>
+</html>
