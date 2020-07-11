@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://albertlidesign.github.io</id>
     <title>AlbertLiDesign</title>
-    <updated>2020-07-10T13:47:34.353Z</updated>
+    <updated>2020-07-11T05:23:51.060Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://albertlidesign.github.io"/>
     <link rel="self" href="https://albertlidesign.github.io/atom.xml"/>
@@ -270,6 +270,23 @@ Catmull-Clark Subdivision是既在每一条边取中点，也在每一张面上�
 通过Catmull-Clark Subdivision可以产生各种各样细分的结果。<strong>Loop细分只能用于三角形面，Catmull-Clark可以用于各种不同的面</strong>。注意下图中四边形细分结果不对称是因为定义了</strong>折痕（Crease）</strong>。<br>
 <img src="https://upload-images.jianshu.io/upload_images/19551947-e63eadb86aca6287.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/600" alt="" loading="lazy"></p>
 <h3 id="simplification">Simplification</h3>
+<p>下面开始讲解如何进行简化操作。这一算法的目标是在保持整体形态不发生剧烈变化的前提下减少三角形的数量，以方便其他算法提升性能。例如下图所示，如果这个骷髅模型距离摄像机镜头非常远，我们看不到很多细节，就没有必要使用30,000个三角形去表示它，使用3,000个甚至300个就足以，这可以大幅度减少计算量，因此在不同的情况下会我们要选择不同复杂程度的几何模型，以提高程序的效率。这个算法和我们之前提到过的Mipmap有关，层次结构的几何和层次结构的图像是相似的，只不过几何更难去实现，它要求更多的平滑过渡，避免突变。<br>
+<img src="https://upload-images.jianshu.io/upload_images/19551947-0ce97d340d03acdf.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/600" alt="" loading="lazy"><br>
+这里提供某一种方法，叫做<strong>边坍缩（Edge collaping）</strong>，即将边变成一个点。<br>
+<img src="https://upload-images.jianshu.io/upload_images/19551947-3ccbdef4f5cf74dc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/600" alt="" loading="lazy"><br>
+Simplification问题的关键在于“要坍缩哪些边”？下图中左侧网格，我们把中间三个顶点都替换成一个顶点，但是我们应该把这个顶点放在什么位置才能保证蓝色网格和灰色网格基本保证轮廓形状一致呢？左图中体现出做放在平均位置的结果，显然结果是不对的，结果会过于扁平圆滑。接着人们引入了一种误差的度量，称为<strong>二次误差度量（Quadric Error Metrics）</strong>，即将这个点放在某一位置时最小化二次误差。二次误差在机器学习中和L2距离非常相似，新的顶点与和它相关联的面的各顶点的距离的平方和，我们要让这个值达到最小，因此这就是一个非常清晰的优化过程。<br>
+<img src="https://upload-images.jianshu.io/upload_images/19551947-3b741850faccbb45.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/600" alt="" loading="lazy"><br>
+有了这样的二次度量，我们就可以在坍缩任意一条边之后，都把坍缩后的顶点移动至一个二次误差度量最小的位置。这样，可以假设每一条边都计算出坍缩后对应的误差，然后将这些误差最小的边开始进行坍缩。但是要注意，如果我们坍缩了一条边为顶点，那么这条边所连接的其他边会相应地变长，如上图所示，因此坍缩后，坍缩边周围的边会受到影响，其二次度量误差也会发生变化。因此，在坍缩完最小的二次度量误差后，要对其影响到的边做更新，因此需要某一种数据结构，能够保证取到最小值后可以动态地以最小的代价来更新受影响的元素，这个数据结构就叫做<strong>优先队列</strong>，或者叫<strong>堆</strong>。<br>
+<img src="https://upload-images.jianshu.io/upload_images/19551947-bb70f030180ddfb0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/600" alt="" loading="lazy"><br>
+简单而言，具体步骤如下：</p>
+<ul>
+<li>对于每一条边，打上一个分数，这个分数就是它坍缩后的二次度量误差</li>
+<li>取最小误差的边，做坍缩</li>
+<li>更新受影响的边的二次度量误差<br>
+<img src="https://upload-images.jianshu.io/upload_images/19551947-48f6c708c9fef420.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/600" alt="" loading="lazy"><br>
+再来反思这一方法，我们其实是在不断地通过找局部最优解的方法来找全局最优解，这种方法其实是一个典型的贪心算法。<br>
+<img src="https://upload-images.jianshu.io/upload_images/19551947-088531818ecb1704.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/600" alt="" loading="lazy"></li>
+</ul>
 ]]></content>
     </entry>
     <entry>
