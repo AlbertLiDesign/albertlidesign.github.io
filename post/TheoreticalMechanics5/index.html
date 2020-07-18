@@ -1,64 +1,151 @@
 <!DOCTYPE html>
-<html>
-        <head>
-        <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1,initial-scale=1,user-scalable=no" />
-        <meta charset="utf-8">
-        <title>理论力学 第五节 平面任意力系 | AlbertLiDesign</title>
-        <link rel="stylesheet" href="https://albertlidesign.github.io/styles/main.css">
-        <link rel="stylesheet" href="https://at.alicdn.com/t/font_1306644_jwtuc2zzbrd.css">
-        <link href="https://cdn.bootcss.com/animate.css/3.7.2/animate.min.css" rel="stylesheet">
-         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
-        <script src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js"></script>
-         <script src="https://cdn.bootcss.com/highlight.js/9.15.10/highlight.min.js"></script>
-         <script >hljs.initHighlightingOnLoad();</script>
+<html lang="zh-CN">
 
-    </head>
-    <body>
-              <header class="header mdui-m-b-5">      
-            <div class="container  ">
-                <div class="index-title animated fadeInDown mdui-text-center mdui-text-color-white mdui-m-b-2" style="animation-delay: 0.2s"><a href="https://albertlidesign.github.io">AlbertLiDesign</a></div>
-                <div class="mdui-text-color-white animated fadeInDown mdui-text-center  mdui-m-b-3" style="animation-delay: 0.4s">Welcome to Albert Li Design. This is a blog for random braindumps on my programming adventures, graphics and design research, some of my more serious writings and other interesting things.</div>
-           
-            <nav id="nav" class="mdui-text-center animated fadeInDown" style="animation-delay: 0.6s">
-                   
-                            <li><a href="/">Home</a>
-                                <span class="nav-style top"></span>
-                                <span class="nav-style bottom"></span>
-                                <span class="nav-style left"></span>
-                                <span class="nav-style right"></span>
-                                </li>
-                    
-                            <li><a href="/archives">Archives</a>
-                                <span class="nav-style top"></span>
-                                <span class="nav-style bottom"></span>
-                                <span class="nav-style left"></span>
-                                <span class="nav-style right"></span>
-                                </li>
-                    
-                            <li><a href="/tags">Tags</a>
-                                <span class="nav-style top"></span>
-                                <span class="nav-style bottom"></span>
-                                <span class="nav-style left"></span>
-                                <span class="nav-style right"></span>
-                                </li>
-                    
-                            <li><a href="/post/about">About</a>
-                                <span class="nav-style top"></span>
-                                <span class="nav-style bottom"></span>
-                                <span class="nav-style left"></span>
-                                <span class="nav-style right"></span>
-                                </li>
-                    
-                  </nav>
-                </div>
-        </header>
-        <div class="mdui-container ">
-                <div class="mdui-row">
-                        <div class="mdui-col-md-8 mdui-col-offset-md-2 ">
-                                <article class="mdui-p-a-2 post animated fadeIn" style="animation-delay: 0.8s;animation-duration: 2s">
-                                    <div class="post-title  mdui-m-b-1">理论力学 第五节 平面任意力系</div>
-                                    <div class="mdui-typo-body-2 mdui-m-b-2" datetime="2020-04-16 07:35:54">2020-04-16 / 15 min read</div>
-                                    <div class="mdui-m-b-2 mdui-typo post-neirong"><h1 id="平面任意力系">平面任意力系</h1>
+<head>
+  <meta charset="UTF-8" />
+<title>理论力学 第五节 平面任意力系 - AlbertLiDesign</title>
+<meta name="description" content="Welcome to Albert Li Design. This is a blog for random braindumps on my programming adventures, graphics and design research, some of my more serious writings and other interesting things.">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link type='text/css' rel='stylesheet' href='https://albertlidesign.github.io/styles/main.css' media='screen' />
+<link type="text/css" rel="stylesheet" href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css">
+<link type="text/css" rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<script type="text/javascript" src='https://albertlidesign.github.io/media/scripts/jquery.js'></script>
+<script type="text/javascript" src="https://cdn.bootcss.com/highlight.js/9.15.10/highlight.min.js"></script>
+
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+</head>
+
+<body>
+  <div class="layout theme-dark">
+    <div class="layout-header">
+
+	<div class="layout-header-main">
+		<div class="container">
+			<div class="row justify-content-lg-center">
+				<div class="col-12 col-lg-9">
+
+					<div class="navbar">
+
+						<div class="logo">
+							<a href="https://albertlidesign.github.io">
+								<img class="logo"
+									src="https://albertlidesign.github.io/media/images/site_avatar.png?v=1595089860809"
+									alt="">
+							</a>
+						</div>
+
+						<div class="menu d-md-inline-block d-none">
+							<ul class="layout-navigation-list">
+								
+								<li class="layout-navigation-item"><a title="Home"
+										href="/">Home</a>
+								</li>
+								
+								<li class="layout-navigation-item"><a title="Archives"
+										href="/archives">Archives</a>
+								</li>
+								
+								<li class="layout-navigation-item"><a title="Tags"
+										href="/tags">Tags</a>
+								</li>
+								
+								<li class="layout-navigation-item"><a title="About"
+										href="/post/about">About</a>
+								</li>
+								
+							</ul>
+						</div>
+
+						<div class="item d-md-inline-block d-none">
+							<div class="search-icon">
+								<i class="fa fa-search" aria-hidden="true"></i>
+							</div>
+						</div>
+
+
+
+						<div class="d-md-inline-block d-none">
+							<div class="search-lightbox">
+								<div class="search-body">
+
+									<form id="gridea-search-form" data-update="1595089860809" action="/search/" class="search-form">
+										<input type="text" name="q" id="s" value="" class="search-field" placeholder="请输入搜索关键词" aria-label="请输入搜索关键词" required="">
+										<button type="submit" class="submit" aria-label="Submit">
+											<i class="fa fa-search" aria-hidden="true"></i>
+										</button>
+									</form>
+
+								</div>
+							</div>
+						</div>
+
+						<div class="nav d-md-none d-inline-block">
+							<div class="trigger">
+								<i class="fa fa-bars layout-btn-toggle" aria-hidden="true"></i>
+							</div>
+						</div>
+
+					</div>
+
+				</div>
+			</div>
+
+
+
+
+		</div>
+	</div>
+
+</div>
+    <div class="layout-collapse d-md-none">
+	<div class="layout-collapse-main">
+		<ul class="layout-collapse-list">
+			
+			<li class="layout-collapse-item"><a title="Home" href="/">Home</a></li>
+			
+			<li class="layout-collapse-item"><a title="Archives" href="/archives">Archives</a></li>
+			
+			<li class="layout-collapse-item"><a title="Tags" href="/tags">Tags</a></li>
+			
+			<li class="layout-collapse-item"><a title="About" href="/post/about">About</a></li>
+			
+
+		</ul>
+	</div>
+</div>
+
+    <div class="layout-content">
+      <div class="layout-content-main">
+        <div class="container">
+          <div class="row justify-content-lg-center">
+            <div class="col-12 col-lg-9">
+              <div class="layout-post">
+                <div class="layout-post-body">
+                  <div class="row">
+
+                    <div class="col-12 col-lg-10">
+                      <div class="layout-post-main m-right m-md-right">
+                        <div class="layout-post-header">
+                          <h1 class="layout-post-title">理论力学 第五节 平面任意力系</h1>
+                          <div class="layout-post-meta">
+                            <div class="item">
+                               <a href="https://albertlidesign.github.io/tag/wL6XJLgz0/" class="post--keyword"
+                                data-title="Theoretical Mechanics" data-type="post_tag" data-term-id="39">Theoretical Mechanics</a>
+                              
+                            </div>
+                            <div class="item">
+                              <span>2020-04-16</span>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="layout-post-content">
+                          <div class="layout-post-item">
+                            
+                            <h1 id="平面任意力系">平面任意力系</h1>
 <h2 id="平面任意力系的简化">平面任意力系的简化</h2>
 <h3 id="平面任意力系-2">平面任意力系</h3>
 <p>力系中各力（偶）的作用线（面）处于同一平面且任意分布时，这样的力系称为<strong>平面任意力系</strong>。<br>
@@ -235,114 +322,166 @@ c-16-25.333-24-45-24-59z'/></svg></span></span></span></span><span class="vlist-
 <h3 id="平面任意力系的平衡方程">平面任意力系的平衡方程</h3>
 <p>由上一节平面任意力系的简化结果我们知道，平面任意力系的简化结果是一个主矢和一个主矩，但主矢和主矩同时为0时，这个力系平衡，并且与简化中心无关。也就是说力系平衡的话，向任意一点简化，都是相同的结果。<br>
 因此平面任意力系平衡的充要条件：<strong>力系的主矢和对任意点的主矩都等于零</strong>。</p>
-</div>
-                                    <div class="mdui-divider mdui-m-b-2"></div>
-                                    <div class="mdui-row-xs-2 post-fenye">
-                                       
-                                        <div class="mdui-col"> <div class="mdui-text-left"><a href="https://albertlidesign.github.io/post/alg_metaballs/">ALG_Metaballs</a></div></div>
-                                        
 
-                                        
-                                        <div class="mdui-col"><div class="mdui-text-right "><a href="https://albertlidesign.github.io/post/TheoreticalMechanics4/">理论力学 第四节 平面汇交力系和平面力偶系</a></div> </div>
-                                       
-                                      </div>
-                                   
-                                    <div class="mdui-divider mdui-m-t-2 mdui-m-b-2"></div>
-                                    
-          
-            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
-<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+                          </div>
+                        </div>
+                        <div class="layout-post-social">
+                          <div class="item reader">
+                            <div id="/post/TheoreticalMechanics5/" class="leancloud-visitors view"
+                              data-flag-title="理论力学 第五节 平面任意力系">
+                              <span class="post-meta-item-text">阅读 </span>
+                              <span class="leancloud-visitors-count"></span>
+                            </div>
+                          </div>
+                        </div>
 
-<div id="gitalk-container"></div>
+                        <div class="layout-post-navigation">
+                          <div class="navigation-list">
+                            
+                            <div class="post-card row">
+                              
+                              <div class="card-content col-12">
+                                <div class="card-body">
+                                  <div class="header">
+                                    <a href="https://albertlidesign.github.io/post/alg_metaballs/" class="title">
+                                      <h4>ALG_Metaballs</h4>
+                                    </a>
+                                  </div>
+                                  <div class="inner">
+                                    <div class="abstract">
+                                      
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="card-footer">
+                                  <div class="item"><span>上一篇</span></div>
+                                  <div class="item">2020-04-17</div>
+                                </div>
+                              </div>
+                              
+                            </div>
 
-<script>
+                            <div class="post-card row">
+                              
+                              <div class="card-content col-12">
+                                <div class="card-body">
+                                  <div class="header">
+                                    <a href="https://albertlidesign.github.io/post/TheoreticalMechanics4/" class="title">
+                                      <h4>理论力学 第四节 平面汇交力系和平面力偶系</h4>
+                                    </a>
+                                  </div>
+                                  <div class="inner">
+                                    <div class="abstract">
+                                      
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="card-footer">
+                                  <div class="item"><span>下一篇</span></div>
+                                  <div class="item">2020-04-15</div>
+                                </div>
+                              </div>
+                              
+                            </div>
 
-  var gitalk = new Gitalk({
-    clientID: '',
-    clientSecret: '',
-    repo: '',
-    owner: '',
-    admin: [''],
-    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
-    distractionFreeMode: false  // Facebook-like distraction free mode
-  })
+                            
+                          </div>
+                        </div>
 
-  gitalk.render('gitalk-container')
+                        <div class="layout-comments"></div>
+                        
+                      </div>
+                    </div>
 
-</script>
+                    <div class="col-12 col-lg-2 d-none d-lg-block">
+                      <div class="layout-post-sidebar">
+                        <div class="layout-sidebar-item">
+                          <ul class="markdownIt-TOC">
+<li><a href="#%E5%B9%B3%E9%9D%A2%E4%BB%BB%E6%84%8F%E5%8A%9B%E7%B3%BB">平面任意力系</a>
+<ul>
+<li><a href="#%E5%B9%B3%E9%9D%A2%E4%BB%BB%E6%84%8F%E5%8A%9B%E7%B3%BB%E7%9A%84%E7%AE%80%E5%8C%96">平面任意力系的简化</a>
+<ul>
+<li><a href="#%E5%B9%B3%E9%9D%A2%E4%BB%BB%E6%84%8F%E5%8A%9B%E7%B3%BB-2">平面任意力系</a></li>
+<li><a href="#%E5%8A%9B%E7%9A%84%E5%B9%B3%E7%A7%BB%E5%AE%9A%E7%90%86">力的平移定理</a></li>
+<li><a href="#%E5%8A%9B%E7%9A%84%E5%B9%B3%E7%A7%BB%E5%AE%9A%E7%90%86%E7%9A%84%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B">力的平移定理的应用实例</a></li>
+<li><a href="#%E5%B9%B3%E9%9D%A2%E4%BB%BB%E6%84%8F%E5%8A%9B%E7%B3%BB%E5%90%91%E4%BD%9C%E7%94%A8%E9%9D%A2%E5%86%85%E4%B8%80%E7%82%B9%E7%AE%80%E5%8C%96-%E4%B8%BB%E7%9F%A2%E5%92%8C%E4%B8%BB%E7%9F%A9">平面任意力系向作用面内一点简化 · 主矢和主矩</a></li>
+<li><a href="#%E5%B9%B3%E9%9D%A2%E4%BB%BB%E6%84%8F%E5%8A%9B%E7%B3%BB%E5%90%91%E4%B8%80%E7%82%B9%E7%AE%80%E5%8C%96%E5%AE%9E%E4%BE%8B%E5%9B%BA%E5%AE%9A%E7%AB%AF%E7%BA%A6%E6%9D%9F">平面任意力系向一点简化实例：固定端约束</a></li>
+</ul>
+</li>
+<li><a href="#%E5%B9%B3%E9%9D%A2%E4%BB%BB%E6%84%8F%E5%8A%9B%E7%B3%BB%E5%90%91%E4%B8%80%E7%82%B9%E7%AE%80%E5%8C%96%E7%9A%84%E7%BB%93%E6%9E%9C%E5%88%86%E6%9E%90">平面任意力系向一点简化的结果分析</a></li>
+<li><a href="#%E5%B9%B3%E9%9D%A2%E4%BB%BB%E6%84%8F%E5%8A%9B%E7%B3%BB%E7%9A%84%E5%B9%B3%E8%A1%A1%E6%9D%A1%E4%BB%B6%E5%92%8C%E5%B9%B3%E8%A1%A1%E6%96%B9%E7%A8%8B">平面任意力系的平衡条件和平衡方程</a>
+<ul>
+<li><a href="#%E5%B9%B3%E9%9D%A2%E4%BB%BB%E6%84%8F%E5%8A%9B%E7%B3%BB%E7%9A%84%E5%B9%B3%E8%A1%A1%E6%96%B9%E7%A8%8B">平面任意力系的平衡方程</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
 
-          
-          
-        
-                                     <script src="https://albertlidesign.github.io/media/scripts/Valine.min.js"></script>
- <div class="comment"></div>
-
-<script>
-      new Valine({
-            el: '.comment',
-
-
-
-            path: window.location.pathname,
-            pageSize: 30,
-            avatar:'mm', 
-       })
-    </script> 
-<script>
-    if(window.location.hash){
-        var checkExist = setInterval(function() {
-           if ($(window.location.hash).length) {
-              $('html, body').animate({scrollTop: $(window.location.hash).offset().top-90}, 1000);
-              clearInterval(checkExist);
-           }
-        }, 100);
-    }
-</script>
-                                </article>
-
-                                    
                         </div>
                       </div>
-    
-                
-
-              </div>
-                    <footer class="footer mdui-m-t-5 mdui-text-center">
-               <nav class="social-links">
-                      <ul>
-                      
-                      
-                           
-                      
-                           
-                      	
-                        <li class="social-link"><a href="https://github.com/AlbertLiDesign" target="_blank"><i class="iconfont icon-github"></i></a></li>
-                          
-                           
-                      
-                           
-                      
-                           
-                      
-                           
-                      
-                           
-                      
-                           
-                      
-                           
-                      
-                           
-                      
-                           
-                      
-                           
-                      </ul>
-                    </nav>
-                    <div class="copyright">
-                      <p>Powered by <a href="https://github.com/AlbertLiDesign" target="_blank">AlbertLiDesign</a> <br/> Theme <a href="https://github.com/alterfang/gridea-theme-song/" target="_blank"  title="宋"  >Song</a> by <a href="https://shanbu.fun/" target="_blank"  title="山卜方" >shanbufun</a> </p>
+                    </div>
                   </div>
-                  
-              </footer>
-    </body>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="layout-totop d-none"><i class="fa fa-angle-up" aria-hidden="true"></i></div>
+
+    	<div class="layout-footer">
+
+		<div class="container">
+			<div class="row justify-content-lg-center">
+				<div class="col-12 col-lg-9">
+					<div class="footer">
+						<div class="row">
+							<div class="col-12 col-md-9">
+								<div class="footer-copy">
+									
+									Powered by <a href="https://github.com/AlbertLiDesign" target="_blank">AlbertLiDesign</a>
+									<div class="footer-icp d-none d-sm-inline-block">
+										<span class="px-2">⋅</span>
+										
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-3 d-none d-md-block">
+								<div class="footer-links">
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+	<script type="text/javascript" src='https://albertlidesign.github.io/media/scripts/main.js'></script>
+	
+
+  </div>
+</body>
+
 </html>
