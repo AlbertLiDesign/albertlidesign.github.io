@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8" />
+<title>【Mesh is Art】第一章 常见几何表示方法 - AlbertLiDesign</title>
+<meta name="description" content="Welcome to Albert Li Design. This is a blog for random braindumps on my programming adventures, graphics and design research, some of my more serious writings and other interesting things.">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link type='text/css' rel='stylesheet' href='https://albertlidesign.github.io/styles/main.css' media='screen' />
+<link type="text/css" rel="stylesheet" href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css">
+<link type="text/css" rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<script type="text/javascript" src='https://albertlidesign.github.io/media/scripts/jquery.js'></script>
+<script type="text/javascript" src="https://cdn.bootcss.com/highlight.js/9.15.10/highlight.min.js"></script>
+
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+</head>
+
+<body>
+  <div class="layout theme-dark">
+    <div class="layout-header">
+
+	<div class="layout-header-main">
+		<div class="container">
+			<div class="row justify-content-lg-center">
+				<div class="col-12 col-lg-9">
+
+					<div class="navbar">
+
+						<div class="logo">
+							<a href="https://albertlidesign.github.io">
+								<img class="logo"
+									src="https://albertlidesign.github.io/media/images/site_avatar.png?v=1596957829272"
+									alt="">
+							</a>
+						</div>
+
+						<div class="menu d-md-inline-block d-none">
+							<ul class="layout-navigation-list">
+								
+								<li class="layout-navigation-item"><a title="Home"
+										href="/">Home</a>
+								</li>
+								
+								<li class="layout-navigation-item"><a title="Archives"
+										href="/archives">Archives</a>
+								</li>
+								
+								<li class="layout-navigation-item"><a title="Tags"
+										href="/tags">Tags</a>
+								</li>
+								
+								<li class="layout-navigation-item"><a title="About"
+										href="/post/about">About</a>
+								</li>
+								
+							</ul>
+						</div>
+
+						<div class="item d-md-inline-block d-none">
+							<div class="search-icon">
+								<i class="fa fa-search" aria-hidden="true"></i>
+							</div>
+						</div>
+
+
+
+						<div class="d-md-inline-block d-none">
+							<div class="search-lightbox">
+								<div class="search-body">
+
+									<form id="gridea-search-form" data-update="1596957829272" action="/search/" class="search-form">
+										<input type="text" name="q" id="s" value="" class="search-field" placeholder="请输入搜索关键词" aria-label="请输入搜索关键词" required="">
+										<button type="submit" class="submit" aria-label="Submit">
+											<i class="fa fa-search" aria-hidden="true"></i>
+										</button>
+									</form>
+
+								</div>
+							</div>
+						</div>
+
+						<div class="nav d-md-none d-inline-block">
+							<div class="trigger">
+								<i class="fa fa-bars layout-btn-toggle" aria-hidden="true"></i>
+							</div>
+						</div>
+
+					</div>
+
+				</div>
+			</div>
+
+
+
+
+		</div>
+	</div>
+
+</div>
+    <div class="layout-collapse d-md-none">
+	<div class="layout-collapse-main">
+		<ul class="layout-collapse-list">
+			
+			<li class="layout-collapse-item"><a title="Home" href="/">Home</a></li>
+			
+			<li class="layout-collapse-item"><a title="Archives" href="/archives">Archives</a></li>
+			
+			<li class="layout-collapse-item"><a title="Tags" href="/tags">Tags</a></li>
+			
+			<li class="layout-collapse-item"><a title="About" href="/post/about">About</a></li>
+			
+
+		</ul>
+	</div>
+</div>
+
+    <div class="layout-content">
+      <div class="layout-content-main">
+        <div class="container">
+          <div class="row justify-content-lg-center">
+            <div class="col-12 col-lg-9">
+              <div class="layout-post">
+                <div class="layout-post-body">
+                  <div class="row">
+
+                    <div class="col-12 col-lg-10">
+                      <div class="layout-post-main m-right m-md-right">
+                        <div class="layout-post-header">
+                          <h1 class="layout-post-title">【Mesh is Art】第一章 常见几何表示方法</h1>
+                          <div class="layout-post-meta">
+                            <div class="item">
+                              
+                            </div>
+                            <div class="item">
+                              <span>2020-08-09</span>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="layout-post-content">
+                          <div class="layout-post-item">
+                            
+                            <h1 id="第一章-常见几何表示方法">第一章 常见几何表示方法</h1>
+<p>很多三维建模相关专业的学生在学习建模软件时常常会感到困惑，由于不了解三维建模中各种隐含的规定，缺乏三维建模的相关知识，常常误以为是软件的bug，最后往往变成了“国家一流软件安装与卸载师”，三维建模的学习过程也逐渐变成了“从入门到放弃”的过程。那么我们应该如何去学习三维建模呢？我们可以先从计算机中常见的几何表示方法开始，本节将讨论了计算机中不同的三维几何表示方法，了解这些方法可以对当前计算机建模软件的建模方式有一个宏观的认识，这有助于在完成设计或计算任务前选择恰当合适的软件进行使用和学习。当然，对于有些方法可能过于抽象，读者不需要完全理解，有一个大体的认识即可。<br>
+<a name="ByY70"></a></p>
+<h2 id="参数表达与隐式表达"><strong>参数表达</strong>与<strong>隐式表达</strong></h2>
+<hr>
+<p>曲面通常有两种表示方法：<strong>参数表达 (Parametric representations)</strong> 和<strong>隐式表达 (Implicit representations)</strong>。根据《Polygon Mesh Processing》中的解释，<strong>参数曲面</strong>是由向量值的参数化函数<img src="https://cdn.nlark.com/yuque/__latex/55b71aede34fa067e8a0eaa9e66c4594.svg#card=math&amp;code=f%3A%5COmega%20%5Crightarrow%20S&amp;height=18&amp;width=72" alt="" loading="lazy">来定义的，它将二维参数域<img src="https://cdn.nlark.com/yuque/__latex/8d91165aa9c3fddafe6897ea4efaa7ad.svg#card=math&amp;code=%5COmega%20%5Csubset%20R%5E2&amp;height=19&amp;width=54" alt="" loading="lazy">映射到了曲面<img src="https://cdn.nlark.com/yuque/__latex/17a46459a2a0ca3826a5f6c6aa8a7bf8.svg#card=math&amp;code=S%20%3D%20f%28%5COmega%29%20%5Csubset%20R%5E3&amp;height=23&amp;width=111" alt="" loading="lazy">上。而<strong>隐式曲面</strong>是由一个方程来定义的，方程左侧为表示曲面上点的坐标的三维参数的标量表达式，等式右边为0。为方便理解，我们以一个平面上的单位圆为例， 它的参数表达为<br /><img src="https://cdn.nlark.com/yuque/__latex/fffb8db43d66a9a1ef2591cd0857f59f.svg#card=math&amp;code=f%3A%5B0%2C2%5Cpi%5D%20%5Crightarrow%20R%5E2%2C%20t%20%5Crightarrow%20%28cost%2C%20sint%20%29&amp;height=23&amp;width=232" alt="" loading="lazy"><br />隐式表达为<br /><img src="https://cdn.nlark.com/yuque/__latex/8548d73b81d36d48f07ec90dcfe52fe4.svg#card=math&amp;code=F%3A%20R%5E2%20%5Crightarrow%20R%2C%28x%2Cy%29%20%5Crightarrow%20%5Csqrt%7Bx%5E2%20%2B%20y%5E2%7D%20-1&amp;height=35&amp;width=258" alt="" loading="lazy"><br />通俗的理解是，参数表达在曲面上的点都可以找到明确的坐标定义，而隐式表达不会显式地表达明确的点的位置，而是去表达这些点的位置所满足的关系，它是通过点坐标不同分量之间的关系来定义的。例如在单位圆示例中，参数表达直接表示了所有点的坐标，即<img src="https://cdn.nlark.com/yuque/__latex/8d5c8956ca1f4622afe63b896acfd38d.svg#card=math&amp;code=%28cost%2Csint%29&amp;height=20&amp;width=79" alt="" loading="lazy">，而隐式表达只表示出了两个分量所满足的关系，如果我们想要知道每个点的坐标，需要通过给定的关系来计算得到。</p>
+<p>由于两种表达方式的定义方法不同，它们也有着不同的特性。由于参数表达直接记录了点的坐标，因此是一种很直观的表示方法，计算机可以直接读取坐标来显示出几何。此外，由于它是通过参数方程来表示曲面的，所以很多在曲面上的三维问题可以被转化成二维参数域上的问题。但是判断位置关系等问题对它来说十分棘手，需要通过一些算法来解决，计算成本较高。例如要想判断一个点是否在物体内部，对于参数表达的曲面来说是一件成本较高的事。然而这对于隐式表达就会十分容易，因为它可以直接将点的坐标代入到方程中，通过计算即可知道该点与物体之间的位置关系，当然，隐式表达的缺点就是表达不直观，仅根据表达式我们很难知道它所表示的物体，尤其是对于复杂几何，其显式地表现出几何的成本过高。因此两种表示方法各有优劣，我们需要根据实际需求和两种表示方法的特点来选取成本较低的表示方法。下面我们来逐一介绍常用的几何表示方法。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"></th>
+<th style="text-align:center"><strong>参数表达</strong></th>
+<th style="text-align:center"><strong>隐式表达</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><strong>定义</strong></td>
+<td style="text-align:center">由参数方程定义，明确地表达了点的位置</td>
+<td style="text-align:center">由隐式方程定义，定义了点坐标中不同的分量所满足的关系</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>优点</strong></td>
+<td style="text-align:center"><br />1. 表示直观；2. 方便将三维问题转化为二维参数域上的问题<br /></td>
+<td style="text-align:center">求交等问题成本更低</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>缺点</strong></td>
+<td style="text-align:center">在求交等问题上成本过高</td>
+<td style="text-align:center">表达不直观</td>
+</tr>
+</tbody>
+</table>
+<p><a name="xaKEX"></a></p>
+<h2 id="参数表达方法"><strong>参数表达</strong>方法</h2>
+<hr>
+<p><a name="cw7NG"></a></p>
+<h3 id="点云">点云</h3>
+<p>让我们从相对容易理解的参数表达开始入手，通常在描述一个三维模型时，最基本的描述方式是使用点去描述，但是要想表达出一个三维模型，需要大量且密集的点，这些点称之为<strong>点云 (Point Cloud)</strong> 。三维空间中一个点由三个方向的坐标构成，通常记作 (x,y,z)，因此，点云可以被视作是一堆点的集合，存储时即可用一系列 (x,y,z) 坐标来表示。<br /><strong>注意</strong></p>
+<ul>
+<li>描述三维模型的点云数据是无序排布的，这意味着<strong>点云在三维空间中，仅表示一系列点，点与点之间没有任何联系。</strong><br /></li>
+<li>点云是表示三维几何模型中最简单的方法，它<strong>可以表示任意类型的几何物体</strong>，代价是必须拥有足够密集的点云信息才能避免物体失真。<br /></li>
+<li>点云通常是由三维扫描得到的，三维扫描仪通过记录空间中被扫描物体的点云信息，再使用表面重建算法来得到一个完整的三维扫描模型的。因此，<strong>点云通常会被转化成网格来做后续处理</strong>。<br /></li>
+</ul>
+<p><img src="https://cdn.nlark.com/yuque/0/2020/jpeg/1740528/1596546055798-03ad9434-2ff3-4ed5-b8b7-43b3119fc870.jpeg#align=left&amp;display=inline&amp;height=300&amp;margin=%5Bobject%20Object%5D&amp;originHeight=2000&amp;originWidth=2000&amp;size=0&amp;status=done&amp;style=none&amp;width=300" alt="" loading="lazy"><br>
+<a name="ZJnVM"></a></p>
+<h3 id="样条曲面">样条曲面</h3>
+<p>在当今的CAD软件中，**样条曲面 (Spline Surfaces) <strong>是最常用的表示方法之一，尤其是在机械、工业设计等领域，对曲面质量要求较高的行业中应用广泛。样条曲面表达一般指</strong>非均匀有理B样条 (NURBS)，**它是由分段多项式或有理B样条基函数来描述的。<br />NURBS建模可以使用户设计出质量极高的曲面，但是对于一些较复杂的几何形体，它需要通过多张曲面拼接来实现，为了保证曲面质量，用户需要处理大量由拼接引起的曲面连续性问题，这带来了高昂的建模成本。另一个缺点是，添加更多顶点操作需要通过分割参数域来实现，这使得曲面的局部修改与设计变得相对困难。对于NURBS建模的更多细节，可以参阅[Farin 97,Piegl and Tiller 97,Prautzsch et al. 02]。<br /></p>
+<p><a name="t7cBZ"></a></p>
+<h3 id="多边形网格"><strong>多边形网格</strong></h3>
+<p>在CAD软件中，除样条曲面表达外，另一种被广泛应用的三维模型表示方法就是<strong>多边形网格 (Polygon Mesh)</strong>。它通常是指由三角形或四边形拼接而成的几何模型，几乎任何几何形状都可以通过拆分成无数三角形或四边形面片来表达。由于网格在图形学领域被广泛研究，各种处理算法层出不穷，因此它已经变成了当前图形学最普遍的图形表示方法。无论是游戏场景建模、概念设计建模还是分析与模拟，都是通过编辑和处理网格单元来实现的。<br /><img src="https://cdn.nlark.com/yuque/0/2020/png/1740528/1596546054834-dfab7480-6db9-425a-9ce1-8107a2fcba77.png#align=left&amp;display=inline&amp;height=281&amp;margin=%5Bobject%20Object%5D&amp;originHeight=640&amp;originWidth=683&amp;size=0&amp;status=done&amp;style=none&amp;width=300" alt="" loading="lazy"><br />最基础的网格数据结构将网格所描述的信息分成了两个部分：<strong>几何信息 (Geometry Information)</strong> 和<strong>拓扑信息 (Topology Information)</strong> 。几何信息描述了网格上的<strong>顶点的坐标</strong>，拓扑信息描述了网格上的<strong>顶点的连接关系</strong>。<br />图2展示了一个网格模型的实例，左侧网格模型上的顶点按照顺序标记了它们的索引 (Index) 。右侧几何信息中，按顺序描述了每一个顶点的三维坐标，例如0号顶点的坐标为{-10.834683, 19.656748, 0}，由于这是一个平面网格模型，因此Z坐标均为0。拓扑信息描述了每一张网格面由哪些顶点构成，其中T表示三角形 (Triangles)，Q表示四边形 (Quadrangle)，例如T{0; 2; 1} 描述了第0张网格面片为三角形，它是由第0、2、1号点按顺序构成的三角形。<br /><img src="https://cdn.nlark.com/yuque/0/2020/jpeg/1740528/1596546054174-3ecd9ef4-f538-4ee5-91b5-695ff05b035a.jpeg#align=left&amp;display=inline&amp;height=195&amp;margin=%5Bobject%20Object%5D&amp;originHeight=662&amp;originWidth=1359&amp;size=0&amp;status=done&amp;style=none&amp;width=400" alt="" loading="lazy"></p>
+<p><a name="emmNB"></a></p>
+<h3 id="细分曲面">细分曲面</h3>
+<p>细分曲面是一种通过粗糙网格来控制的</p>
+<p><a name="dWktE"></a></p>
+<h2 id="references">References</h2>
+<p>[1] Botsch, M., Kobbelt, L., Pauly, M., Alliez, P. and Lévy, B., 2010. <em>Polygon mesh processing</em>. CRC press.<br />[2] Piegl, L. and Tiller, W., 2012. <em>The NURBS book</em>. Springer Science &amp; Business Media.<br />[3] Farin, G., 2014. <em>Curves and surfaces for computer-aided geometric design: a practical guide</em>. Elsevier.</p>
+
+                          </div>
+                        </div>
+                        <div class="layout-post-social">
+                          <div class="item reader">
+                            <div id="/post/mesh-is-art-di-yi-zhang-chang-jian-ji-he-biao-shi-fang-fa/" class="leancloud-visitors view"
+                              data-flag-title="【Mesh is Art】第一章 常见几何表示方法">
+                              <span class="post-meta-item-text">阅读 </span>
+                              <span class="leancloud-visitors-count"></span>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="layout-post-navigation">
+                          <div class="navigation-list">
+                            
+                            <div class="post-card row">
+                              
+                              <div class="card-content col-8 col-md-9">
+                                <div class="card-body">
+                                  <div class="header">
+                                    <a href="https://albertlidesign.github.io/post/MeshIsArt4/" class="title">
+                                      <h4>Mesh is Art (4): Subdivision</h4>
+                                    </a>
+                                  </div>
+                                  <div class="inner d-none d-sm-block">
+                                    <div class="abstract">
+                                      
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="card-footer">
+                                  <div class="item"><span>下一篇</span></div>
+                                  <div class="item">2020-07-19</div>
+                                </div>
+                              </div>
+                              <div class="card-thumb col-4 col-md-3">
+                                <div class="thumb">
+                                  <a href="https://albertlidesign.github.io/post/MeshIsArt4/"
+                                    style="background-image: url('https://albertlidesign.github.io/post-images/MeshIsArt4.jpg');"></a>
+                                </div>
+                              </div>
+                              
+                            </div>
+                            
+                          </div>
+                        </div>
+
+                        <div class="layout-comments"></div>
+                        
+                      </div>
+                    </div>
+
+                    <div class="col-12 col-lg-2 d-none d-lg-block">
+                      <div class="layout-post-sidebar">
+                        <div class="layout-sidebar-item">
+                          <ul class="markdownIt-TOC">
+<li><a href="#%E7%AC%AC%E4%B8%80%E7%AB%A0-%E5%B8%B8%E8%A7%81%E5%87%A0%E4%BD%95%E8%A1%A8%E7%A4%BA%E6%96%B9%E6%B3%95">第一章 常见几何表示方法</a>
+<ul>
+<li><a href="#%E5%8F%82%E6%95%B0%E8%A1%A8%E8%BE%BE%E4%B8%8E%E9%9A%90%E5%BC%8F%E8%A1%A8%E8%BE%BE"><strong>参数表达</strong>与<strong>隐式表达</strong></a></li>
+<li><a href="#%E5%8F%82%E6%95%B0%E8%A1%A8%E8%BE%BE%E6%96%B9%E6%B3%95"><strong>参数表达</strong>方法</a>
+<ul>
+<li><a href="#%E7%82%B9%E4%BA%91">点云</a></li>
+<li><a href="#%E6%A0%B7%E6%9D%A1%E6%9B%B2%E9%9D%A2">样条曲面</a></li>
+<li><a href="#%E5%A4%9A%E8%BE%B9%E5%BD%A2%E7%BD%91%E6%A0%BC"><strong>多边形网格</strong></a></li>
+<li><a href="#%E7%BB%86%E5%88%86%E6%9B%B2%E9%9D%A2">细分曲面</a></li>
+</ul>
+</li>
+<li><a href="#references">References</a></li>
+</ul>
+</li>
+</ul>
+
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="layout-totop d-none"><i class="fa fa-angle-up" aria-hidden="true"></i></div>
+
+    	<div class="layout-footer">
+
+		<div class="container">
+			<div class="row justify-content-lg-center">
+				<div class="col-12 col-lg-9">
+					<div class="footer">
+						<div class="row">
+							<div class="col-12 col-md-9">
+								<div class="footer-copy">
+									
+									Powered by <a href="https://github.com/AlbertLiDesign" target="_blank">AlbertLiDesign</a>
+									<div class="footer-icp d-none d-sm-inline-block">
+										<span class="px-2">⋅</span>
+										
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-3 d-none d-md-block">
+								<div class="footer-links">
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+	<script type="text/javascript" src='https://albertlidesign.github.io/media/scripts/main.js'></script>
+	
+
+  </div>
+</body>
+
+</html>
